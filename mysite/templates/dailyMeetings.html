@@ -1,0 +1,77 @@
+{% load static %}
+{% load admin_urls %}
+<!DOCTYPE HTML>
+<!--
+	Hielo by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/calendar.css' %}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="{% url 'home' %}">Grocceries <span>by Crazy Butterflies</span></a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'home' %}">Home</a></li>
+					<li><a href="{% url 'about' %}">About</a></li>
+					<li><a href="{% url 'dailyMeetings' %}">Daily Meetings</a></li>
+					<li><a href="{% url 'projectDocuments' %}">Project Documents</a></li>
+				</ul>
+			</nav>
+
+		
+		<!-- One --> 
+			<section id="One" class="wrapper style3">
+				<div class="inner">
+					<header class="align-center">
+						<!--<p>Daily Meeting Logs</p> -->
+						<h2>Daily Meeting Logs</h2>
+
+						<!--<p>Calendar</p>
+						<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;ctz=America%2FLos_Angeles&amp;src=Y3JhenlidXR0ZXJmbGllc2xsY0BnbWFpbC5jb20&amp;color=%23000000&amp;showNav=1&amp;showDate=1&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;title" style="border:solid 4px rgb(0, 0, 0)" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+						-->
+					
+						<div data-tockify-component="mini" data-tockify-calendar="dailymeetings"></div>
+						<script data-cfasync="false" data-tockify-script="embed" src="https://public.tockify.com/browser/embed.js"></script>
+					</header>
+				</div>
+			</section>
+
+			
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href="https://github.com/lukedoukakis/software-engineering-project" class="icon fa-github-square" target="_blank" ><span class="label">Github</span></a></li>
+					</ul>
+				</div>
+				<div class="copyright">
+					&copy; CrazyButterflies 2021. All rights reserved.
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'js/jquery.min.js' %}"></script>
+			<script src="{% static 'js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'js/skel.min.js' %}"></script>
+			<script src="{% static 'js/util.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+			<script src="{% static 'js/calendar.js' %}"></script>
+
+
+	</body>
+</html>
