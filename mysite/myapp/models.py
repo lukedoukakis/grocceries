@@ -19,7 +19,25 @@ from django.db import models
 # <ModelName>.objects.all()
 # ------------------------------------------------------
 
+class Address(models.Model):
+    email = models.CharField(max_length=255)        # pk
+    value = models.CharField(max_length=255)
 
+    # set id to email
+    def __str__(self):
+        return self.email
+
+
+class Account(models.Model):
+    email = models.CharField(max_length=255)        # pk
+    name = models.CharField(max_length=255)
+    phone = models.CharField(max_length=255)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    is_driver = models.BooleanField(default=False)
+    
+    # set id to email
+    def __str__(self):
+        return self.email
 
 
 # represents a table
