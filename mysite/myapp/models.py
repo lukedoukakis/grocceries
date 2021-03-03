@@ -29,7 +29,7 @@ class AddressTable(models.Model):
 class Items(models.Model):
     itemID = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
-    price = models.DecimalField(decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return self.itemID
@@ -59,23 +59,24 @@ class ShoppingCart(models.Model):
 
 
 class Order(models.Model):
-    id = models.CharField(max_length=255)
+    id = models.CharField(max_length=255, primary_key=True)
     driver = models.CharField(max_length=255)
 
 
 class Account(models.Model):
-    email = models.CharField(max_length=255)        # pk
-    name = models.CharField(max_length=255)
-    phone = models.CharField(max_length=255)
-    primaryAddress = models.CharField(max_length=255)
+    email = models.CharField(max_length=255, default=False)        # pk
+    name = models.CharField(max_length=255, default=False)
+    phone = models.CharField(max_length=255, default=False)
+    primaryAddress = models.CharField(max_length=255, default=False)
     shoppingCart = models.OneToOneField(
         ShoppingCart,
         on_delete=models.CASCADE,
+        default=False
     )
-    addressTable = models.ManyToManyField(AddressTable)
+    addressTable = models.ManyToManyField(AddressTable, default=False)
     is_driver = models.BooleanField(default=False)
     # one to many//an account can have many orders
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, default=False)
 
     # set id to email
 
@@ -84,7 +85,7 @@ class Account(models.Model):
 
 
 class Vendor(models.Model):
-    id = models.CharField(max_length=255)
+    id = models.CharField(max_length=255, primary_key=True)
     storeName = models.CharField(max_length=255)
     storeLocation = models.CharField(max_length=255)
     items = models.ForeignKey(Items, on_delete=models.CASCADE)
