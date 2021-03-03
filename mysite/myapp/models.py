@@ -6,6 +6,11 @@ from django.db import models
 # ------------------------------------------------------
 # NOTES FOR USING THE TABLES IN A PYTHON SCRIPT OR SHELL
 
+# To add via shell:
+# from myapp.models import Items
+# Item = Items(params)
+# Item.save()
+
 # create item and save to the database:
 # item = <ModelName>(<parameters>)
 # item.save()
@@ -26,7 +31,7 @@ class AddressTable(models.Model):
         return self.email
 
 
-class Items(models.Model):
+class Item(models.Model):
     itemID = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -36,7 +41,7 @@ class Items(models.Model):
 
 
 class Nutrition(models.Model):
-    itemID = models.OneToOneField(Items, on_delete=models.CASCADE)
+    itemID = models.OneToOneField(Item, on_delete=models.CASCADE)
     calories = models.CharField(max_length=255)
     sodium = models.CharField(max_length=255)
     fat = models.CharField(max_length=255)
@@ -52,7 +57,7 @@ class Nutrition(models.Model):
 class ShoppingCart(models.Model):
     cartNumber = models.CharField(max_length=255)
     # an item can have many shopping carts and a shopping cart can have many items
-    items = models.ManyToManyField(Items, blank=True)
+    items = models.ManyToManyField(Item, blank=True)
 
     def __str__(self):
         return self.cartNumber  # set id to cartNumber
@@ -64,6 +69,7 @@ class Order(models.Model):
 
 
 class Account(models.Model):
+    password = models.CharField(min_length=8 ,max_length=255, default=False)
     email = models.CharField(max_length=255, default=False)        # pk
     name = models.CharField(max_length=255, default=False)
     phone = models.CharField(max_length=255, default=False)
@@ -88,7 +94,7 @@ class Vendor(models.Model):
     id = models.CharField(max_length=255, primary_key=True)
     storeName = models.CharField(max_length=255)
     storeLocation = models.CharField(max_length=255)
-    items = models.ForeignKey(Items, on_delete=models.CASCADE)
+    items = models.ForeignKey(Item, on_delete=models.CASCADE)
   # set id to id
 
     def __str__(self):
