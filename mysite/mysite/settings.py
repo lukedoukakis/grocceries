@@ -10,13 +10,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 
-import logger
+import logging
 
 from os import path
 from pathlib import Path, os
 
 
-
+logger = logging.getLogger('mysite.settings')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
