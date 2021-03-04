@@ -69,7 +69,6 @@ class Order(models.Model):
 
 
 class Account(models.Model):
-    password = models.CharField(min_length=8 ,max_length=255, default=False)
     email = models.CharField(max_length=255, default=False)        # pk
     name = models.CharField(max_length=255, default=False)
     phone = models.CharField(max_length=255, default=False)
