@@ -22,6 +22,13 @@ from django.db import models
 # <ModelName>.objects.all()
 # ------------------------------------------------------
 
+# definition for adding an item
+def add_item(_itemID, _name, _price):
+    item = Item(itemID=_itemID, name=_name, price=_price)
+    item.save()
+
+
+
 class AddressTable(models.Model):
     email = models.CharField(max_length=255)        # pk
     address = models.CharField(max_length=255)

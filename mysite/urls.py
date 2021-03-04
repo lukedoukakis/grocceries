@@ -18,9 +18,11 @@ from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    re_path(r'^$', views.homepage, name='home'),
+    path('admin/', admin.site.urls), 
+    path("simple_function", views.simple_function),
+    path("add_item", views.add_item),
 
-    # re_path(r'^$', views.homepage, name='home'),
     # re_path(r'^about/$', views.about, name='about'),
     # re_path(r'^dailymeetings/$', views.dailyMeetings, name='dailyMeetings'),
     # re_path(r'^projectdocuments/$', views.projectDocuments, name='projectDocuments'),
