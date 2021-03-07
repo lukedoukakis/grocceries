@@ -75,7 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Store Locator Page</li>
+				<li class="active">Store Locator</li>
 			</ol>
 		</div>
 	</div>
@@ -181,8 +181,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- key: AIzaSyDbk5hppk7xa364BV9kbZxlsH36Pv3G01M -->
 
     <script src="{% static 'js/map.js' %}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbk5hppk7xa364BV9kbZxlsH36Pv3G01M&libraries=places&callback=initMap">
-	</script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbk5hppk7xa364BV9kbZxlsH36Pv3G01M&callback=initMap&libraries=places&v=weekly"
+      async
+    ></script>
 	</div>
 
 <!-- //Locate Stores -->
@@ -241,7 +243,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 <!-- //footer -->	
 <!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
@@ -260,7 +262,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			});
 	</script>
 <!-- //here ends scrolling icon -->
-<script src="js/minicart.min.js"></script>
+<script src="{% static 'js/minicart.min.js' %}"></script>
 <script>
 	// Mini Cart
 	paypal.minicart.render({

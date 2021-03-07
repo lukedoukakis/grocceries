@@ -1,10 +1,28 @@
 {
     "type": "FeatureCollection",
-    "features": [{
+    "features": [
+        {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-0.1428115,
-                    51.5125168
+                "coordinates": [-117.6666666,
+                    34.5555555
+                ]
+            },
+            "type": "Feature",
+            "properties": {
+                "category": "patisserie",
+                "hours": "10am - 6pm",
+                "description": "Escuela",
+                "name": "CPP Fine Dining",
+                "phone": "1-666-666-6666",
+                "storeid": "00"
+            }
+        },
+        {
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-117.7666666,
+                    34.5555555
                 ]
             },
             "type": "Feature",
@@ -20,8 +38,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-2.579623,
-                    51.452251
+                "coordinates": [-117.3666666,
+                    34.5555555
                 ]
             },
             "type": "Feature",
@@ -37,9 +55,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    1.273459,
-                    52.638072
+                "coordinates": [-117.4666666,
+                    34.5555555
                 ]
             },
             "type": "Feature",
@@ -55,8 +72,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-1.9912838,
-                    50.8000418
+                "coordinates": [-117.5666666,
+                    34.5555555
                 ]
             },
             "type": "Feature",
@@ -72,8 +89,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-2.985933,
-                    53.408899
+                "coordinates": [-117.6666666,
+                    34.0555555
                 ]
             },
             "type": "Feature",
@@ -89,8 +106,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-1.689423,
-                    52.632469
+                "coordinates": [-117.6666666,
+                    34.1555555
                 ]
             },
             "type": "Feature",
@@ -106,8 +123,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-3.155305,
-                    51.479756
+                "coordinates": [-117.6666666,
+                    34.2555555
                 ]
             },
             "type": "Feature",
@@ -123,8 +140,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-0.725019,
-                    52.668891
+                "coordinates": [-117.6666666,
+                    34.3555555
                 ]
             },
             "type": "Feature",
@@ -140,8 +157,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-2.477653,
-                    53.735405
+                "coordinates": [-117.6666666,
+                    34.4555555
                 ]
             },
             "type": "Feature",
@@ -157,8 +174,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-0.211363,
-                    51.108966
+                "coordinates": [-117.6666666,
+                    34.9555555
                 ]
             },
             "type": "Feature",
@@ -174,8 +191,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-0.123559,
-                    50.832679
+                "coordinates": [-117.6666666,
+                    34.8555555
                 ]
             },
             "type": "Feature",
@@ -191,8 +208,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [-3.319575,
-                    52.517827
+                "coordinates": [-117.6666666,
+                    34.7555555
                 ]
             },
             "type": "Feature",
@@ -208,9 +225,8 @@
         {
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    1.158167,
-                    52.071634
+                "coordinates": [-117.6666666,
+                    34.6555555
                 ]
             },
             "type": "Feature",
