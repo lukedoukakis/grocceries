@@ -19,6 +19,8 @@ from . import views
 
 urlpatterns = [
     re_path(r'^$', views.homepage, name='home'),
+    re_path(r'^register/$', views.registerPage, name='register'),
+    re_path(r'^storeLocator/$', views.storeFinderPage, name='storeFinder'),
     path('admin/', admin.site.urls), 
     path("simple_function", views.simple_function),
     path("add_item", views.add_item),
