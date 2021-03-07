@@ -1,9 +1,10 @@
 //creates the mapp then adds all the stores in stores.json for us to see
 function initMap() {
     // Create the map.
+    const uluru = { lat: 34, lng: -117 };
     const map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 7,
-      center: {lat: 52.632469, lng: -1.689423},
+      zoom: 6,
+      center: uluru, 
       disableDefaultUI: true,
     });
   
@@ -40,7 +41,7 @@ function initMap() {
   const input = document.createElement('input');
   const options = {
     types: ['address'],
-    componentRestrictions: {country: 'gb'},
+    componentRestrictions: {country: 'us'},
   };
 
   card.setAttribute('id', 'pac-card');
@@ -65,7 +66,9 @@ function initMap() {
       ['address_components', 'geometry', 'name']);
 
    // Set the origin point when the user selects an address
-   const originMarker = new google.maps.Marker({map: map});
+   //set the image of the user
+   const image = "/static/images/male.svg";
+   const originMarker = new google.maps.Marker({map: map, icon: image});
    originMarker.setVisible(false);
    let originLocation = map.getCenter();
  
@@ -85,7 +88,8 @@ function initMap() {
      originLocation = place.geometry.location;
      map.setCenter(originLocation);
      map.setZoom(9);
-     console.log(place);
+     //logs the place we recenter too
+     //console.log(place);
  
      originMarker.setPosition(originLocation);
      originMarker.setVisible(true);
