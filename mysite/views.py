@@ -8,6 +8,12 @@ from myapp import models
 def homepage(request):
     return render(request, 'index.html')
 
+def registerPage(request):
+    return render(request, 'registered.html')
+
+def storeFinderPage(request):
+    return render(request, 'storelocator.html')
+
 def simple_function(request):
     print("\nthis is a simple function\n")
     return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
