@@ -91,3 +91,55 @@ class Vendor(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+
+
+
+# FUNCTIONS
+
+def get_vendor(_name, _address):
+    
+    vendors = Vendor.objects.all()
+    if(_name != None):
+        vendors = vendors.filter(name=_name)
+    if(_address != None):
+        vendors = vendors.filter(price=_address)
+
+    if(vendors.count() > 1):
+        throw_error("error: more than one result")
+    return vendors[0]
+
+
+# returns item from the given vendor matching the parameters
+def get_item(_vendor, _name, _price):
+
+    if(_vendor == None):
+        return get_item_global(_name, _price)
+
+    # TODO: return vendor's items
+
+# return item from the Item table with the given attributes
+def get_item_global(_name, _price):
+    
+    items = Item.objects.all()
+    if(_name != None):
+        items = items.filter(name=_name)
+    if(_price != None):
+        items = items.filter(price=_price)
+
+    if(items.count() > 1):
+        throw_error("error: more than one result")
+    return items[0]
+
+
+
+
+
+
+
+
+
+def throw_error(msg):
+    print(msg)

@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp', # app that database models are in must be listed here
+    'myapp',
+    'core'
 ]
 
 MIDDLEWARE = [
