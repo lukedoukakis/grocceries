@@ -9,21 +9,33 @@ from myapp import models
 # get account from email
 
 
-# retrieve a vendor from the Vendor table
-def get_vendor(request):
+# retrieve vendors from the Vendor table (parameters will be established somewhere)
+def get_vendors(request):
 
     # vendor = models.get_vendor(<parameters we have will go here>)
 
+    # ex: get all vendors with name "Trader Joes"
+    vendors = models.get_vendors(_name="Trader Joes", _address=None, _latitude=None, _longitude=None, _category=None, _phone=None)
+    print(vendors)
     return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
 
+def get_items(request):
+    # item = models.get_items(<parameters we have will go here>)
 
-def get_item_global(request):
+    # ex: get all items from vendor "Trader Joes"
+    vendor = models.get_vendors(_name="Trader Joes", _address=None, _latitude=None, _longitude=None, _category=None, _phone=None)[0]
+    items = models.get_items(_vendor=vendor, _name=None, _price=None)
+    print(vendor.name)
+    print(items)
+    return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
+
+def get_items_global(request):
 
     # item = models.get_item(<parameters we have will go here>)
 
-    # example: gets item named "Banana"
-    # item = models.get_item_global(_name="Banana", _price=None)
-    # print(item.name)
+    # example: gets items named "Banana"
+    items = models.get_items_global(_name="Banana", _price=None)
+    print(items)
     return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
 
 

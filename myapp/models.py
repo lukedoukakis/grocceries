@@ -12,8 +12,6 @@ from django.db import models
 #     item.save()
 
 
-
-
 # ------------------------------------------------------
 # ~~~ TABLES ~~~
 
@@ -35,7 +33,6 @@ from django.db import models
 # <ModelName>.objects.all()
 
 
-
 class Address(models.Model):
     value = models.CharField(max_length=255)
 
@@ -44,11 +41,9 @@ class Address(models.Model):
 
 
 class Item(models.Model):
-    name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    name = models.CharField(max_length=255, default="default", primary_key=True, unique=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
-    def __str__(self):
-        return self.name
 
 
 class Nutrition(models.Model):
@@ -85,9 +80,18 @@ class Account(models.Model):
 
 
 class Vendor(models.Model):
-    name = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    items = models.ForeignKey(Item, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, default="default", primary_key=True)
+    address = models.CharField(max_length=255, default="default")
+    # items = models.ForeignKey(Item, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Item)
+    latitude = models.DecimalField(
+        max_digits=30, decimal_places=7, default=0.0)
+    longitude = models.DecimalField(
+        max_digits=30, decimal_places=7, default=0.0)
+    category = models.CharField(max_length=255, default='default')
+    hours = models.CharField(max_length=255, default='default')
+    phone = models.CharField(max_length=255, default='default')
+    description = models.TextField(default="default")
 
     def __str__(self):
         return self.name
@@ -95,33 +99,41 @@ class Vendor(models.Model):
 
 
 
-
-
 # FUNCTIONS
 
-def get_vendor(_name, _address):
+def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
     
     vendors = Vendor.objects.all()
     if(_name != None):
         vendors = vendors.filter(name=_name)
     if(_address != None):
         vendors = vendors.filter(price=_address)
+    if(_latitude != None):
+        vendors = vendors.filter(latitudee=_latitude)
+    if(_longitude != None):
+        vendors = vendors.filter(longitude=_longitude)
+    if(_category != None):
+        vendors = vendors.filter(category=_category)
+    if(_phone != None):
+        vendors = vendors.filter(phone=_phone)
 
-    if(vendors.count() > 1):
-        throw_error("error: more than one result")
-    return vendors[0]
+    if(vendors.count() < 1):
+        throw_error("get_vendors: no vendors found")
+    return vendors
 
 
-# returns item from the given vendor matching the parameters
-def get_item(_vendor, _name, _price):
+# returns QuerySet of items from the given vendor matching the parameters
+# if no vendor specified, gets item globally
+def get_items(_vendor, _name, _price):
 
     if(_vendor == None):
-        return get_item_global(_name, _price)
+        return get_items_global(_name, _price)
 
     # TODO: return vendor's items
+    return _vendor.items.all()
 
-# return item from the Item table with the given attributes
-def get_item_global(_name, _price):
+# return QuerySet of items from the Item table with the given attributes
+def get_items_global(_name, _price):
     
     items = Item.objects.all()
     if(_name != None):
@@ -129,9 +141,9 @@ def get_item_global(_name, _price):
     if(_price != None):
         items = items.filter(price=_price)
 
-    if(items.count() > 1):
-        throw_error("error: more than one result")
-    return items[0]
+    if(items.count() < 1):
+        throw_error("get_items: no items found")
+    return items
 
 
 

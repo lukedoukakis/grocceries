@@ -25,5 +25,8 @@ urlpatterns = [
     re_path(r'^storeLocator/$', views.storeFinderPage, name='storeFinder'),
     path('admin/', admin.site.urls), 
     path("simple_function", views.simple_function),
-    path("get_item_global", views_core.get_item_global)
+    path("get_vendors", views_core.get_vendors),
+    path("get_items", views_core.get_items),
+    path("get_items_global", views_core.get_items_global)
+
 ]
