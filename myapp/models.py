@@ -12,8 +12,6 @@ from django.db import models
 #     item.save()
 
 
-
-
 # ------------------------------------------------------
 # ~~~ TABLES ~~~
 
@@ -33,7 +31,6 @@ from django.db import models
 
 # get all results in a database (returns QuerySet):
 # <ModelName>.objects.all()
-
 
 
 class Address(models.Model):
@@ -88,6 +85,14 @@ class Vendor(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     items = models.ForeignKey(Item, on_delete=models.CASCADE)
+    latitude = models.DecimalField(
+        max_digits=30, decimal_places=7, default=0.0)
+    longitude = models.DecimalField(
+        max_digits=30, decimal_places=7, default=0.0)
+    category = models.CharField(max_length=255, default='default')
+    hours = models.CharField(max_length=255, default='default')
+    phone = models.CharField(max_length=255, default='default')
+    description = models.TextField(default="default")
 
     def __str__(self):
         return self.name
