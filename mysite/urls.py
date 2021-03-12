@@ -22,6 +22,7 @@ from core import views as views_core
 urlpatterns = [
     re_path(r'^$', views.homepage, name='home'),
     re_path(r'^register/$', views.registerPage, name='register'),
+    re_path(r'^add_account_submission/$', views.add_account_submission, name='add_account_submission'),
     re_path(r'^storeLocator/$', views.storeFinderPage, name='storeFinder'),
     path('admin/', admin.site.urls), 
     path("simple_function", views.simple_function),
