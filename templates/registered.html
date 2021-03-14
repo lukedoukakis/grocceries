@@ -24,6 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //for-mobile-apps -->
 <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
 <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/grocceries.css' %}" rel="stylesheet" media="all" />
 
 <!-- font-awesome icons -->
 <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet"> 
@@ -48,20 +49,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 	
 <body>
+	<section class="menu menu--circle">
+        <input type="checkbox" id="menu__active"/>
+        <label for="menu__active" class="menu__active">
+          <div class="menu__toggle">
+            <div class="icon">
+              <div class="hamburger"></div>
+            </div>
+          </div>
+          <input type="radio" name="arrow--up" id="degree--up-0"/>
+          <input type="radio" name="arrow--up" id="degree--up-1" />
+          <input type="radio" name="arrow--up" id="degree--up-2" />
+          <div class="menu__listings">
+            <ul class="circle">
+              <li>
+                <div class="placeholder">
+                  <div class="upside">
+                    <a href="{% url 'account' %}" class="button"><i class="fa fa-user"></i></a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="placeholder">
+                  <div class="upside">
+                    <a href="#" class="button"><i class="fa fa-cog"></i></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </label>
+      </section>
 <!-- header -->
 	<div class="agileits_header">
-		<div class="container">
-			<div class="w3ls_logo_products_left">
-				<div class = >
-					<p>h</p>
-				</div>
-			</div>
-			<div class="w3ls_logo_products_left">
-				<h1><a href="{% url 'home' %}">Grocceries</a></h1>
-			</div>
-			<div class="clearfix"> </div>
+		<div class="title-container">
+			<h1><a class = "orange" href="{% url 'home' %}">Grocceries</a></h1>
 		</div>
-		<div class="disable-select"> <p>h</p> </div>
 	</div>
 		
 <!-- //navigation -->
@@ -112,9 +135,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="footer">
 	<div class="container">
 		<div class="w3_footer_grids">
-			<div class="col-md-3 w3_footer_grid">
-				<!-- empty div to center the other info-->
-			</div>
 			<div class="col-md-3 w3_footer_grid">
 				<h3>Contact</h3>
 				

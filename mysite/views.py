@@ -6,8 +6,10 @@ from django.http import HttpResponse
 # Create your views here.
 
 def homepage(request):
-    return render(request, 'lukeindex.html')
+    return render(request, 'index.html')
 
+def accountInfoPage(request):
+    return render(request, 'accountinfo.html')
 
 def registerPage(request):
     return render(request, 'registered.html')
