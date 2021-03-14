@@ -24,6 +24,7 @@ urlpatterns = [
     re_path(r'^register/$', views.registerPage, name='register'),
     re_path(r'^add_account_submission/$', views.add_account_submission, name='add_account_submission'),
     re_path(r'^storeLocator/$', views.storeFinderPage, name='storeFinder'),
+    re_path(r'^account/$', views.accountInfoPage, name='account'),
     path('admin/', admin.site.urls), 
     path("simple_function", views.simple_function),
     path("get_vendors", views_core.get_vendors),

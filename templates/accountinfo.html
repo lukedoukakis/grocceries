@@ -22,8 +22,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
-<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
-<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" media="all" />
+<link href="{% static 'css/style.css' %}" rel="stylesheet" media="all" />
 <link href="{% static 'css/grocceries.css' %}" rel="stylesheet" media="all" />
 
 <!-- font-awesome icons -->
@@ -48,8 +48,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- start-smoth-scrolling -->
 </head>
 	
+
 <body>
-	<section class="menu menu--circle">
+    <section class="menu menu--circle">
         <input type="checkbox" id="menu__active"/>
         <label for="menu__active" class="menu__active">
           <div class="menu__toggle">
@@ -84,9 +85,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="title-container">
 			<h1><a class = "orange" href="{% url 'home' %}">Grocceries</a></h1>
-			
-		</div>
+        </div>
 	</div>
+	
 <!-- //header -->
 <!-- navigation -->
 	
@@ -97,32 +98,60 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Login Page</li>
+				<li class="active">Account Info Page</li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
-<!-- login -->
-	<div class="login">
-		<div class="container">
-			<h2>Login Form</h2>
-		
-			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<form>
-					<input type="email" placeholder="Email Address" required=" " >
-					<input type="password" placeholder="Password" required=" " >
-					<div class="forgot">
-						<a href="#">Forgot Password?</a>
-					</div>
-					<input type="submit" value="Login">
-				</form>
-			</div>
-			<h4>For New People</h4>
-			<p><a href="{% url 'register' %}">Register Here</a></span></a></p>
-			<p><a href="{% url 'storeFinder' %}">See Nearby Stores</a></span></a></p>
-		</div>
-	</div>
-<!-- //login -->
+<!-- user info -->
+
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-6 col-md-12">
+                <div class="card user-card-full">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4 bg-c-lite-green user-profile">
+                            <div class="card-block text-center text-white">
+                                <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
+                                <h6 class="f-w-600">Hembo Tingor</h6>
+                                <p>Driver</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Email</p>
+                                        <h6 class="text-muted f-w-400">rntng@gmail.com</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Phone</p>
+                                        <h6 class="text-muted f-w-400">98979989898</h6>
+                                    </div>
+                                </div>
+                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Order Information</h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Address</p>
+                                        <h6 class="text-muted f-w-400">Cal Poly Pomona</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Last Order</p>
+                                        <h6 class="text-muted f-w-400">2 days ago</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	
+<!-- //user info -->
 <!-- //footer -->
 <div class="footer">
 		<div class="container">
