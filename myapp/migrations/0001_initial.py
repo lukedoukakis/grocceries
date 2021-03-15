@@ -22,9 +22,63 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Item',
             fields=[
+                ('name', models.CharField(default='default', max_length=255, primary_key=True, serialize=False, unique=True)),
+                ('price', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Order',
+            fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),
+                ('driver', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Vendor',
+            fields=[
+                ('name', models.CharField(default='default', max_length=255, primary_key=True, serialize=False)),
+                ('address', models.CharField(default='default', max_length=255)),
+                ('latitude', models.DecimalField(decimal_places=7, default=0.0, max_digits=30)),
+                ('longitude', models.DecimalField(decimal_places=7, default=0.0, max_digits=30)),
+                ('category', models.CharField(default='default', max_length=255)),
+                ('hours', models.CharField(default='default', max_length=255)),
+                ('phone', models.CharField(default='default', max_length=255)),
+                ('description', models.TextField(default='default')),
+                ('items', models.ManyToManyField(to='myapp.Item')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='ShoppingCart',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('items', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='myapp.Item')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Nutrition',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('calories', models.CharField(max_length=255)),
+                ('sodium', models.CharField(max_length=255)),
+                ('fat', models.CharField(max_length=255)),
+                ('carbs', models.CharField(max_length=255)),
+                ('protein', models.CharField(max_length=255)),
+                ('item', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='myapp.Item')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Account',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('username', models.CharField(default='default', max_length=255)),
+                ('email', models.CharField(default='default', max_length=255)),
+                ('firstName', models.CharField(default='default', max_length=255)),
+                ('lastName', models.CharField(default='default', max_length=255)),
+                ('phone', models.CharField(default='default', max_length=255)),
+                ('is_driver', models.BooleanField(default=False)),
+                ('address', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='myapp.Address')),
+                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='myapp.Order')),
+                ('shoppingCart', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='myapp.ShoppingCart')),
             ],
         ),
         migrations.CreateModel(

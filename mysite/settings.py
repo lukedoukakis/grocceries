@@ -45,9 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
     # our local apps
     'myapp',    # app that database models are in must be listed here
     'map',      # map app
+    'core'
 ]
 
 MIDDLEWARE = [
