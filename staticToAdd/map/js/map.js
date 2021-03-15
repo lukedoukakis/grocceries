@@ -9,7 +9,7 @@ function initMap() {
     });
   
     // Load the stores GeoJSON onto the map.
-    map.data.loadGeoJson('/static/js/stores.json', {idPropertyName: 'storeid'});
+    map.data.loadGeoJson('/static/map/js/stores.json', {idPropertyName: 'storeid'});
 
     const apiKey = 'AIzaSyDbk5hppk7xa364BV9kbZxlsH36Pv3G01M';
     const infoWindow = new google.maps.InfoWindow();

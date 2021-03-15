@@ -14,6 +14,7 @@ import logging
 
 from os import path
 from pathlib import Path, os
+from decouple import config
 
 
 logger = logging.getLogger('mysite.settings')
@@ -26,14 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-try:
-    SECRET_KEY = os.environ['SECRET_KEY']
-except:
-    logger.warning('No environment variable named "SECRET_KEY" has been found. Fix if this is in production.')
-    SECRET_KEY = ['kljfd90f9dsa093nm0i;fds;,.b34):2']
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['ec2-51-176-245-91.us-west-1.compute.amazonaws.com', '127.0.0.1', '54.176.245.91', 'grocceries.shop']
 
@@ -47,7 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp',
+
+
+    # our local apps
+    'myapp',    # app that database models are in must be listed here
+    'map',      # map app
     'core'
 ]
 
@@ -88,11 +89,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'nqiourwo',
-        'USER': 'nqiourwo',
-        'PASSWORD': 'RfyDVorM_A5zN9sByAZ1rqR3kc4VU8Zg',
-        'HOST': 'ziggy.db.elephantsql.com',
-        'PORT': '5432'
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
