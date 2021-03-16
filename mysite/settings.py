@@ -82,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'myapp.Account'
+#AUTH_USER_MODEL = 'myapp.Account'
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
