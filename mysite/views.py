@@ -12,8 +12,14 @@ def homepage(request):
 def accountInfoPage(request):
     return render(request, 'accountinfo.html')
 
+<<<<<<< Updated upstream
 # def registerPage(request):
 #     return render(request, 'registered.html')
+=======
+
+def registerPage(request):
+    return render(request, 'registered.html')
+>>>>>>> Stashed changes
 
 
 def storeFinderPage(request):
