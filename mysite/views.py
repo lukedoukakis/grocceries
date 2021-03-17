@@ -8,7 +8,6 @@ from django.http import HttpResponse
 def homepage(request):
     return render(request, 'login.html')
 
-
 def accountInfoPage(request):
     return render(request, 'accountinfo.html')
 
