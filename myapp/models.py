@@ -1,5 +1,8 @@
 from django.db import models
 
+
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 
@@ -34,16 +37,16 @@ from django.db import models
 
 
 class Address(models.Model):
-    value = models.CharField(max_length=255)
+    value = models.CharField(max_length=255, null=True)
 
     def __str__(self):
         return self.value
 
 
 class Item(models.Model):
-    name = models.CharField(max_length=255, default="default", primary_key=True, unique=True)
+    name = models.CharField(
+        max_length=255, default="default", primary_key=True, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
 
 
 class Nutrition(models.Model):
@@ -64,23 +67,24 @@ class Order(models.Model):
 
 
 class Account(models.Model):
-    username = models.CharField(max_length=255, default='default')
-    email = models.CharField(max_length=255, default='default')
+    user = models.OneToOneField(User, on_delete=models.CASCADE,
+                                null=True)
+
     firstName = models.CharField(max_length=255, default='default')
     lastName = models.CharField(max_length=255, default='default')
     phone = models.CharField(max_length=255, default='default')
-    shoppingCart = models.OneToOneField(ShoppingCart, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    shoppingCart = models.OneToOneField(
+        ShoppingCart, on_delete=models.CASCADE, null=True)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True)
     is_driver = models.BooleanField(default=False)
     # one to many//an account can have many orders
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.username
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
 
 
 class Vendor(models.Model):
-    name = models.CharField(max_length=255, default="default", primary_key=True)
+
+    name = models.CharField(
+        max_length=255, default="default", primary_key=True)
     address = models.CharField(max_length=255, default="default")
     # items = models.ForeignKey(Item, on_delete=models.CASCADE)
     items = models.ManyToManyField(Item)
@@ -93,16 +97,12 @@ class Vendor(models.Model):
     phone = models.CharField(max_length=255, default='default')
     description = models.TextField(default="default")
 
-    def __str__(self):
-        return self.name
-
-
-
 
 # FUNCTIONS
 
+
 def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
-    
+
     vendors = Vendor.objects.all()
     if(_name != None):
         vendors = vendors.filter(name=_name)
@@ -126,15 +126,37 @@ def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
 # if no vendor specified, gets item globally
 def get_items(_vendor, _name, _price):
 
+    vendors = Vendor.objects.all()
+    if(_name != None):
+        vendors = vendors.filter(name=_name)
+    if(_address != None):
+        vendors = vendors.filter(price=_address)
+    if(_latitude != None):
+        vendors = vendors.filter(latitudee=_latitude)
+    if(_longitude != None):
+        vendors = vendors.filter(longitude=_longitude)
+    if(_category != None):
+        vendors = vendors.filter(category=_category)
+    if(_phone != None):
+        vendors = vendors.filter(phone=_phone)
+
+    if(vendors.count() < 1):
+        throw_error("get_vendors: no vendors found")
+    return vendors
+
+    # # returns QuerySet of items from the given vendor matching the parameters
+    # # if no vendor specified, gets item globally
+def get_items(_vendor, _name, _price):
+
     if(_vendor == None):
         return get_items_global(_name, _price)
 
-    # TODO: return vendor's items
     return _vendor.items.all()
 
-# return QuerySet of items from the Item table with the given attributes
+    # return QuerySet of items from the Item table with the given attributes
+
 def get_items_global(_name, _price):
-    
+
     items = Item.objects.all()
     if(_name != None):
         items = items.filter(name=_name)
@@ -144,14 +166,6 @@ def get_items_global(_name, _price):
     if(items.count() < 1):
         throw_error("get_items: no items found")
     return items
-
-
-
-
-
-
-
-
 
 def throw_error(msg):
     print(msg)
