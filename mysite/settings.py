@@ -32,7 +32,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['ec2-51-176-245-91.us-west-1.compute.amazonaws.com', '127.0.0.1', '54.176.245.91', 'grocceries.shop']
+ALLOWED_HOSTS = ['ec2-51-176-245-91.us-west-1.compute.amazonaws.com',
+                 '127.0.0.1', '54.176.245.91', 'grocceries.shop']
 
 
 # Application definition
@@ -44,12 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'crispy_forms',
 
     # our local apps
     'myapp',    # app that database models are in must be listed here
     'map',      # map app
-    'core'
+    'core',
+    'register'
 ]
 
 MIDDLEWARE = [
@@ -79,6 +81,8 @@ TEMPLATES = [
         },
     },
 ]
+
+#AUTH_USER_MODEL = 'myapp.Account'
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -135,7 +139,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 STATICFILES_DIRS = [
     BASE_DIR / "staticToAdd",
 ]
+
+# where do we go after loging in
+LOGIN_REDIRECT_URL = "/"
