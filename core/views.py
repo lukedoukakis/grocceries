@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from myapp import models
+from core import localdata
 
 
 # get store from coordinates
@@ -20,12 +21,11 @@ def get_vendors(request):
     return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
 
 def get_items(request):
-    # item = models.get_items(<parameters we have will go here>)
 
     # ex: get all items from vendor "Trader Joes"
-    vendor = models.get_vendors(_name="Trader Joes", _address=None, _latitude=None, _longitude=None, _category=None, _phone=None)[0]
-    items = models.get_items(_vendor=vendor, _name=None, _price=None)
-    print(vendor.name)
+    localdata.LocalData.vendor = models.get_vendors(_name="Trader Joes", _address=None, _latitude=None, _longitude=None, _category=None, _phone=None)[0] 
+    items = models.get_items(_vendor=localdata.LocalData.vendor, _name=None, _price=None)
+    print(localdata.LocalData.vendor.name)
     print(items)
     return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
 
