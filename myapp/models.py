@@ -100,11 +100,6 @@ class Vendor(models.Model):
 
 # FUNCTIONS
 
-# def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
-
-
-# FUNCTIONS
-
 
 def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
 
@@ -131,49 +126,46 @@ def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
 # if no vendor specified, gets item globally
 def get_items(_vendor, _name, _price):
 
-    #     vendors = Vendor.objects.all()
-    #     if(_name != None):
-    #         vendors = vendors.filter(name=_name)
-    #     if(_address != None):
-    #         vendors = vendors.filter(price=_address)
-    #     if(_latitude != None):
-    #         vendors = vendors.filter(latitudee=_latitude)
-    #     if(_longitude != None):
-    #         vendors = vendors.filter(longitude=_longitude)
-    #     if(_category != None):
-    #         vendors = vendors.filter(category=_category)
-    #     if(_phone != None):
-    #         vendors = vendors.filter(phone=_phone)
+    vendors = Vendor.objects.all()
+    if(_name != None):
+        vendors = vendors.filter(name=_name)
+    if(_address != None):
+        vendors = vendors.filter(price=_address)
+    if(_latitude != None):
+        vendors = vendors.filter(latitudee=_latitude)
+    if(_longitude != None):
+        vendors = vendors.filter(longitude=_longitude)
+    if(_category != None):
+        vendors = vendors.filter(category=_category)
+    if(_phone != None):
+        vendors = vendors.filter(phone=_phone)
 
-    #     if(vendors.count() < 1):
-    #         throw_error("get_vendors: no vendors found")
-    #     return vendors
-
-    # return QuerySet of items from the Item table with the given attributes
+    if(vendors.count() < 1):
+        throw_error("get_vendors: no vendors found")
+    return vendors
 
     # # returns QuerySet of items from the given vendor matching the parameters
     # # if no vendor specified, gets item globally
-    # def get_items(_vendor, _name, _price):
+def get_items(_vendor, _name, _price):
 
-    #     if(_vendor == None):
-    #         return get_items_global(_name, _price)
+    if(_vendor == None):
+        return get_items_global(_name, _price)
 
-    #     # TODO: return vendor's items
-    #     return _vendor.items.all()
+    return _vendor.items.all()
 
-    # # return QuerySet of items from the Item table with the given attributes
+    # return QuerySet of items from the Item table with the given attributes
 
-    # def get_items_global(_name, _price):
+def get_items_global(_name, _price):
 
-    #     items = Item.objects.all()
-    #     if(_name != None):
-    #         items = items.filter(name=_name)
-    #     if(_price != None):
-    #         items = items.filter(price=_price)
+    items = Item.objects.all()
+    if(_name != None):
+        items = items.filter(name=_name)
+    if(_price != None):
+        items = items.filter(price=_price)
 
-    #     if(items.count() < 1):
-    #         throw_error("get_items: no items found")
-    #     return items
+    if(items.count() < 1):
+        throw_error("get_items: no items found")
+    return items
 
-    def throw_error(msg):
-        print(msg)
+def throw_error(msg):
+    print(msg)
