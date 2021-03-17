@@ -24,4 +24,4 @@ def register(response):
             print("not valid")
 
     form = RegisterForm()
-    return render(response, 'registered.html', {"form": form})
+    return render(response, 'account/registered.html', {"form": form})
