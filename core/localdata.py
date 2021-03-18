@@ -14,6 +14,9 @@ class LocalData:
 
     # intended type: myapp.models.Account
     account = None
+    
+    # intended type: myapp.models.Account
+    user = None
 
     # intended type: myapp.models.Vendor
     vendor = None
