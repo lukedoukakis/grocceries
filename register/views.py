@@ -1,13 +1,11 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
-from myapp.models import Account
+from account.models import Account
 
 from django.contrib.auth import authenticate
 
 
 # used for register page
-
-
 def register(response):
 
     if response.method == "POST":
@@ -15,11 +13,10 @@ def register(response):
         if form.is_valid():
             user = form.save()
             account = Account(
-                user=user, firstName=user.first_name, lastName=user.last_name)
+                email=user.email, user=user, firstName=user.first_name, lastName=user.last_name)
             account.save()
 
-    # after loging in add redirect page here
-
+        # after logging in add redirect page here
         else:
             print("not valid")
 

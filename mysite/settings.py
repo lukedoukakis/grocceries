@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # our local apps
     'myapp',    # app that database models are in must be listed here
     'map',      # map app
+    'account',
     'core',
     'register'
 ]

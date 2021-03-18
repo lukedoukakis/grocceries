@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 
-from myapp.models import Account
+from account.models import Account
 
 
 class RegisterForm(UserCreationForm):
@@ -14,6 +14,5 @@ class RegisterForm(UserCreationForm):
     class Meta:
 
         model = User
-
         fields = ["email", "username", "first_name",
                            "last_name", "password1", "password2", ]
