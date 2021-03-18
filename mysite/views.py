@@ -4,11 +4,17 @@ from django.http import HttpResponse
 
 # Create your views here.
 
+
 def homepage(request):
     return render(request, 'registration/login.html')
 
+
 def accountInfoPage(request):
     return render(request, 'profile/accountinfo.html')
+
+
+def testForLoginRedirect(request):
+    return render(request, 'test.html')
 
 
 def registerPage(request):
