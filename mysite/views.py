@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
 from django.http import HttpResponse
+from django.contrib.auth import logout as user_logout
 
 from core import localdata
 
@@ -21,8 +21,7 @@ def loginRedirect(request):
     print(localdata.LocalData.account.user.username)
 
     # redirect to appropriate page
-    return render(request, 'test.html')
-
+    return render(request, 'myapp/landingPage.html')
 
 def loginPage(request):
     return render(request, 'registration/login.html')
@@ -30,6 +29,10 @@ def loginPage(request):
 def registerPage(request):
     return render(request, 'account/registered.html')
 
+def logout(request):
+    user_logout(request)
+    localdata.LocalData.account = None
+    return render(request, 'myapp/landingPage.html')
 
 def storeFinderPage(request):
     return render(request, 'map/storelocator.html')

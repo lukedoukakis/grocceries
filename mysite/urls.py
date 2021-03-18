@@ -22,9 +22,10 @@ from core import views as views_core
 urlpatterns = [
     re_path(r'^$', views.homepage, name='home'),
     re_path(r'^register/$', vr.register, name='register'),
-    re_path(r"^test/$", views.loginRedirect, name="test"),
+    re_path(r"^loginRedirect/$", views.loginRedirect, name="loginRedirect"),
     re_path(r'^storeLocator/$', views.storeFinderPage, name='storeFinder'),
     re_path(r'^account/$', views.accountInfoPage, name='account'),
+    re_path(r'^logout/$', views.logout, name='logout'),
     path('admin/', admin.site.urls),
     path("simple_function", views.simple_function),
     path("get_vendors", views_core.get_vendors),

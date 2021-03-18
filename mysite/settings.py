@@ -147,4 +147,4 @@ STATICFILES_DIRS = [
 ]
 
 # where do we go after loging in
-LOGIN_REDIRECT_URL = "test"
+LOGIN_REDIRECT_URL = "loginRedirect"
