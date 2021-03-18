@@ -1,7 +1,5 @@
 from django.db import models
-
-
-from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -66,23 +64,7 @@ class Order(models.Model):
     driver = models.CharField(max_length=255)
 
 
-class Account(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,
-                                null=True)
-
-    firstName = models.CharField(max_length=255, default='default')
-    lastName = models.CharField(max_length=255, default='default')
-    phone = models.CharField(max_length=255, default='default')
-    shoppingCart = models.OneToOneField(
-        ShoppingCart, on_delete=models.CASCADE, null=True)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True)
-    is_driver = models.BooleanField(default=False)
-    # one to many//an account can have many orders
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
-
-
 class Vendor(models.Model):
-
     name = models.CharField(
         max_length=255, default="default", primary_key=True)
     address = models.CharField(max_length=255, default="default")
@@ -94,7 +76,7 @@ class Vendor(models.Model):
         max_digits=30, decimal_places=7, default=0.0)
     category = models.CharField(max_length=255, default='default')
     hours = models.CharField(max_length=255, default='default')
-    phone = models.CharField(max_length=255, default='default')
+    phone = PhoneNumberField(null=False, blank=False)
     description = models.TextField(default="default")
 
 
