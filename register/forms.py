@@ -10,9 +10,14 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField()
     first_name = forms.Field()
     last_name = forms.Field()
+    Phone_Number = forms.Field()
 
     class Meta:
 
         model = User
         fields = ["email", "username", "first_name",
-                           "last_name", "password1", "password2", ]
+                           "last_name", "Phone_Number", "password1", "password2", ]
+
+
+
+   
