@@ -10,7 +10,7 @@ class Account(models.Model):
     email = models.EmailField(null=True, unique=True)
     firstName = models.CharField(max_length=255, default='default')
     lastName = models.CharField(max_length=255, default='default')
-    phone = PhoneNumberField(null=False, blank=False, unique=True)
+    phone = PhoneNumberField(null=True, blank=False, unique=True)
     shoppingCart = models.OneToOneField(ShoppingCart, on_delete=models.CASCADE, null=True)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True)
     is_driver = models.BooleanField(default=False)
