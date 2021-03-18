@@ -8,8 +8,7 @@ from core import localdata
 
 
 def homepage(request):
-    return render(request, 'registration/login.html')
-
+    return render(request, 'myapp/landingPage.html')
 
 def accountInfoPage(request):
     return render(request, 'profile/accountinfo.html')
@@ -24,6 +23,9 @@ def loginRedirect(request):
     # redirect to appropriate page
     return render(request, 'test.html')
 
+
+def loginPage(request):
+    return render(request, 'registration/login.html')
 
 def registerPage(request):
     return render(request, 'account/registered.html')
