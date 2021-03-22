@@ -78,7 +78,7 @@ class Vendor(models.Model):
     hours = models.CharField(max_length=255, default='default')
     phone = PhoneNumberField(null=False, blank=False)
     description = models.TextField(default="default")
-
+    storeID = models.IntegerField(default=0)
 
 # FUNCTIONS
 

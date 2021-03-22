@@ -14,12 +14,51 @@ a.orange{
     padding-bottom: 40px;
 }
 
+.distanceText {
+  color: #2E2823;
+  font-family: 'open sans', arial, sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  margin-block-start: 0.25em;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+/* custom buttons */
+.btn2 {font-size: 18px; 
+  white-space:nowrap; 
+  width:100%; padding:.8em 1.5em; 
+  font-family: Open Sans, Helvetica,Arial,sans-serif; 
+  line-height:18px; display: inline-block;
+  zoom: 1; color: #F5F5F5; 
+  text-align: center; 
+  position:relative; -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear; 
+  transition: border .25s linear, color .25s linear, background-color .25s linear;
+  cursor: pointer; 
+}
+
+.btn2.btn-orange{
+  background-color: #fe9126; 
+  border-color: #fe9126; 
+  -webkit-box-shadow: 0 3px 0 #b37401; 
+  box-shadow: 0 3px 0 #b37401;
+}
+.btn2.btn-orange:hover{
+  background-color:#dd9003;
+}
+.btn2.btn-orange:active{
+  top: 3px; outline: none; 
+  -webkit-box-shadow: none; 
+  box-shadow: none;
+}
+
 /* Styling for the menu */
   .icon {
     position: absolute;
     top: 70%;
     left: 70%;
     transform: translateX(-50%) translateY(-50%);
+    overflow: visible;
   }
   .hamburger {
     content: ' ';

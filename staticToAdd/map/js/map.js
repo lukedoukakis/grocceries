@@ -188,16 +188,25 @@ function initMap() {
     }
   
     stores.forEach((store) => {
-      // Add store details with text formatting
-      const name = document.createElement('p');
-      name.classList.add('place');
+      const storeButton = document.createElement('a');
+      storeButton.classList.add('button');
+      storeButton.classList.add('btn2');
+      storeButton.classList.add('btn-orange');
       const currentStore = data.getFeatureById(store.storeid);
-      name.textContent = currentStore.getProperty('name');
-      panel.appendChild(name);
+      storeButton.textContent = currentStore.getProperty('name');
+      storeButton.id = currentStore.getProperty('storeid');
+
+      //set the parameter to the primaryKey after changing
+      storeButton.href = "/storepage/" + storeButton.id;
+
+      //creates the distance portion to be under the store name
       const distanceText = document.createElement('p');
       distanceText.classList.add('distanceText');
       distanceText.textContent = store.distanceText;
-      panel.appendChild(distanceText);
+
+      //appends distancetext to button and then puts button onto the panel
+      storeButton.appendChild(distanceText)
+      panel.appendChild(storeButton);
     });
   
     // Open the panel
