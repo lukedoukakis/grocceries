@@ -2180,7 +2180,7 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
 .icon {
 	display: inline-block;
     vertical-align: top;
-    overflow: auto;
+    overflow: hidden;
     width: 35px;
     height: 35px;
 }

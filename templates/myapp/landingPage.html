@@ -61,88 +61,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           <input type="radio" name="arrow--up" id="degree--up-1" />
           <input type="radio" name="arrow--up" id="degree--up-2" />
           <div class="menu__listings">
-			<ul class="circle">
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="{% url 'account' %}" class="button"><i class="fa fa-user"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="{% url 'logout' %}" class="button"><i class="fa fa-sign-out"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#">&nbsp</a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-commenting"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-trash"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-battery-4"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-calendar"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-cloud"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-wifi"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="{% url 'storeFinder' %}" class="button"><i class="fa fa-map-marker"></i></a>
-				  </div>
-				</div>
-			  </li>
-			</ul>
-		  </div>
-		  <div class="menu__arrow menu__arrow--top">
-			<ul>
-			  <li>
-				<label for="degree--up-0"><div class="arrow"></div></label>
-				<label for="degree--up-1"><div class="arrow"></div></label>
-				<label for="degree--up-2"><div class="arrow"></div></label>
-			  </li>
-			</ul>
-		  </div>
+            <ul class="circle">
+              <li>
+                <div class="placeholder">
+                  <div class="upside">
+                    <a href="{% url 'account' %}" class="button"><i class="fa fa-user"></i></a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="placeholder">
+                  <div class="upside">
+                    <a href="#" class="button"><i class="fa fa-cog"></i></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </label>
       </section>
 <!-- header -->
@@ -161,10 +96,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="login">
 		<div class="container">
 			<h2>Your groceries, delivered safely.</h2>
-
+		
 			<div class="container">
 				{% if user.is_authenticated %}
 					<h1>Hello, {{user.first_name}}</h1>
+					<h1><a href="{% url 'logout' %}" class="btn btn-link btn-lg">Log out</a></h1>
 				{% else %}
                 	<h1><a href="{% url 'login' %}" class="btn btn-link btn-lg">Log in</a></h1>
                 	<h1><a href="{% url 'register' %}" class="btn btn-link btn-lg">Register</a></h1>

@@ -1,6 +1,5 @@
 {% load static %}
 {% load admin_urls %}
-{% load crispy_forms_tags %}
 
 <!-- //TODO: fix all page redirections-->
 <!-- //TODO: fix all static issues-->
@@ -63,88 +62,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           <input type="radio" name="arrow--up" id="degree--up-1" />
           <input type="radio" name="arrow--up" id="degree--up-2" />
           <div class="menu__listings">
-			<ul class="circle">
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="{% url 'account' %}" class="button"><i class="fa fa-user"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="{% url 'logout' %}" class="button"><i class="fa fa-sign-out"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#">&nbsp</a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-commenting"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-trash"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-battery-4"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-calendar"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-cloud"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="#" class="button"><i class="fa fa-wifi"></i></a>
-				  </div>
-				</div>
-			  </li>
-			  <li>
-				<div class="placeholder">
-				  <div class="upside">
-					<a href="{% url 'storeFinder' %}" class="button"><i class="fa fa-map-marker"></i></a>
-				  </div>
-				</div>
-			  </li>
-			</ul>
-		  </div>
-		  <div class="menu__arrow menu__arrow--top">
-			<ul>
-			  <li>
-				<label for="degree--up-0"><div class="arrow"></div></label>
-				<label for="degree--up-1"><div class="arrow"></div></label>
-				<label for="degree--up-2"><div class="arrow"></div></label>
-			  </li>
-			</ul>
-		  </div>
+            <ul class="circle">
+              <li>
+                <div class="placeholder">
+                  <div class="upside">
+                    <a href="{% url 'account' %}" class="button"><i class="fa fa-user"></i></a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="placeholder">
+                  <div class="upside">
+                    <a href="#" class="button"><i class="fa fa-cog"></i></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </label>
       </section>
 <!-- header -->
@@ -163,7 +97,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 				<li class="active">Account Info Page</li>
 			</ol>
 		</div>
@@ -171,8 +105,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //breadcrumbs -->
 <!-- user info -->
 
-<!-- if user is logged in -->
-{% if request.user.is_authenticated %}
 <div class="page-content page-container" id="page-content">
     <div class="padding">
         <div class="row container d-flex justify-content-center">
@@ -182,9 +114,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="col-sm-4 bg-c-lite-green user-profile">
                             <div class="card-block text-center text-white">
                                 <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
-                                <h6 class="f-w-600">
-									{{request.user.username}}
-									</h6>
+                                <h6 class="f-w-600">Hembo Tingor</h6>
                                 <p>Driver</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                             </div>
                         </div>
@@ -194,7 +124,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Email</p>
-                                        <h6 class="text-muted f-w-400">{{request.user.email}}</h6>
+                                        <h6 class="text-muted f-w-400">rntng@gmail.com</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Phone</p>
@@ -220,13 +150,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-
-<!-- if user is not logged in -->
-{% else %}
-
-<meta http-equiv="refresh" content="0; URL={% url 'login' %}" />
-
-{% endif %}
 	
 <!-- //user info -->
 <!-- //footer -->
