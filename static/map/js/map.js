@@ -13,8 +13,12 @@ function initMap() {
     });
   
     // Load the stores GeoJSON onto the map.
-    //map.data.loadGeoJson('/static/map/js/stores.json', {idPropertyName: 'storeid'});
-    map.data.loadGeoJson('/static/map/js/dynamicStores.json', {idPropertyName: 'storeid'});
+    map.data.loadGeoJson('/static/map/js/stores.json', {idPropertyName: 'storeid'});
+
+    map.data.forEach((store) => {
+      const storeNum = store.getProperty('storeid');
+      console.log(storeNum);
+    });
 
     const apiKey = 'AIzaSyDbk5hppk7xa364BV9kbZxlsH36Pv3G01M';
     const infoWindow = new google.maps.InfoWindow();
@@ -194,16 +198,25 @@ function initMap() {
   
     stores.forEach((store) => {
       // Add store details with text formatting
-      const storeButton = document.createElement('button');
-      storeButton.classList.add('place');
+      const storeButton = document.createElement('a');
+      storeButton.classList.add('button');
+      storeButton.classList.add('btn2');
+      storeButton.classList.add('btn-orange');
       const currentStore = data.getFeatureById(store.storeid);
       storeButton.textContent = currentStore.getProperty('name');
-      panel.appendChild(storeButton);
-      //creating the actual pabel types
+      storeButton.id = currentStore.getProperty('storeid');
+
+      //set the parameter to the primaryKey after changing
+      storeButton.href = "/storepage/" + storeButton.id;
+
+      //creates the distance portion to be under the store name
       const distanceText = document.createElement('p');
       distanceText.classList.add('distanceText');
       distanceText.textContent = store.distanceText;
-      panel.appendChild(distanceText);
+
+      //appends distancetext to button and then puts button onto the panel
+      storeButton.appendChild(distanceText)
+      panel.appendChild(storeButton);
     });
   
     // Open the panel
