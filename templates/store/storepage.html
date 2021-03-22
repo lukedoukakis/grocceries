@@ -26,6 +26,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
 <link href="{% static 'css/grocceries.css' %}" rel="stylesheet" media="all" />
 
+<script src = "{% static 'store/js/store.js' %}"></script>
+
 <!-- font-awesome icons -->
 <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet"> 
 <!-- //font-awesome icons -->
@@ -169,7 +171,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //breadcrumbs -->
 <!-- Store Page -->
 
-ya mom a hoe, I said it
+<div id="itemsContainer" class = "centered">
+	
+</div>
+
+
+<!-- need to run this after otherwise page is not loaded yet and cannot search by div -->
+<script id="storePopulator" >
+	var myItems = "{{ items }}";
+	createStorePage(myItems);
+</script>
 
 <!-- Store Page -->
 <!-- //footer -->

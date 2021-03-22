@@ -2,6 +2,11 @@ a.orange{
     color:#fe9126;
 }
 
+.centered-text
+{
+  text-align: center;
+}
+
 .title-container
 {
     display: flex;

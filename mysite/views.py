@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import logout as user_logout
 from myapp.models import *
-
 from core import localdata
+import json
 
 # Create your views here.
 
@@ -40,8 +40,18 @@ def storeFinderPage(request):
 
 def storePage(request, storeIdentifier):
     print("Store Identifier: " + storeIdentifier)
-    return render(request, 'store/storepage.html')
 
+    store = Vendor.objects.get(storeID = storeIdentifier)
+    string = ""
+
+    for Item in store.items.all():
+        string += Item.name + "{" + str(Item.price) + "}" + "|"
+
+    context = {
+        'items': string
+    }
+
+    return render(request, 'store/storepage.html', context)
 
 def simple_function(request):
     print("\nthis is a simple function\n")
