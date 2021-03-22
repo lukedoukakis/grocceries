@@ -43,50 +43,49 @@ def logout(request):
 
 def storeFinderPage(request):
     #load json file here with data
-    #why is this staticToAdd here? does not work if its static
-    stores = path.join(BASE_DIR, "staticToAdd/map/js", "dynamicStores.json")
+    #cant leave it like this
+    # stores = path.join(BASE_DIR, "staticToAdd/map/js", "stores.json")
     
-    masterStoreDict = {}
-    masterStoreDict.update({"type": "FeatureCollection"})
-    features = []
+    # masterStoreDict = {}
+    # masterStoreDict.update({"type": "FeatureCollection"})
+    # features = []
     
-    #edit data here while still in table form
-    for vendor in Vendor.objects.all():
-        #get params from postgre table and set them up for json file
-        geometry = {
-            "type" : "Point",
-            "coordinates" : [float(vendor.longitude), float(vendor.latitude)]
-        }
-        properties = {
-            "category": vendor.category,
-            "hours": vendor.hours ,
-            "description": vendor.description ,
-            "name": vendor.name ,
-            "phone": str(vendor.phone) ,
-            "storeid": vendor.storeID
-        }
+    # #edit data here while still in table form
+    # for vendor in Vendor.objects.all():
+    #     #get params from postgre table and set them up for json file
+    #     geometry = {
+    #         "type" : "Point",
+    #         "coordinates" : [float(vendor.longitude), float(vendor.latitude)]
+    #     }
+    #     properties = {
+    #         "category": vendor.category,
+    #         "hours": vendor.hours ,
+    #         "description": vendor.description ,
+    #         "name": vendor.name ,
+    #         "phone": str(vendor.phone) ,
+    #         "storeid": vendor.storeID
+    #     }
 
-        #create the individual storeDict for each store entry in database
-        storeDict = {}
-        storeDict.update({"geometry":geometry})
-        storeDict.update({"type": "Feature"})
-        storeDict.update({"properties":properties})
+    #     #create the individual storeDict for each store entry in database
+    #     storeDict = {}
+    #     storeDict.update({"geometry":geometry})
+    #     storeDict.update({"type": "Feature"})
+    #     storeDict.update({"properties":properties})
 
-        #add store dict to our features
-        features.append(storeDict)
+    #     #add store dict to our features
+    #     features.append(storeDict)
 
-    #write features(aka stores) to master list
-    masterStoreDict.update({"features": features})
-    print(masterStoreDict)
+    # #write features(aka stores) to master list
+    # masterStoreDict.update({"features": features})
 
-    #write stores to json file
-    with open(stores, 'w') as outfile:  
-        json.dump(masterStoreDict, outfile)
+    # #write stores to json file
+    # with open(stores, 'w') as outfile:  
+    #     json.dump(masterStoreDict, outfile)
 
     return render(request, 'map/storelocator.html')
 
 def storePage(request, storeIdentifier):
-    print(storeIdentifier)
+    print("Store Identifier: " + storeIdentifier)
     return render(request, 'store/storepage.html')
 
 

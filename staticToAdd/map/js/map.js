@@ -13,8 +13,12 @@ function initMap() {
     });
   
     // Load the stores GeoJSON onto the map.
-    //map.data.loadGeoJson('/static/map/js/stores.json', {idPropertyName: 'storeid'});
-    map.data.loadGeoJson('/static/map/js/dynamicStores.json', {idPropertyName: 'storeid'});
+    map.data.loadGeoJson('/static/map/js/stores.json', {idPropertyName: 'storeid'});
+
+    map.data.forEach((store) => {
+      const storeNum = store.getProperty('storeid');
+      console.log(storeNum);
+    });
 
     const apiKey = 'AIzaSyDbk5hppk7xa364BV9kbZxlsH36Pv3G01M';
     const infoWindow = new google.maps.InfoWindow();
