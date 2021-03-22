@@ -3,7 +3,7 @@ function initMap() {
     // Create the map.
     const uluru = { lat: 34, lng: -117 };
     const map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 6,
+      zoom: 9,
       center: uluru, 
       disableDefaultUI: true,
     });
@@ -87,7 +87,7 @@ function initMap() {
      // Recenter the map to the selected address
      originLocation = place.geometry.location;
      map.setCenter(originLocation);
-     map.setZoom(9);
+     map.setZoom(11);
      //logs the place we recenter too
      //console.log(place);
  

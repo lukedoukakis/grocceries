@@ -1,7 +1,6 @@
 from myapp.models import Vendor
 from mysite.settings import BASE_DIR
 import json
-from django.conf import settings
 from os import path
 from django.db import models
 from django.core.management.base import BaseCommand
