@@ -194,25 +194,16 @@ function initMap() {
   
     stores.forEach((store) => {
       // Add store details with text formatting
-      const storeButton = document.createElement('a');
-      storeButton.classList.add('button');
-      storeButton.classList.add('btn2');
-      storeButton.classList.add('btn-orange');
+      const storeButton = document.createElement('button');
+      storeButton.classList.add('place');
       const currentStore = data.getFeatureById(store.storeid);
       storeButton.textContent = currentStore.getProperty('name');
-      storeButton.id = currentStore.getProperty('storeid');
-
-      //set the parameter to the primaryKey after changing
-      storeButton.href = "/storepage/" + storeButton.id;
-
-      //creates the distance portion to be under the store name
+      panel.appendChild(storeButton);
+      //creating the actual pabel types
       const distanceText = document.createElement('p');
       distanceText.classList.add('distanceText');
       distanceText.textContent = store.distanceText;
-
-      //appends distancetext to button and then puts button onto the panel
-      storeButton.appendChild(distanceText)
-      panel.appendChild(storeButton);
+      panel.appendChild(distanceText);
     });
   
     // Open the panel

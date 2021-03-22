@@ -1,7 +1,7 @@
 {% load static %}
 {% load admin_urls %}
 
-<!-- //TODO: fix all page redirections-->
+<!-- //TODO: fix the store panel and search not being dynamic-->
 <!-- //TODO: fix all static issues-->
 
 <!--
@@ -49,41 +49,106 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 	
 <body>
-	<section class="menu menu--circle">
-        <input type="checkbox" id="menu__active"/>
-        <label for="menu__active" class="menu__active">
-          <div class="menu__toggle">
-            <div class="icon">
-              <div class="hamburger"></div>
-            </div>
-          </div>
-          <input type="radio" name="arrow--up" id="degree--up-0"/>
-          <input type="radio" name="arrow--up" id="degree--up-1" />
-          <input type="radio" name="arrow--up" id="degree--up-2" />
-          <div class="menu__listings">
-            <ul class="circle">
-              <li>
-                <div class="placeholder">
-                  <div class="upside">
-                    <a href="{% url 'account' %}" class="button"><i class="fa fa-user"></i></a>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="placeholder">
-                  <div class="upside">
-                    <a href="#" class="button"><i class="fa fa-cog"></i></a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </label>
-      </section>
+  <section class="menu menu--circle">
+    <input type="checkbox" id="menu__active"/>
+    <label for="menu__active" class="menu__active">
+      <div class="menu__toggle">
+        <div class="icon">
+          <div class="hamburger"></div>
+        </div>
+      </div>
+      <input type="radio" name="arrow--up" id="degree--up-0"/>
+      <input type="radio" name="arrow--up" id="degree--up-1" />
+      <input type="radio" name="arrow--up" id="degree--up-2" />
+      <div class="menu__listings">
+  <ul class="circle">
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="{% url 'account' %}" class="button"><i class="fa fa-user"></i></a>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="{% url 'logout' %}" class="button"><i class="fa fa-sign-out"></i></a>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="#">&nbsp</a>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="#" class="button"><i class="fa fa-commenting"></i></a>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="#" class="button"><i class="fa fa-trash"></i></a>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="#" class="button"><i class="fa fa-battery-4"></i></a>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="#" class="button"><i class="fa fa-calendar"></i></a>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="#" class="button"><i class="fa fa-cloud"></i></a>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="#" class="button"><i class="fa fa-wifi"></i></a>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="placeholder">
+      <div class="upside">
+      <a href="{% url 'storeFinder' %}" class="button"><i class="fa fa-map-marker"></i></a>
+      </div>
+    </div>
+    </li>
+  </ul>
+  </div>
+  <div class="menu__arrow menu__arrow--top">
+  <ul>
+    <li>
+    <label for="degree--up-0"><div class="arrow"></div></label>
+    <label for="degree--up-1"><div class="arrow"></div></label>
+    <label for="degree--up-2"><div class="arrow"></div></label>
+    </li>
+  </ul>
+  </div>
+    </label>
+  </section>
 <!-- header -->
 <div class="agileits_header">
 	<div class="title-container">
-		<h1><a class = "orange" href="{% url 'home' %}">Grocceries</a></h1>
+		<h1><a class = "orange" href="{% url 'home'%}">Grocceries</a></h1>
 	</div>
 </div>
 
@@ -97,7 +162,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 				<li class="active">Store Locator</li>
 			</ol>
 		</div>
@@ -176,25 +241,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     
     .open {
       width: 250px;
-    }
-    
-    .place {
-      font-family: 'open sans', arial, sans-serif;
-      font-size: 1.2em;
-      font-weight: 500;
-      margin-block-end: 0px;
-      padding-left: 18px;
-      padding-right: 18px;
-    }
-    
-    .distanceText {
-      color: silver;
-      font-family: 'open sans', arial, sans-serif;
-      font-size: 1em;
-      font-weight: 400;
-      margin-block-start: 0.25em;
-      padding-left: 18px;
-      padding-right: 18px;
     }
   </style>
 

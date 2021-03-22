@@ -14,12 +14,16 @@ a.orange{
     padding-bottom: 40px;
 }
 
+/* custom buttons */
+
+
 /* Styling for the menu */
   .icon {
     position: absolute;
     top: 70%;
     left: 70%;
     transform: translateX(-50%) translateY(-50%);
+    overflow: visible;
   }
   .hamburger {
     content: ' ';
