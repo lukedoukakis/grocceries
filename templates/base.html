@@ -128,7 +128,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			  <li>
 				<div class="placeholder">
 				  <div class="upside">
-					<a href="{% url 'storeFinder' %}" class="button"><i class="fa fa-map-marker"></i></a>
+					<a href="{% url 'storeLocator' %}" class="button"><i class="fa fa-map-marker"></i></a>
 				  </div>
 				</div>
 			  </li>
@@ -153,41 +153,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 <!-- //header -->
-<!-- navigation -->
+<!-- content -->
+{% block content %}
 
-
-<!-- //navigation -->
-<!-- breadcrumbs -->
-	<div class="breadcrumbs">
-		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Login Page</li>
-			</ol>
-		</div>
-	</div>
-<!-- //breadcrumbs -->
-<!-- login -->
-	<div class="login">
-		<div class="container">
-			<h2>Login Form</h2>
-		
-			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<form method="post" class = "from-group">
-					{% csrf_token %}
-					{{form | crispy}}
-					<div class="forgot">
-						<a href="#">Forgot Password?</a>
-					</div>
-					<input type="submit" value="Login">
-				</form>
-			</div>
-			<h4>For New People</h4>
-			<p><a href="{% url 'register' %}">Register Here</a></span></a></p>
-			<p><a href="{% url 'storeFinder' %}">See Nearby Stores</a></span></a></p>
-		</div>
-	</div>
-<!-- //login -->
+{% endblock %}
+<!-- //content-->
 <!-- //footer -->
 <div class="footer">
 		<div class="container">
