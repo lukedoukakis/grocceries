@@ -18,12 +18,12 @@ from django.urls import path, re_path, include
 from register import views as vr
 from . import views
 from core import views as views_core
+from storelocator import views as views_storelocator
 
 urlpatterns = [
     re_path(r'^$', views.homepage, name='home'),
     re_path(r'^register/$', vr.register, name='register'),
-    re_path(r"^loginRedirect/$", views.loginRedirect, name="loginRedirect"),
-    re_path(r'^storeLocator/$', views.storeFinderPage, name='storeFinder'),
+    re_path(r'^storeLocator/$', views_storelocator.storeLocatorPage, name='storeLocator'),
     re_path(r'^account/$', views.accountInfoPage, name='account'),
     re_path(r'^logout/$', views.logout, name='logout'),
     re_path(r'^storepage/(?P<storeIdentifier>\d+)/$', views.storePage, name='storepage'),

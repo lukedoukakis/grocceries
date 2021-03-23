@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
     # our local apps
     'myapp',    # app that database models are in must be listed here
-    'map',      # map app
+    'storelocator',      # map app
     'account',
     'core',
     'register'
@@ -83,7 +83,7 @@ TEMPLATES = [
     },
 ]
 
-#AUTH_USER_MODEL = 'myapp.Account'
+AUTH_USER_MODEL = 'account.Account'
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
