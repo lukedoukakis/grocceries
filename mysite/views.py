@@ -41,7 +41,8 @@ def storeFinderPage(request):
 def storePage(request, storeIdentifier):
     print("Store Identifier: " + storeIdentifier)
 
-    store = Vendor.objects.get(storeID = storeIdentifier)
+    store = Vendor.objects.get(id = storeIdentifier)
+
     string = ""
 
     for Item in store.items.all():
@@ -59,6 +60,16 @@ def storePage(request, storeIdentifier):
     }
 
     return render(request, 'store/storepage.html', context)
+
+def itemPage(request, itemIdentifier):
+
+    item = Item.objects.get(name = itemIdentifier)
+
+    context = {
+        'itemName': item.name
+    }
+
+    return render(request, 'item/itempage.html', context)
 
 def simple_function(request):
     print("\nthis is a simple function\n")
