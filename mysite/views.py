@@ -36,17 +36,35 @@ def logout(request):
 def storePage(request, storeIdentifier):
     print("Store Identifier: " + storeIdentifier)
 
-    store = Vendor.objects.get(storeID = storeIdentifier)
+    store = Vendor.objects.get(id = storeIdentifier)
+
     string = ""
 
     for Item in store.items.all():
         string += Item.name + "{" + str(Item.price) + "}" + "|"
 
     context = {
-        'items': string
+        'vendorItems': string,
+        'vendorName': store.name,
+        'vendorAddress': store.address,
+        'vendorCategory': store.category,
+        'vendorHours': store.hours,
+        'vendorPhone': store.phone,
+        'vendorDescription': store.description,
+
     }
 
     return render(request, 'store/storepage.html', context)
+
+def itemPage(request, itemIdentifier):
+
+    item = Item.objects.get(name = itemIdentifier)
+
+    context = {
+        'itemName': item.name
+    }
+
+    return render(request, 'item/itempage.html', context)
 
 def simple_function(request):
     print("\nthis is a simple function\n")

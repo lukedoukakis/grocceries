@@ -17,15 +17,67 @@
 <!-- //breadcrumbs -->
 <!-- Store Page -->
 
-<div id="itemsContainer" class = "centered">
-	
+
+<div class="login">
+	<div style="padding-bottom:28px" class="container">
+		<h2 id="NAME"></h2>
+		<p style="font-size:28px;color:black" id="DESCRIPTION"><p>	
+		<p style="font-size:14px" id="ADDRESS"><p>
+		<p style="font-size:14px" id="PHONE"><p>
+	</div>
+	<h2 style="font-size:24px;">Selection</h2>
+	<p id=itemsContainer></p>
 </div>
+
 
 
 <!-- need to run this after otherwise page is not loaded yet and cannot search by div -->
 <script id="storePopulator" >
-	var myItems = "{{ items }}";
-	createStorePage(myItems);
+	
+	var vendorItems = "{{ vendorItems }}";
+	var vendorName = "{{ vendorName }}";
+	var vendorAddress = "{{ vendorAddress }}";
+	var vendorCategory = "{{ vendorCategory }}";
+	var vendorHours = "{{ vendorHours }}";
+	var vendorPhone = "{{ vendorPhone }}";
+	var vendorDescription = "{{ vendorDescription }}";
+
+
+	// itemsContainer
+	splitItems = vendorItems.split("|");
+    const itemContainer = document.getElementById('itemsContainer');
+    for(i = 0; i < splitItems.length - 1; i++)
+    {
+        itemInfo = splitItems[i].split("{");
+        itemName = itemInfo[0];
+        itemPrice = itemInfo[1].replace('}', '');
+        const itemUI = document.createElement('a');
+      	itemUI.classList.add('button');
+      	itemUI.classList.add('btn2');
+      	itemUI.classList.add('btn-orange');
+      	itemUI.textContent = itemName;
+      	itemUI.id = currentStore.getProperty('storeid');
+
+      	//set the parameter to the primaryKey after changing
+      	itemUI.href = "/storepage/" + itemUI.id;
+
+
+
+		//itemUI.setAttribute('href', "http://google.com");
+		//itemUI.setAttribute('href', "{% url 'itempage' %}");
+
+		itemUI.style.fontSize="large";
+		itemUI.style.color="black";
+        itemContainer.appendChild(itemUI);
+    }
+
+	document.getElementById("NAME").innerHTML = vendorName;
+	document.getElementById("DESCRIPTION").innerHTML = vendorDescription;
+	document.getElementById("ADDRESS").innerHTML = vendorAddress;
+	document.getElementById("PHONE").innerHTML = vendorPhone;
+	
+	// store.js function not running atm
+	// window.onload = createStorePage(myItems);
 </script>
 
 <!-- //Store Page -->
