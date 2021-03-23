@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import AccountCreationForm
 from account.models import Account
 from django.db import IntegrityError
 from django.contrib.auth import authenticate , login
@@ -8,30 +8,25 @@ from django.contrib.auth.models import User
 
 # used for register page
 def register(response):
-    
+    args = {}
     try:
         if response.method == "POST":
-            form = RegisterForm(response.POST)
+            form = AccountCreationForm(response.POST)
             if form.is_valid():
-                userEmail = form.cleaned_data['email']
-                print(userEmail)
-                if User.objects.filter(email = userEmail).exists(): # if email already exisits in database for users
-                    return render(response,"account/registered.html",{"form":form , "emailPresent":True} , )
-                    
-                else: # if email is unique go here 
-                    user = form.save()
-        
-                    account = Account(
-                            email=user.email, user=user, firstName=user.first_name, lastName=user.last_name)
-                    account.save()
-                    
-                    login(response,user)
-                    return render(response, 'myapp/landingPage.html')
+                user = form.save()
+    
+                account = Account(email=user.email, user=user, firstName=user.first_name, lastName=user.last_name)
+                account.save()
+                
+                login(response,user)
+                return redirect('loginRedirect')
                 # after logging in add redirect page here
-
-    except IntegrityError:
+        else:
+            form = AccountCreationForm()
+        args['form'] = form
             
-            return render(response, 'myapp/landingPage.html')
+    except IntegrityError as e:
+        return render(response, 'account/registered.html', {"message":e.message})
 
 
     form = RegisterForm()

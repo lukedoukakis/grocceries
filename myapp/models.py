@@ -1,5 +1,8 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+import uuid
 
 # Create your models here.
 
@@ -42,9 +45,13 @@ class Address(models.Model):
 
 
 class Item(models.Model):
-    name = models.CharField(
-        max_length=255, default="default", primary_key=True, unique=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255, default="default")
+    quantity = models.IntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def get_quantity():
+        return quantity
 
 
 class Nutrition(models.Model):
@@ -56,20 +63,15 @@ class Nutrition(models.Model):
     protein = models.CharField(max_length=255)
 
 
-class ShoppingCart(models.Model):
-    items = models.ForeignKey(Item, on_delete=models.CASCADE)
-
-
 class Order(models.Model):
     driver = models.CharField(max_length=255)
 
 
 class Vendor(models.Model):
-    name = models.CharField(
-        max_length=255, default="default", primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(blank=False, max_length=255, default="default")
+    inventory = models.ForeignKey(Item, on_delete=models.CASCADE)
     address = models.CharField(max_length=255, default="default")
-    # items = models.ForeignKey(Item, on_delete=models.CASCADE)
-    items = models.ManyToManyField(Item)
     latitude = models.DecimalField(
         max_digits=30, decimal_places=7, default=0.0)
     longitude = models.DecimalField(
@@ -78,10 +80,17 @@ class Vendor(models.Model):
     hours = models.CharField(max_length=255, default='default')
     phone = PhoneNumberField(null=False, blank=False)
     description = models.TextField(default="default")
-    storeID = models.IntegerField(default=0)
 
 # FUNCTIONS
 
+#(item.get_attname('quantity') if item.get_attname('quantity') < 100 else 100)
+class CartItem(models.Model):
+    vendor = models.OneToOneField(Vendor, null=True,on_delete=models.SET_NULL)
+    item = models.OneToOneField(Item, null=True, on_delete=models.SET_NULL)
+    quantity = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
+
+class ShoppingCart(models.Model):
+    cartItems = models.ForeignKey(CartItem, on_delete=models.CASCADE)
 
 def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
 
