@@ -48,7 +48,14 @@ def storePage(request, storeIdentifier):
         string += Item.name + "{" + str(Item.price) + "}" + "|"
 
     context = {
-        'items': string
+        'vendorItems': string,
+        'vendorName': store.name,
+        'vendorAddress': store.address,
+        'vendorCategory': store.category,
+        'vendorHours': store.hours,
+        'vendorPhone': store.phone,
+        'vendorDescription': store.description,
+
     }
 
     return render(request, 'store/storepage.html', context)
