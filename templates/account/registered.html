@@ -5,6 +5,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<!-- Scripts -->
+<script type="text/javascript" src="{% static 'register/js/form_validation.js' %}"></script>
+
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
@@ -19,32 +22,25 @@
 	<div class="register">
 		<div class="container">
 			<h2>Register Here</h2>
-			<!-- {% if emailPresent == True %} -->
-				<h4 style="color:red;text-align:center;margin-top: 5em;" >Email is already taken</h4>
-
     <!-- Do something which you want to do with unauthenticated user -->
-			<!-- {% endif %} -->
 			<div class="login-form-grids">
 				<h5>profile information</h5>
 				<form class = form-group method="POST" >
 					{% csrf_token %}
-					<!-- <input type="text" placeholder="First Name..." required=" " >
-					
-					<input type="text" placeholder="Last Name..." required=" " >
-					<input type="email" placeholder="Email Address" required=" " >
-				
-				 -->
 				 
-					{{form|crispy}}
+					{{registration_form|crispy}}
+					{% comment %} {{registration_form.username | as_crispy_form}}
+					<medium id="validate_user_name" class="text-muted hidden">
+					<font color="red">
+						User Name Already Exits!
+					</font> {% endcomment %}
+					</medium><br />
+
 					<div class="register-check-box">
 						<div class="check">
 							<label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>I accept the terms and conditions</label>
 						</div>
-					<!-- <input type="email" name = "userEmail" placeholder="User Name" required=" " >
-					<input type="password" placeholder="Password" required=" " >
-					<input type="password" placeholder="Password Confirmation" required=" " >
-					
-					</div> -->
+					</div>
 					<input type="submit" value="Register">
 				</form>
 			</div>

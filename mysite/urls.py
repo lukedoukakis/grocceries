@@ -23,7 +23,6 @@ from storelocator import views as views_storelocator
 urlpatterns = [
     re_path(r'^$', views.homepage, name='home'),
     re_path(r'^register/$', vr.register, name='register'),
-    re_path(r"^loginRedirect/$", views.loginRedirect, name="loginRedirect"),
     re_path(r'^storeLocator/$', views_storelocator.storeLocatorPage, name='storeLocator'),
     re_path(r'^account/$', views.accountInfoPage, name='account'),
     re_path(r'^logout/$', views.logout, name='logout'),

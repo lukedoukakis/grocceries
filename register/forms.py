@@ -2,32 +2,21 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 from account.models import Account
 
 
 class AccountCreationForm(UserCreationForm):
+    email = forms.EmailField(max_length=60, required=True)
+    phone = PhoneNumberField()
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+
     class Meta:
         model = Account
-        fields = ("email", "username", "first_name",
-                           "last_name", "password1", "password2",)
+        fields = ("username", "email", "first_name",
+                           "last_name", "phone", "password1", "password2",)
 
-    def clean_email(self):
-        # Get the email
-        email = self.cleaned_data.get('email')
-        # Check to see if any users already exist with this email as a username.
-        try:
-            match = Account.objects.get(email=email)
-        except User.DoesNotExist:
-            # Unable to find a user, this is fine
-            return email
-        
-        # A user was found with this as a email address, raise an error.
-        raise forms.ValidationError(self.error_messages['email_exists'], code='email_exists')
-
-    def save(self, commit=True):
-        account = super().save(commit=False)
-        account.set_password(self.cleaned_data)
-
-
-   
+    def clean_phone(self):
+        phone = self.cleaned_data['phone']

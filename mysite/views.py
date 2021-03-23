@@ -17,11 +17,10 @@ def accountInfoPage(request):
 
 def loginRedirect(request):
     # store the logged in account to localdata
-    localdata.LocalData.account = request.user.account
-    print(localdata.LocalData.account.user.username)
+    localdata.LocalData.account = request.user
 
     # redirect to appropriate page
-    return render(request, 'myapp/landingPage.html')
+    return render(request, 'profile/accountinfo.html')
 
 def loginPage(request):
     return render(request, 'registration/login.html')

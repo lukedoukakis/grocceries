@@ -50,9 +50,6 @@ class Item(models.Model):
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
-    def get_quantity():
-        return quantity
-
 
 class Nutrition(models.Model):
     item = models.OneToOneField(Item, on_delete=models.CASCADE)
