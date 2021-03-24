@@ -1009,13 +1009,7 @@ a.w3_agile_vimeo:hover{
 	text-transform:uppercase;
 	margin:0 0 2em;
 }
-.login-form-grids input[type="text"]{
-	background:url(../images/img-sp.png) no-repeat 5px -259px #fff;
-}
-.login-form-grids input[type="text"]:nth-child(2){
-	background:url(../images/img-sp.png) no-repeat 0px -298px #fff;
-	margin:1em 0;
-}
+/*  */
 .register-check-box label{
 	font-size:14px;
 	font-weight:500;
@@ -1052,7 +1046,6 @@ a.w3_agile_vimeo:hover{
 }
 .checkbox input,.radio input {
     position: absolute;
-    left: -9999px;
 }
 .checkbox input + i:after {
     content: '';
@@ -1620,15 +1613,7 @@ h3.w3_agile_header:after,h2.w3_agile_header:after{
     position: relative;
     display: inline-block;
 }
-.testi span.w3-agilesub {
-    position: absolute;
-    background: url(../images/icon3.png) no-repeat 0px 0px;
-    display: block;
-    width: 30px;
-    height: 29px;
-    top: 0%;
-    right: 0%;
-}
+
 .testi-slider {
     padding: 4em 2em 3em;
     background: #3399cc;

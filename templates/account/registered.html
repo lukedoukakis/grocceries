@@ -6,7 +6,6 @@
 
 {% block content %}
 <!-- Scripts -->
-<script type="text/javascript" src="{% static 'register/js/form_validation.js' %}"></script>
 
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
@@ -25,23 +24,39 @@
     <!-- Do something which you want to do with unauthenticated user -->
 			<div class="login-form-grids">
 				<h5>profile information</h5>
-				<form class = form-group method="POST" >
-					{% csrf_token %}
+				<form method="POST" >
+					{% comment %} {% csrf_token %}
 				 
-					{{registration_form|crispy}}
-					{% comment %} {{registration_form.username | as_crispy_form}}
-					<medium id="validate_user_name" class="text-muted hidden">
-					<font color="red">
-						User Name Already Exits!
-					</font> {% endcomment %}
-					</medium><br />
+					{{registration_form|crispy}} {% endcomment %}
 
+					{%csrf_token%}
+					{% crispy registration_form %}
+					{% comment %} <div class="form-group mb-0">
+						{{ registration_form.username|as_crispy_field }}
+					</div>
+					<div class="form-group mb-0">
+						{{ registration_form.email|as_crispy_field }}
+					</div>
+					<div class="form-group mb-0">
+						{{ registration_form.phone|as_crispy_field }}
+					</div>
+					<div class="form-group mb-0">
+						{{ registration_form.password1|as_crispy_field }}
+					</div>
+					<div class="form-group mb-0">
+						{{ registration_form.password2|as_crispy_field }}
+					</div>
+					{{ registration_form.check_tac|as_crispy_field }}
+
+					<input type="submit" class="btn btn-primary" value="Register"> {% endcomment %}
+
+					{% comment %} </medium><br /> {% endcomment %}
+{% comment %} 
 					<div class="register-check-box">
 						<div class="check">
 							<label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>I accept the terms and conditions</label>
 						</div>
-					</div>
-					<input type="submit" value="Register">
+					</div> {% endcomment %}
 				</form>
 			</div>
 			<div class="register-home">

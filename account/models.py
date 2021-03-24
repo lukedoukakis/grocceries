@@ -9,7 +9,7 @@ from django.utils import timezone
 
 #
 class AccountManager(BaseUserManager):
-    def create_user(self, username, email, first_name, last_name, password):
+    def create_user(self, username, email, first_name, last_name, password, phone=None):
         if not email:
             raise ValueError('Accounts must have an email address')
         if not username:
@@ -26,7 +26,8 @@ class AccountManager(BaseUserManager):
             password=password,
             email=self.normalize_email(email),
             first_name=first_name,
-            last_name=last_name
+            last_name=last_name,
+            phone=phone,
         )
 
         account.set_password(password)

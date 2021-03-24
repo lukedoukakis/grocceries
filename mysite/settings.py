@@ -146,5 +146,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "staticToAdd",
 ]
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 # where do we go after loging in
 LOGIN_REDIRECT_URL = "account"
