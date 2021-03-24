@@ -37,31 +37,33 @@ def storePage(request, storeIdentifier):
     print("Store Identifier: " + storeIdentifier)
 
     store = Vendor.objects.get(id = uuid.UUID(storeIdentifier))
-
-    string = ""
-
+    itemNameString = ""
+    itemIDString = ""
     for item in store.inventory.all():
-        string += item.name + "{" + str(item.price) + "," + str(item.quantity) + "}" + "|"
+        itemNameString += item.name + "{" + str(item.price) + "," + str(item.quantity) + "}" + "|"
+        itemIDString += str(item.id) + "|"
 
     context = {
-        'vendorItems': string,
+        'vendorID': storeIdentifier,
         'vendorName': store.name,
+        'vendorItemNames': itemNameString,
+        'vendorItemIDs': itemIDString,
         'vendorAddress': store.address,
         'vendorCategory': store.category,
         'vendorHours': store.hours,
         'vendorPhone': store.phone,
         'vendorDescription': store.description,
-
     }
 
     return render(request, 'store/storepage.html', context)
 
 def itemPage(request, itemIdentifier):
 
-    item = Item.objects.get(name = itemIdentifier)
+    item = Item.objects.get(id = uuid.UUID(itemIdentifier))
 
     context = {
-        'itemName': item.name
+        'itemID': itemIdentifier,
+        'itemName': item.name,
     }
 
     return render(request, 'item/itempage.html', context)
