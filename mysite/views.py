@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import logout as user_logout
 from myapp.models import *
 from core import localdata
-import json
+import uuid
 
 # Create your views here.
 
@@ -36,12 +36,12 @@ def logout(request):
 def storePage(request, storeIdentifier):
     print("Store Identifier: " + storeIdentifier)
 
-    store = Vendor.objects.get(id = storeIdentifier)
+    store = Vendor.objects.get(id = uuid.UUID(storeIdentifier))
 
     string = ""
 
-    for Item in store.items.all():
-        string += Item.name + "{" + str(Item.price) + "}" + "|"
+    for item in store.inventory.all():
+        string += item.name + "{" + str(item.price) + "," + str(item.quantity) + "}" + "|"
 
     context = {
         'vendorItems': string,

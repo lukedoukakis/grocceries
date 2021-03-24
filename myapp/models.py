@@ -67,7 +67,7 @@ class Order(models.Model):
 class Vendor(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(blank=False, max_length=255, default="default")
-    inventory = models.ForeignKey(Item, on_delete=models.CASCADE)
+    inventory = models.ManyToManyField(Item)
     address = models.CharField(max_length=255, default="default")
     latitude = models.DecimalField(
         max_digits=30, decimal_places=7, default=0.0)

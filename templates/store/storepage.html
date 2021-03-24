@@ -32,49 +32,9 @@
 
 
 <!-- need to run this after otherwise page is not loaded yet and cannot search by div -->
+<script src = "{% static 'store/js/store.js' %}"></script>
 <script id="storePopulator" >
-	
-	var vendorItems = "{{ vendorItems }}";
-	var vendorName = "{{ vendorName }}";
-	var vendorAddress = "{{ vendorAddress }}";
-	var vendorCategory = "{{ vendorCategory }}";
-	var vendorHours = "{{ vendorHours }}";
-	var vendorPhone = "{{ vendorPhone }}";
-	var vendorDescription = "{{ vendorDescription }}";
-
-
-	// itemsContainer
-	splitItems = vendorItems.split("|");
-    const itemContainer = document.getElementById('itemsContainer');
-    for(i = 0; i < splitItems.length - 1; i++)
-    {
-        itemInfo = splitItems[i].split("{");
-        itemName = itemInfo[0];
-        itemPrice = itemInfo[1].replace('}', '');
-        const itemUI = document.createElement('a');
-      	itemUI.classList.add('button');
-      	itemUI.classList.add('btn2');
-      	itemUI.classList.add('btn-orange');
-      	itemUI.textContent = itemName;
-      	itemUI.id = currentStore.getProperty('storeid');
-
-      	//set the parameter to the primaryKey after changing
-      	itemUI.href = "/storepage/" + itemUI.id;
-
-
-
-		//itemUI.setAttribute('href', "http://google.com");
-		//itemUI.setAttribute('href', "{% url 'itempage' %}");
-
-		itemUI.style.fontSize="large";
-		itemUI.style.color="black";
-        itemContainer.appendChild(itemUI);
-    }
-
-	document.getElementById("NAME").innerHTML = vendorName;
-	document.getElementById("DESCRIPTION").innerHTML = vendorDescription;
-	document.getElementById("ADDRESS").innerHTML = vendorAddress;
-	document.getElementById("PHONE").innerHTML = vendorPhone;
+    createStorePage( "{{ vendorItems }}" )
 	
 	// store.js function not running atm
 	// window.onload = createStorePage(myItems);

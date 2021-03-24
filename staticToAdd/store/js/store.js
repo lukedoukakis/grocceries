@@ -14,11 +14,13 @@ function createStorePage(items)
     {
         itemInfo = splitItems[i].split("{");
         itemName = itemInfo[0];
-        itemPrice = itemInfo[1].replace('}', '');
+        itemTraits = itemInfo[1].replace('}', '').split(',');
+        itemPrice = itemTraits[0];
+        itemQuantity = itemTraits[1];
 
         const itemUI = document.createElement('p');
         itemUI.classList.add('centered-text')
-        itemUI.textContent = itemName;
+        itemUI.textContent = "Name: " + itemName + " | Price: " + itemPrice + " | Item Quantity: " + itemQuantity;
 
         itemContainer.appendChild(itemUI);
     }
