@@ -1052,7 +1052,6 @@ a.w3_agile_vimeo:hover{
 }
 .checkbox input,.radio input {
     position: absolute;
-    left: -9999px;
 }
 .checkbox input + i:after {
     content: '';
