@@ -24,20 +24,64 @@
 		<p style="font-size:28px;color:black" id="DESCRIPTION"><p>	
 		<p style="font-size:14px" id="ADDRESS"><p>
 		<p style="font-size:14px" id="PHONE"><p>
+		<p style="font-size:14px" id="TEST"><p>
 	</div>
-	<h2 style="font-size:24px;">Selection</h2>
-	<p id=itemsContainer></p>
+	<div class="container">
+		<h2 style="font-size:24px;">Selection</h2>
+		<p id=itemsContainer></p>
+	</div>
 </div>
 
 
 
 <!-- need to run this after otherwise page is not loaded yet and cannot search by div -->
-<script src = "{% static 'store/js/store.js' %}"></script>
-<script id="storePopulator" >
-    createStorePage( "{{ vendorItems }}" )
+<script>
+
+	window.onload = function() {
+		var vendorID = "{{ vendorID }}";
+		var vendorName = "{{ vendorName }}";
+		var vendorItemNames = "{{ vendorItemNames }}";
+		var vendorItemIDs = "{{ vendorItemIDs }}";
+		var vendorAddress = "{{ vendorAddress }}";
+		var vendorCategory = "{{ vendorCategory }}";
+		var vendorHours = "{{ vendorHours }}";
+		var vendorPhone = "{{ vendorPhone }}";
+		var vendorDescription = "{{ vendorDescription }}";
+
+		//alert("vendorName: " + vendorName);
+
+
+		// vendor info
+		document.getElementById("NAME").innerHTML = vendorName;
+		document.getElementById("DESCRIPTION").innerHTML = vendorDescription;
+		document.getElementById("ADDRESS").innerHTML = vendorAddress;
+		document.getElementById("PHONE").innerHTML = vendorPhone;
+
+		// listing of items to be held as a button list
+		splitNames = vendorItemNames.split("|");
+		splitIDs = vendorItemIDs.split("|");
+    	const itemContainer = document.getElementById('itemsContainer');
+    	for(i = 0; i < splitNames.length - 1; i++)
+    	{
+    	    itemInfo = splitNames[i].split("{");
+    	    itemName = itemInfo[0];
+    	    itemPrice = itemInfo[1].replace('}', '');
+			itemID = splitIDs[i];
+    	    const itemUI = document.createElement('a');
+    	  	itemUI.classList.add('btn2');
+    	  	itemUI.textContent = itemName;
+    	  	itemUI.id = itemID;
+			itemUI.href = "/itempage/" + itemUI.id;
+			itemUI.style.fontSize="large";	
+			itemUI.style.color="black";
+    	    itemContainer.appendChild(itemUI);
+    	}
 	
-	// store.js function not running atm
-	// window.onload = createStorePage(myItems);
+		//alert("vendorName: " + vendorName);
+	};
+
+	
+
 </script>
 
 <!-- //Store Page -->
