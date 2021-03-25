@@ -31,18 +31,32 @@ function createStorePage(items, storeID)
         itemBox.appendChild(img);
         
         //making name box
-        const name = document.createElement('p');
+        const name = document.createElement('div');
         name.classList.add('item-text');
-        name.innerText = itemName;
+        name.innerText = itemName + " | " + "$" + itemPrice;
         itemBox.appendChild(name)
 
-        //making price box
-        const price = document.createElement('p');
-        price.classList.add('item-text');
-        price.innerText = "$" + itemPrice + " per";
-        itemBox.appendChild(price)
-
         //making purchasing section
-        
+        //quantity circle
+        const quantity = document.createElement('div');
+        quantity.classList.add("item-quantity");
+        quantity.innerText = "0"
+        itemBox.appendChild(quantity);
+
+        //plus button
+        const plus = document.createElement('button');
+        plus.classList.add("fa");
+        plus.classList.add("fa-plus");
+        plus.classList.add("item-plus");
+        itemBox.appendChild(plus);
+
+        //minus button
+        const minus = document.createElement('button');
+        minus.classList.add("fa");
+        minus.classList.add("fa-minus");
+        plus.classList.add("item-minus");
+        itemBox.appendChild(minus);
+
+        //add to cart button
     }
 }
