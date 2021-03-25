@@ -87,8 +87,8 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
 
 class ShoppingCart(models.Model):
-   
     cartItems = models.ManyToManyField(CartItem)
+    
 def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
 
     vendors = Vendor.objects.all()
