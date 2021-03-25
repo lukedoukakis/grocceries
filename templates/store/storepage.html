@@ -37,7 +37,7 @@
 <!-- need to run this after otherwise page is not loaded yet and cannot search by div -->
 <script src = "{% static 'store/js/store.js' %}"></script>
 <script>
-	createStorePage( "{{ vendorItems }}" )
+	createStorePage( "{{ vendorItems }}" , "{{ vendorID }}");
 
 	window.onload = function() {
 		var vendorID = "{{ vendorID }}";
