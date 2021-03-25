@@ -17,11 +17,32 @@ function createStorePage(items)
         itemTraits = itemInfo[1].replace('}', '').split(',');
         itemPrice = itemTraits[0];
         itemQuantity = itemTraits[1];
+        itemID = itemTraits[2];
 
-        const itemUI = document.createElement('p');
-        itemUI.classList.add('centered-text')
-        itemUI.textContent = "Name: " + itemName + " | Price: " + itemPrice + " | Item Quantity: " + itemQuantity;
+        //make item box
+        const itemBox = document.createElement('div');
+        itemBox.classList.add('item-display');
+        itemContainer.appendChild(itemBox);
 
-        itemContainer.appendChild(itemUI);
+        //make img
+        const img = document.createElement('img');
+        img.src = "https://image.shutterstock.com/image-photo/top-view-three-yellow-bananas-260nw-1875848530.jpg"
+        img.classList.add('item-image')
+        itemBox.appendChild(img);
+        
+        //making name box
+        const name = document.createElement('p');
+        name.classList.add('item-text');
+        name.innerText = itemName;
+        itemBox.appendChild(name)
+
+        //making price box
+        const price = document.createElement('p');
+        price.classList.add('item-text');
+        price.innerText = "$" + itemPrice + " per";
+        itemBox.appendChild(price)
+
+        //making purchasing section
+        
     }
 }

@@ -12,9 +12,9 @@ names = ["Albertdaughters", "TraderBros", "Halffood", "Rastas", "Food4More",
          "FoodCity", "Farmers Market", "Keyless Foods", "Shoppers"]
 
 lowLong = -118.22
-highLong = -117.25
-lowLat = 33.46
-highLat = 34.11
+highLong = -116.51
+lowLat = 33.47
+highLat = 34.44
 
 categories = ["Groccery Store"]
 hours = ["6am - 9pm", "7am - 11pm", "3am - 10pm"]
