@@ -40,13 +40,12 @@ def storePage(request, storeIdentifier):
     itemNameString = ""
     itemIDString = ""
     for item in store.inventory.all():
-        itemNameString += item.name + "{" + str(item.price) + "," + str(item.quantity) + "}" + "|"
-        itemIDString += str(item.id) + "|"
+        itemNameString += item.name + "{" + str(item.price) + "," + str(item.quantity) + "," + str(item.id) + "}" + "|"
 
     context = {
         'vendorID': storeIdentifier,
         'vendorName': store.name,
-        'vendorItemNames': itemNameString,
+        'vendorItems': itemNameString,
         'vendorItemIDs': itemIDString,
         'vendorAddress': store.address,
         'vendorCategory': store.category,
