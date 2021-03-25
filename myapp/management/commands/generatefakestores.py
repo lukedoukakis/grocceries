@@ -9,7 +9,7 @@ import sys
 
 names = ["Albertdaughters", "TraderBros", "Halffood", "Rastas", "Food4More",
          "Safepassage", "Big Foods", "Targate", "Wallmart", "LoseCo", "WrongAid",
-         "FoodCity", "Farmers Market", "Keyless Foods", "Shoppers"]
+         "FoodCity", "Farmers Market", "Keyless Foods", "Shoppers", "Beach Sand"]
 
 lowLong = -118.22
 highLong = -116.51
@@ -22,9 +22,24 @@ phoneStarters = ["714", "680", "737"]
 descriptions = ["Get grocceries here"]
 
 maxItemsPerStore = 15
-items = ["bananas", "cereal", "almondMilk", "2% milk", "lettuce", "artichoke",
-         "ketchup", "mustard", "orange", "lemon", "eggs", "wheat bread",
-         "tortiall chips", "parsley", "broccolo", "apple"]
+items = {
+    "bananas" : "https://cdn.pixabay.com/photo/2021/01/06/14/44/banana-5894585_1280.png",
+    "Crunch" : "https://static.openfoodfacts.org/images/products/005/844/918/1019/front_en.3.full.jpg",
+    "almondMilk" : "https://static.openfoodfacts.org/images/products/086/452/400/0119/front_en.3.full.jpg",
+    "organic milk" : "https://live.staticflickr.com/7033/6708778809_625d011112_b.jpg",
+    "lettuce" : "https://pixy.org/src/13/134601.jpg",
+    "artichoke" : "https://live.staticflickr.com/65535/49977513002_051593601b_b.jpg",
+    "ketchup" : "https://pixy.org/src/107/1076174.jpeg",
+    "mustard" : "https://live.staticflickr.com/1705/25790565000_5b5ab5e88c.jpg",
+    "orange" : "https://p2.piqsels.com/preview/424/486/419/fruits-oranges-thumbnail.jpg",
+    "lemon" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXUEqcrQiIOJZUV40NNRr7GSm7J0MJWkWXXA&usqp=CAU",
+    "eggs" : "https://live.staticflickr.com/3601/3428862342_639ceedf29_b.jpg",
+    "bread" : "https://static.openfoodfacts.org/images/products/007/874/201/2285/front_en.3.full.jpg",
+    "tortilla chips" : "https://static.openfoodfacts.org/images/products/008/411/411/2903/front_en.4.full.jpg",
+    "parsley" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDCogin6c5JozGlNIt8wxJ85OgBM4x4UNCdNKaqPlSkHykcVLNR8df_iEdVeOVMDW7juU&usqp=CAU",
+    "brocooli" : "https://live.staticflickr.com/7150/6828874023_5e90d6d097_b.jpg",
+} 
+
 quantityMax = 10
 priceMax = 10
 
@@ -42,11 +57,11 @@ def gen_phone():
 def gen_items(item_count):
     itemList = []
     for i in range(item_count):
-        name = random.choice(items)
+        name, url = random.choice(list(items.items()))
         quantity = random.randint(1,quantityMax)
         price = random.uniform(.99, priceMax)
 
-        newItem = Item(name=name, quantity=quantity, price=price)
+        newItem = Item(name=name, quantity=quantity, price=price, imgURL=url)
         newItem.save()
         itemList.append(newItem)
 

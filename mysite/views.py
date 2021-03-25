@@ -7,7 +7,6 @@ import uuid
 
 # Create your views here.
 
-
 def homepage(request):
     return render(request, 'myapp/landingPage.html')
 
@@ -40,7 +39,7 @@ def storePage(request, storeIdentifier):
     itemNameString = ""
     itemIDString = ""
     for item in store.inventory.all():
-        itemNameString += item.name + "{" + str(item.price) + "," + str(item.quantity) + "," + str(item.id) + "}" + "|"
+        itemNameString += item.name + "{" + str(item.price) + "," + str(item.quantity) + "," + str(item.id) + "," + item.imgURL + "}" + "|"
 
     context = {
         'vendorID': storeIdentifier,
