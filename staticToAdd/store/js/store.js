@@ -4,7 +4,7 @@
 //     createStorePage();
 //   };
 
-function createStorePage(items)
+function createStorePage(items, storeID)
 {
     splitItems = items.split("|");
 
