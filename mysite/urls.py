@@ -28,6 +28,9 @@ urlpatterns = [
     re_path(r'^logout/$', views.logout, name='logout'),
     re_path(r'^storepage/(?P<storeIdentifier>[\w\-]+)/$', views.storePage, name='storepage'),
     re_path(r'^itempage/(?P<itemIdentifier>[\w\-]+)/$', views.itemPage, name='itempage'),
+    re_path(r'^payment/$', views.paymentPage, name='payment'),
+    
+    
     path('admin/', admin.site.urls),
     path("simple_function", views.simple_function),
     path("get_vendors", views_core.get_vendors),

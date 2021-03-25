@@ -1,0 +1,160 @@
+{%extends "../base.html"%}
+{% load static %}
+
+{%block content%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<link href="{% static 'css/payment.css' %}" rel="stylesheet" type="text/css" media="all" />
+
+<head>
+    <!-- Add meta tags for mobile and IE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title> PayPal Smart Payment Buttons Integration | Client Demo </title>
+</head>
+
+<body  style = "overflow-x: hidden;"> 
+    <div  class = "topnav" style="cursor: pointer;">
+    {% for i in "123"  %} 
+    <!-- This is not an error it says it is but it is not  -->
+    <a onclick = "changeStore({{i}})">Store{{i}}  </a>
+    {% endfor %}
+    
+</div>
+    <div style="margin-top: 3em; margin-bottom: 3em;" class="row">
+        
+        <!-- box left -->
+        
+       
+        
+    
+        {% for i in "123"  %} 
+       
+        <!-- we want the first to be visible -->
+        
+        <div class="col-sm-8" style="visibility: visible; margin-left: 3.4em;" id = "store{{i}}">
+        
+       
+        
+             
+             <img id = "images{{i}}" src="{% static 'images/'|add:i|add:'.png' %}"> <p>Tata Chips Q:1</p>
+             
+           
+        </div>
+
+        {% endfor %}
+      
+        <!-- box right -->
+        <div class="col-sm-3" style="border: solid; "  >
+         {% for i in "123"  %} 
+          Store {{i}}: <br>
+          Tata Chips $20<br>
+          {% endfor %}
+          Total: $60
+          <div id="paypal-button-container" style="width: 10%;"></div>
+
+
+        </div>
+    </div>
+<!-- <div class = "container">
+    {% for i in "123"  %} 
+    <a class = "storeNames" style=" cursor: pointer;">Store{{i}} |</a>
+        {% endfor %}
+    <table class="table" style="width: 70%;">
+        <tbody>
+             #reference number of objects here to make list of items  -->
+            <!-- {% for i in "123"  %} 
+            <tr>
+                <th scope="col"><img src="{% static 'images/1.png'%}"> <br><p>Tata Chips Q:1</p></th><br>
+                
+            </tr>
+            {% endfor %}
+          
+        </tbody>
+        
+      </table>
+       --> 
+
+    <!-- Set up a container element for the button -->
+   
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&disable-funding=credit,card"></script>
+       <script> 
+                    function changeStore(storeNum) {
+                
+                       
+                       
+                   
+                    
+                             
+                        
+
+
+                        
+                    // will work for 100 stores
+                   
+                for(let i = 1;i<100;i++){
+                    if (storeNum==i)  
+                    try {
+                        //set image tags from cart data here 
+                        document.getElementById("images" + i).src = "{% static 'images/4.png' %}"
+                    }
+                    catch(error){
+
+                    }
+
+                }
+                    
+                }
+                    
+    
+        
+    
+    
+    
+    </script>
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+            style:{
+                color: 'gold',
+                shape: 'pill',
+                
+
+            },
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '88.44' // put total value here to charge
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {//if apporved do this
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                   
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                    window.location.href ="{% url 'home' %}"
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+
+      </div>
+
+    
+</div>
+
+</body>
+</html>
+    
+{%endblock%}

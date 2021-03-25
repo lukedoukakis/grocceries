@@ -71,3 +71,9 @@ def itemPage(request, itemIdentifier):
 def simple_function(request):
     print("\nthis is a simple function\n")
     return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
+
+
+def paymentPage(request):
+    return render(request,"payment/cardPayment.html")
+
+
