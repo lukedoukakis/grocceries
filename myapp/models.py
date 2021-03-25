@@ -49,6 +49,7 @@ class Item(models.Model):
     name = models.CharField(max_length=255, default="default")
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    imgURL = models.CharField(max_length=255, default="https://image.shutterstock.com/image-photo/top-view-three-yellow-bananas-260nw-1875848530.jpg")
 
 
 class Nutrition(models.Model):
