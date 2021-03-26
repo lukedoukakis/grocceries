@@ -1,6 +1,8 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import MinValueValidator, MaxValueValidator
+from account.models import Account
 
 import uuid
 
@@ -39,6 +41,7 @@ import uuid
 
 class Address(models.Model):
     value = models.CharField(max_length=255, null=True)
+    account = models.ForeignKey(Account, null=True ,blank=False, on_delete=CASCADE)
 
     def __str__(self):
         return self.value
@@ -63,6 +66,7 @@ class Nutrition(models.Model):
 
 class Order(models.Model):
     driver = models.CharField(max_length=255)
+    account = models.ForeignKey(Account, null=True, blank=False, on_delete=CASCADE)
 
 
 class Vendor(models.Model):
@@ -86,9 +90,7 @@ class CartItem(models.Model):
     vendor = models.OneToOneField(Vendor, null=True,on_delete=models.SET_NULL)
     item = models.OneToOneField(Item, null=True, on_delete=models.SET_NULL)
     quantity = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
-
-class ShoppingCart(models.Model):
-    cartItems = models.ManyToManyField(CartItem)
+    account = models.ForeignKey(Account, null=True, blank=False, on_delete=CASCADE)
     
 def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
 

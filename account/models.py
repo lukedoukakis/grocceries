@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from myapp.models import ShoppingCart, Address, Order
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext_lazy as _
@@ -83,13 +82,10 @@ class Account(AbstractBaseUser):
     last_login          = models.DateTimeField(_('last login'), auto_now=True)
     date_joined         = models.DateTimeField(_('date joined'), default=timezone.now)
     phone               = PhoneNumberField(null=True, blank=True, unique=True)
-    shoppingCart        = models.OneToOneField(ShoppingCart, on_delete=models.CASCADE, null=True)
-    address             = models.ForeignKey(Address, on_delete=models.CASCADE, null=True)
     is_driver           = models.BooleanField(default=False)
 
 
     # foreign key = one-to-many 
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
 
     USERNAME_FIELD = 'username'
     EMAIL_FIELD = 'email'
