@@ -10,7 +10,7 @@ from account.models import Account
 
 class AccountCreationForm(UserCreationForm):
     email = forms.EmailField(max_length=60, required=True, widget=forms.TextInput(attrs={'placeholder':"Email"}))
-    phone = PhoneNumberField()
+    phone = PhoneNumberField(required=False)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     agree_tos = forms.BooleanField(label='I agree to the terms and conditions')
