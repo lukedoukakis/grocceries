@@ -54,6 +54,9 @@ class Item(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     imgURL = models.CharField(max_length=255, default="https://image.shutterstock.com/image-photo/top-view-three-yellow-bananas-260nw-1875848530.jpg")
 
+    def __str__(self):
+        return self.name
+
 
 class Nutrition(models.Model):
     item = models.OneToOneField(Item, on_delete=models.CASCADE)
@@ -84,8 +87,6 @@ class Vendor(models.Model):
     description = models.TextField(default="default")
 
 # FUNCTIONS
-
-#(item.get_attname('quantity') if item.get_attname('quantity') < 100 else 100)
 class CartItem(models.Model):
     vendor = models.OneToOneField(Vendor, null=True,on_delete=models.SET_NULL)
     item = models.OneToOneField(Item, null=True, on_delete=models.SET_NULL)

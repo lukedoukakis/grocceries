@@ -4,21 +4,12 @@
 {% load admin_urls %}
 {% load crispy_forms_tags %}
 
+{% block current_page %}XXXXXXXXX{%endblock%}
+
 {%block content%}
 
-<!-- breadcrumbs -->
-	<div class="breadcrumbs">
-		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li id = "activeStore" class="active">XXXXXXXXX</li>
-			</ol>
-		</div>
-	</div>
-<!-- //breadcrumbs -->
+
 <!-- Store Page -->
-
-
 <div class="login">
 	<div style="padding-bottom:28px" class="container">
 		<h2 id="NAME"></h2>

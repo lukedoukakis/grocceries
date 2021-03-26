@@ -3,18 +3,8 @@
 <!-- load -->
 {% load static %}
 {% load admin_urls %}
-
+{% block current_page %}Store Locator{%endblock%}
 {%block content%}
-<!-- breadcrumbs -->
-<div class="breadcrumbs">
-<div class="container">
-  <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-    <li><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Store Locator</li>
-			</ol>
-		</div>
-	</div>
-<!-- //breadcrumbs -->
 <!-- Locate Stores -->
 <style>
     #map {
