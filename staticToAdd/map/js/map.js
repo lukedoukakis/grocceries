@@ -149,7 +149,7 @@ function initMap() {
       origins: [origin],
       destinations: destinations,
       travelMode: 'DRIVING',
-      unitSystem: google.maps.UnitSystem.METRIC,
+      unitSystem: google.maps.UnitSystem.IMPERIAL,
     });
   
     distancesList.sort((first, second) => {
@@ -203,6 +203,7 @@ function initMap() {
       const distanceText = document.createElement('p');
       distanceText.classList.add('distanceText');
       distanceText.textContent = store.distanceText;
+      store.distanceText
 
       //appends distancetext to button and then puts button onto the panel
       storeButton.appendChild(distanceText)

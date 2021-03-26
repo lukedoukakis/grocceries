@@ -2,18 +2,10 @@
 
 {% load static %}
 {% load admin_urls %}
+{% block current_page %}Account Info{%endblock%}
 
-{%block content%}
-<!-- breadcrumbs -->
-	<div class="breadcrumbs">
-		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Account Info Page</li>
-			</ol>
-		</div>
-	</div>
-<!-- //breadcrumbs -->
+{% block content %}
+
 <!-- user info -->
 
 <!-- if user is logged in -->
@@ -76,4 +68,4 @@
 
 	
 <!-- //user info -->
-{%endblock%}
+{% endblock %}

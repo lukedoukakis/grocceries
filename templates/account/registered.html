@@ -4,26 +4,20 @@
 {% load admin_urls %}
 {% load crispy_forms_tags %}
 
+{% block current_page %}Register{%endblock%}
+
 {% block content %}
 <!-- Scripts -->
 
 <!-- breadcrumbs -->
-	<div class="breadcrumbs">
-		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Register Page</li>
-			</ol>
-		</div>
-	</div>
 <!-- //breadcrumbs -->
 <!-- register -->
 	<div class="register">
 		<div class="container">
 			<h2>Register Here</h2>
     <!-- Do something which you want to do with unauthenticated user -->
-			<div class="login-form-grids">
-				<h5>profile information</h5>
+			<div class="-form-grids">
+			<br>
 				<form method="POST" >
 					{% comment %} {% csrf_token %}
 				 
