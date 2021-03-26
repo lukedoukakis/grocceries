@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "features": [{"geometry": {"type": "Point", "coordinates": [-118.1312808, 34.1416057]}, "type": "Feature", "properties": {"category": "Groccery Store", "hours": "6am - 9pm", "description": "Get grocceries here", "name": "Keyless Foods", "phone": "594-795-5037", "storeid": "507c692a-a183-4a00-bc49-0e9178d1a9bf"}}]}

@@ -33,8 +33,6 @@ a.orange{
 {
   width: 8em;
   height: 8em;
-  border: 3px solid #555;
-  border-radius: 30% 30% 10% 10% ;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -53,26 +51,72 @@ a.orange{
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: .3em;
+  margin-top: .5em;
 }
 
 .item-plus
 {
   position: absolute;
+  transform: translate(8.3em, -2.3em);
+  border-radius: 80%;
+  width: 2.5em;
+  height: 2.5em;
+  background-color: #ffffff00;
+  border-color: #00000028;
+  transition: .3s;
 }
 
 .item-minus
 {
   position: absolute;
+  transform: translate(1em, -2.3em);
+  border-radius: 80%;
+  width: 2.5em;
+  height: 2.5em;
+  background-color: #ffffff00;
+  border-color: #00000028;
+  transition: .3s;
+}
+
+.item-plus:hover
+{
+  background-color: #083e776b;
+  opacity: 85%;
+}
+
+.item-minus:hover
+{
+  background-color: #083e776b;
+  opacity: 85%;
+}
+
+.item-addtocart
+{
+  margin-top: .5em;
+  width: 8em;
+  height: 2em;
+  justify-content: center;
+  display: block;
+  border: 2px solid #555;
+  background-color: #b1adaa27;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  transition: .3s;
+}
+
+.item-addtocart:hover
+{
+  background-color: #083e776b;
+  opacity: 85%;
 }
 
 .item-display
 {
-  flex: 0 0 16em;
+  flex: 0 0 12em;
   height: 16em;
   background-color: #cabdb221;
-  border: 3px solid rgb(0, 0, 0);
-  border-radius: 10%;
+  border-radius: 0%;
   align-items: center;
   justify-content: center;
   gap: 12px;

@@ -33,6 +33,8 @@ a.orange{
 {
   width: 8em;
   height: 8em;
+  border: 3px solid #555;
+  border-radius: 30% 30% 0% 0% ;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -102,13 +104,7 @@ a.orange{
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  transition: .3s;
-}
-
-.item-addtocart:hover
-{
-  background-color: #083e776b;
-  opacity: 85%;
+  border-radius: 0% 0% 30% 30%;
 }
 
 .item-display
@@ -116,7 +112,7 @@ a.orange{
   flex: 0 0 12em;
   height: 16em;
   background-color: #cabdb221;
-  border-radius: 0%;
+  border-radius: 10%;
   align-items: center;
   justify-content: center;
   gap: 12px;

@@ -8,9 +8,8 @@
 
 {%block content%}
 
+
 <!-- Store Page -->
-
-
 <div class="login">
 	<div style="padding-bottom:28px" class="container">
 		<h2 id="NAME"></h2>
@@ -43,6 +42,9 @@
 		var vendorPhone = "{{ vendorPhone }}";
 		var vendorDescription = "{{ vendorDescription }}";
 
+		//set the breadcrumbs
+		document.getElementById("activeStore").innerText = vendorName;
+
 		// vendor info
 		document.getElementById("NAME").innerHTML = vendorName;
 		document.getElementById("DESCRIPTION").innerHTML = vendorDescription;
@@ -50,9 +52,9 @@
 		document.getElementById("PHONE").innerHTML = vendorPhone;
 	};
 
-	
-
 </script>
+
+
 
 <!-- //Store Page -->
 {%endblock%}

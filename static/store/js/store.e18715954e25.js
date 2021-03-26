@@ -35,7 +35,6 @@ function createStorePage(items, storeID)
         const name = document.createElement('div');
         name.classList.add('item-text');
         name.innerText = itemName.charAt(0).toUpperCase() + itemName.slice(1) + " | " + "$" + itemPrice;
-        name.id = itemID;
         itemBox.appendChild(name)
 
         //making purchasing section
@@ -72,10 +71,6 @@ function createStorePage(items, storeID)
         addToCart.classList.add('item-addtocart');
         addToCart.innerText = "Add to cart";
         itemBox.appendChild(addToCart);
-        addToCart.onclick = function()
-        {
-            addItem(quantity, storeID, name);
-        }
     }
 }
 
@@ -84,13 +79,4 @@ function onChangeQuantityClick(change, quantityItem)
     var curQuantity = parseInt(quantityItem.innerText);
     var newQuantity = curQuantity + change >= 0 ? curQuantity + change : curQuantity;
     quantityItem.innerText = newQuantity;
-}
-
-function addItem(quantityItem, storeID, itemNameBox)
-{
-    var curQuantity = parseInt(quantityItem.innerText);
-    var itemParts = itemNameBox.innerText.split("|");
-    var itemName = itemParts[0].trim();
-    var itemID = itemNameBox.id;
-    addItemToCart(storeID, itemID, curQuantity, itemName);
 }
