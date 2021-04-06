@@ -1,4 +1,5 @@
 
+
 {%extends "../base.html"%}
 {% load static %}
 {% load admin_urls %}
@@ -7,6 +8,14 @@
 {% block current_page %}XXXXXXXXX{%endblock%}
 
 {%block content%}
+
+
+<div class="sticky-search-bar">
+	<input class="search-txt" type="text" name="" placeholder="Search for items..." id="input">
+	<a class="search-btn" id="searchButton" href="#">
+	  <i class="fas fa-search"></i>
+	</a>
+</div>
 
 
 <!-- Store Page -->
@@ -20,8 +29,8 @@
 	</div>
 	<div class="container">
 		<h2 style="font-size:24px;">Selection</h2>
-		<div class = "items-container" id=itemsContainer>
-			
+		<div class = "items-container" id="itemsContainer">
+
 		</div>
 	</div>
 </div>
@@ -41,6 +50,7 @@
 		var vendorHours = "{{ vendorHours }}";
 		var vendorPhone = "{{ vendorPhone }}";
 		var vendorDescription = "{{ vendorDescription }}";
+		var itemsListed = "{{ itemsListed }}";
 
 		//set the breadcrumbs
 		document.getElementById("activeStore").innerText = vendorName;
@@ -50,7 +60,34 @@
 		document.getElementById("DESCRIPTION").innerHTML = vendorDescription;
 		document.getElementById("ADDRESS").innerHTML = vendorAddress;
 		document.getElementById("PHONE").innerHTML = vendorPhone;
+
+		// search button functionality
+        var searchButton = document.getElementById("searchButton");
+
+        searchButton.onclick = function() {
+			var term;
+			term = document.getElementById("input").value.trim();
+			if(term == ""){ term = "all"; }
+
+			searchButton.href = "/storepage/" + "{{ vendorID }}" + "/" + term;
+			//return false;
+        }
+		
+		// add message if no products found
+		if(itemsListed == "0"){
+			var msg = document.createElement('h');
+			msg.style.fontSize = "xxx-large";
+			msg.style.alignContent = "center";
+			msg.innerHTML = "Sorry, no products were found from this search!";
+			document.getElementById("itemsContainer").appendChild(msg);
+
+			var sch = document.createElement('div');
+			sch.className = "sticky-search-bar";
+			document.getElementById("itemsContainer").appendChild(sch);
+		}
+
 	};
+
 
 </script>
 
