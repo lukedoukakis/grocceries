@@ -54,14 +54,14 @@ def gen_phone():
     return '{}-{}-{}'.format(first, second, last)
 
 #creates fake items for a store
-def gen_items(item_count):
+def gen_items(item_count, vendor):
     itemList = []
     for i in range(item_count):
         name, url = random.choice(list(items.items()))
         quantity = random.randint(1,quantityMax)
         price = random.uniform(.99, priceMax)
 
-        newItem = Item(name=name, quantity=quantity, price=price, imgURL=url)
+        newItem = Item(name=name, quantity=quantity, price=price, imgURL=url, vendor=vendor)
         newItem.save()
         itemList.append(newItem)
 
@@ -100,9 +100,7 @@ class Command(BaseCommand):
                 newVendor.save()
 
                 #generate items for the list
-                storeItems = gen_items(random.randint(1, maxItemsPerStore))
-                for itemNumber in range(len(storeItems)):
-                    newVendor.inventory.add(storeItems[itemNumber])
+                storeItems = gen_items(random.randint(1, maxItemsPerStore), newVendor)
 
                 print(name + " generated with " + str(len(storeItems)) + " items")
 

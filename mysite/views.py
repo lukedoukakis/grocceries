@@ -38,7 +38,7 @@ def storePage(request, storeIdentifier):
     store = Vendor.objects.get(id = uuid.UUID(storeIdentifier))
     itemNameString = ""
     itemIDString = ""
-    for item in store.inventory.all():
+    for item in Item.objects.filter(vendor=store):
         itemNameString += item.name + "{" + str(item.price) + "," + str(item.quantity) + "," + str(item.id) + "," + item.imgURL + "}" + "|"
 
     context = {
@@ -56,7 +56,6 @@ def storePage(request, storeIdentifier):
     return render(request, 'store/storepage.html', context)
 
 def itemPage(request, itemIdentifier):
-
     item = Item.objects.get(id = uuid.UUID(itemIdentifier))
 
     context = {
