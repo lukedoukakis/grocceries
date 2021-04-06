@@ -70,6 +70,7 @@ class Item(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True, blank=False)
     name = models.CharField(max_length=255, default="default")
     quantity = models.IntegerField(default=1)
+    category = models.CharField(max_length=255, default="Food")
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     imgURL = models.CharField(max_length=255, default="https://image.shutterstock.com/image-photo/top-view-three-yellow-bananas-260nw-1875848530.jpg")
 
