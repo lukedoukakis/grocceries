@@ -37,26 +37,29 @@ def storePage(request, storeIdentifier, searchTerm):
     print("Search term: " + searchTerm)
 
     store = Vendor.objects.get(id=uuid.UUID(storeIdentifier))
+    items_all = Item.objects.filter(vendor=store)
     if searchTerm == "all":
-        items = Item.objects.filter(vendor=store)
+        items_display = items_all
     else:
-        items = Item.objects.filter(vendor=store).filter(name__icontains=searchTerm)
-    itemNameString = ""
-    itemIDString = ""
-    for item in items:
-        itemNameString += item.name + "{" + str(item.price) + "," + str(item.quantity) + "," + str(item.id) + "," + item.imgURL + "}" + "|"
+        items_display = items_all.filter(name__icontains=searchTerm)
 
+    itemNameString_all = ""
+    itemNameString_display = ""
+    for item in items_all:
+        itemNameString_all += item.name + "{" + str(item.price) + "," + str(item.quantity) + "," + str(item.id) + "," + item.imgURL + "}" + "|"
+    for item in items_display:
+        itemNameString_display += item.name + "{" + str(item.price) + "," + str(item.quantity) + "," + str(item.id) + "," + item.imgURL + "}" + "|"
     context = {
         'vendorID': storeIdentifier,
         'vendorName': store.name,
-        'vendorItems': itemNameString,
-        'vendorItemIDs': itemIDString,
+        'vendorItems_all': itemNameString_all,
+        'vendorItems_display': itemNameString_display,
         'vendorAddress': store.address,
         'vendorCategory': store.category,
         'vendorHours': store.hours,
         'vendorPhone': store.phone,
         'vendorDescription': store.description,
-        'itemsListed': items.count(),
+        'itemsListed': items_display.count(),
         'searchTerm': searchTerm
     }
 

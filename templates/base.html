@@ -63,7 +63,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- start-smoth-scrolling -->
 
 	<style>
-		div.sticky-search-bar {
+		.sticky-search-bar {
 		  position: -webkit-sticky;
 		  position: sticky;
 		  top: 0;
@@ -72,6 +72,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		  text-align: right;
 		  width: 100%;
 		  margin: 0 auto;
+		}
+		.sticky-search-bar .autocom-box{
+  			padding: 0;
+  			pointer-events: none;
+  			max-height: 280px;
+  			overflow-y: auto;
+		}
+		.sticky-search-bar.active .autocom-box{
+  			padding: 10px 8px;
+  			opacity: 1;
+  			pointer-events: auto;
+		}
+		.autocom-box li{
+  			list-style: none;
+  			padding: 8px 12px;
+  			display: none;
+  			width: 100%;
+  			cursor: default;
+  			border-radius: 3px;	
+		}
+		.search-input.active .autocom-box li{
+  			display: block;
+		}
+		.autocom-box li:hover{
+  			background: #efefef;
 		}
 	</style>
 	
