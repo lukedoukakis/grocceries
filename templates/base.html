@@ -63,23 +63,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- start-smoth-scrolling -->
 
 	<style>
-		.sticky-search-bar {
-		  position: -webkit-sticky;
-		  position: sticky;
-		  top: 0;
-		  padding: 30px;
-		  font-size: 20px;
-		  text-align: right;
-		  width: 100%;
-		  margin: 0 auto;
+		.sticky-wrapper {
+			position: -webkit-sticky;
+		 	position: sticky;
+			top: 0;
+		  	padding: 30px;
+		  	margin: 0 auto;
+			background-color: black;
+			z-index: 999;
 		}
-		.sticky-search-bar .autocom-box{
+		.search-bar {
+		  top: 0;
+		  font-size: 20px;
+		  text-align: center;
+		  width: 100%;
+		}
+		.search-bar .autocom-box{
   			padding: 0;
   			pointer-events: none;
   			max-height: 280px;
   			overflow-y: auto;
 		}
-		.sticky-search-bar.active .autocom-box{
+		.search-bar.active .autocom-box{
   			padding: 10px 8px;
   			opacity: 1;
   			pointer-events: auto;
@@ -92,7 +97,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   			cursor: default;
   			border-radius: 3px;	
 		}
-		.search-input.active .autocom-box li{
+		.search-bar.active .autocom-box li{
   			display: block;
 		}
 		.autocom-box li:hover{

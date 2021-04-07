@@ -9,23 +9,26 @@
 
 {%block content%}
 
-<div class="wrapper" id="searchWrapper", style="position: -webkit-sticky; position: sticky;">
-	<div class="sticky-search-bar">
+<div class="sticky-wrapper" id="searchWrapper">
+	<div class="search-bar">
 		<input class="search-txt" type="text" name="" placeholder="Search for items..." id="searchInput">
 		<a class="search-btn" id="searchButton" href="#">
 			<i class="fas fa-search"></i>
-			<!-- <div id="autoComplete" style=
+			<!-- <div class="autocom-box" id="autoComplete"> -->
+			<div id="autoComplete" style=
 			"
-			position: -webkit-sticky;
-		  	position: sticky;
-			padding: 0;
+			padding-top: 20px;
 			pointer-events: none;
 			max-height: 280px;
-			overflow-y: auto;">
-				<ul id="list">
-
-				</ul>
-			</div> -->
+			overflow-y: auto;
+			font-size: small;
+			background-color: black;
+			color:orange;
+			text-align: center;
+		  	width: 100%;
+			">
+			
+			</div>
 		</a>
 	</div>
 </div>
