@@ -32,13 +32,18 @@ def logout(request):
     localdata.LocalData.account = None
     return render(request, 'myapp/landingPage.html')
 
-def storePage(request, storeIdentifier):
+def storePage(request, storeIdentifier, searchTerm):
     print("Store Identifier: " + storeIdentifier)
+    print("Search term: " + searchTerm)
 
-    store = Vendor.objects.get(id = uuid.UUID(storeIdentifier))
+    store = Vendor.objects.get(id=uuid.UUID(storeIdentifier))
+    if searchTerm == "all":
+        items = Item.objects.filter(vendor=store)
+    else:
+        items = Item.objects.filter(vendor=store).filter(name__icontains=searchTerm)
     itemNameString = ""
     itemIDString = ""
-    for item in store.inventory.all():
+    for item in items:
         itemNameString += item.name + "{" + str(item.price) + "," + str(item.quantity) + "," + str(item.id) + "," + item.imgURL + "}" + "|"
 
     context = {
@@ -51,6 +56,8 @@ def storePage(request, storeIdentifier):
         'vendorHours': store.hours,
         'vendorPhone': store.phone,
         'vendorDescription': store.description,
+        'itemsListed': items.count(),
+        'searchTerm': searchTerm
     }
 
     return render(request, 'store/storepage.html', context)
@@ -65,6 +72,11 @@ def itemPage(request, itemIdentifier):
     }
 
     return render(request, 'item/itempage.html', context)
+
+
+def test(request):
+    return render(request, 'test.html')
+
 
 def simple_function(request):
     print("\nthis is a simple function\n")

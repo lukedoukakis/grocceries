@@ -3,6 +3,7 @@ from django.db.models.deletion import CASCADE
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from account.models import Account
+from mysite.settings import AUTH_USER_MODEL
 
 import uuid
 
@@ -46,36 +47,14 @@ class Address(models.Model):
     def __str__(self):
         return self.value
 
-
-class Item(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255, default="default")
-    quantity = models.IntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    imgURL = models.CharField(max_length=255, default="https://image.shutterstock.com/image-photo/top-view-three-yellow-bananas-260nw-1875848530.jpg")
-
-    def __str__(self):
-        return self.name
-
-
-class Nutrition(models.Model):
-    item = models.OneToOneField(Item, on_delete=models.CASCADE)
-    calories = models.CharField(max_length=255)
-    sodium = models.CharField(max_length=255)
-    fat = models.CharField(max_length=255)
-    carbs = models.CharField(max_length=255)
-    protein = models.CharField(max_length=255)
-
-
 class Order(models.Model):
     driver = models.CharField(max_length=255)
-    account = models.ForeignKey(Account, null=True, blank=False, on_delete=CASCADE)
+    account = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=False, on_delete=CASCADE)
 
 
 class Vendor(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(blank=False, max_length=255, default="default")
-    inventory = models.ManyToManyField(Item)
     address = models.CharField(max_length=255, default="default")
     latitude = models.DecimalField(
         max_digits=30, decimal_places=7, default=0.0)
@@ -86,13 +65,34 @@ class Vendor(models.Model):
     phone = PhoneNumberField(null=False, blank=False)
     description = models.TextField(default="default")
 
-# FUNCTIONS
+class Item(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True, blank=False)
+    name = models.CharField(max_length=255, default="default")
+    quantity = models.IntegerField(default=1)
+    category = models.CharField(max_length=255, default="Food")
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    imgURL = models.CharField(max_length=255, default="https://image.shutterstock.com/image-photo/top-view-three-yellow-bananas-260nw-1875848530.jpg")
+
+    def __str__(self):
+        return self.name
+
+class Nutrition(models.Model):
+    item = models.OneToOneField(Item, on_delete=models.CASCADE)
+    calories = models.CharField(max_length=255)
+    sodium = models.CharField(max_length=255)
+    fat = models.CharField(max_length=255)
+    carbs = models.CharField(max_length=255)
+    protein = models.CharField(max_length=255)
+
 class CartItem(models.Model):
-    vendor = models.OneToOneField(Vendor, null=True,on_delete=models.SET_NULL)
-    item = models.OneToOneField(Item, null=True, on_delete=models.SET_NULL)
+    item = models.OneToOneField(Item, null=True, blank=False, on_delete=models.CASCADE)
+    # TODO: VALIDATE QUANTITY BEFORE CREATING CARTITEM AND ON CHANGES OF CARTITEM 
     quantity = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
-    account = models.ForeignKey(Account, null=True, blank=False, on_delete=CASCADE)
-    
+    account = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=False, on_delete=CASCADE)
+
+# FUNCTIONS
+
 def get_vendors(_name, _address, _latitude, _longitude, _category, _phone):
 
     vendors = Vendor.objects.all()
