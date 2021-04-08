@@ -1,15 +1,12 @@
 //pushes all items to page
-
 window.onload = function() {
     console.log(7);
   };
 
-function createStorePage(items, storeID)
+function createStorePage(items_display, storeID)
 {
-    splitItems = items.split("|");
-
+    splitItems = items_display.split("|");
     const itemContainer = document.getElementById('itemsContainer');
-
     for(i = 0; i < splitItems.length - 1; i++)
     {
         itemInfo = splitItems[i].split("{");
@@ -78,6 +75,40 @@ function createStorePage(items, storeID)
         }
     }
 }
+
+function setSuggestions(items){
+    suggestions = [
+        "Channel",
+        "CodingLab",
+        "CodingNepal",
+        "YouTube",
+        "YouTuber",
+        "YouTube Channel",
+        "Blogger",
+        "Bollywood",
+        "Vlogger",
+        "Vechiles",
+        "Facebook",
+        "Freelancer",
+        "Facebook Page",
+        "Designer",
+        "Developer",
+        "Web Designer",
+        "Web Developer",
+        "Login Form in HTML & CSS",
+        "How to learn HTML & CSS",
+        "How to learn JavaScript",
+        "How to became Freelancer",
+        "How to became Web Designer",
+        "How to start Gaming Channel",
+        "How to start YouTube Channel",
+        "What does HTML stands for?",
+        "What does CSS stands for?",
+    ];
+    return suggestions;
+    
+}
+
 
 function onChangeQuantityClick(change, quantityItem)
 {

@@ -43,23 +43,39 @@ def storePage(request, storeIdentifier):
     print("Store Identifier: " + storeIdentifier)
 
     store = Vendor.objects.get(id=uuid.UUID(storeIdentifier))
-    itemNameString = ""
-    itemIDString = ""
-    for item in store.inventory.all():
-        itemNameString += item.name + "{" + str(item.price) + "," + str(
+
+    items_all = Item.objects.filter(vendor=store)
+    if searchTerm == "all":
+        items_display = items_all
+    else:
+        items_display = items_all.filter(name__icontains=searchTerm)
+
+    itemNameString_all = ""
+    itemNameString_display = ""
+    for item in items_all:
+        itemNameString_all += item.name + "{" + str(item.price) + "," + str(
+            item.quantity) + "," + str(item.id) + "," + item.imgURL + "}" + "|"
+    for item in items_display:
+        itemNameString_display += item.name + "{" + str(item.price) + "," + str(
             item.quantity) + "," + str(item.id) + "," + item.imgURL + "}" + "|"
 
     context = {
         'vendorID': storeIdentifier,
         'vendorName': store.name,
-        'vendorItems': itemNameString,
-        'vendorItemIDs': itemIDString,
+        'vendorItems_all': itemNameString_all,
+        'vendorItems_display': itemNameString_display,
         'vendorAddress': store.address,
         'vendorCategory': store.category,
         'vendorHours': store.hours,
         'vendorPhone': store.phone,
         'vendorDescription': store.description,
+
+
+        'itemsListed': items_display.count(),
+        'searchTerm': searchTerm
+
     }
+    print("items all: " + str(items_all))
 
     return render(request, 'store/storepage.html', context)
 
