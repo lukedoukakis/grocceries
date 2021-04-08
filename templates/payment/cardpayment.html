@@ -1,6 +1,6 @@
 {%extends "../base.html"%}
 {% load static %}
-
+{%load tags%}
 {%block content%}
 
 <!DOCTYPE html>
@@ -17,47 +17,66 @@
 
 <body  style = "overflow-x: hidden;"> 
     <div  class = "topnav" style="cursor: pointer;">
-    {% for i in "123"  %} 
+    {% for store in listOfStoresUsed  %} 
     <!-- This is not an error it says it is but it is not  -->
-    <a onclick = "changeStore({{i}})">Store{{i}}  </a>
+    <a onclick="show('store-{{store}}')">{{store}}  </a>
     {% endfor %}
     
 </div>
-    <div style="margin-top: 3em; margin-bottom: 3em;" class="row">
+
+<div style = "float: right; margin-top: 7em; margin-right: 10em; border-style: solid;" >
+     <br>
+    {% for i,j,k  in pricesAndNamesQuantity  %}
+      {{j}}: ${{ i|multiply:k }} <br>
+      <p style="border-bottom:1px solid rgb(0, 0, 0);">  X {{k}}</p>
+    {% endfor %}
+
+    <p style = "border-top:1px solid rgb(0, 0, 0);font-size: 25px;">${{totalPrice}}</p>
+    <br>
+    <div id="paypal-button-container" style="width: 10%;"></div>
+</div>
+
+    <div id = "goNow" style="margin-top: 3em; margin-bottom: 3em; margin-left: 6em;" class="row">
+        
         
         <!-- box left -->
         
-       
+    </div>
         
     
-        {% for i in "123"  %} 
+        
        
         <!-- we want the first to be visible -->
+        {% for j,l in r %}
+        <div class="col-sm-8" style="display: none; margin-left: 6em;" id = "store-{{l}}">
         
-        <div class="col-sm-8" style="visibility: visible; margin-left: 3.4em;" id = "store{{i}}">
+            {% for i  in itemsOrganizedByStore|lookup:j  %} 
             
-       
-        
-             
-            <img id = "images{{i}}" src="{% static 'images/'|add:i|add:'.png' %}"> <p>Tata Chips Q:1</p>
-             
-           
-        </div>
+            <img  width="200em" height="200em" src={{i.item.imgURL}}> <p>{{i.item.name}} Q:{{i.quantity}}</p><br>
 
-        {% endfor %}
+            {% endfor %}
+            {% endfor %}
+            
+            
+           
+        
+
+       
       
         <!-- box right -->
-        <div class="col-sm-3" style="border: solid; "  >
-         {% for i in "123"  %} 
-          Store {{i}}: <br>
-          Tata Chips $20<br>
-          {% endfor %}
-          Total: $60
-          <div id="paypal-button-container" style="width: 10%;"></div>
+        
+          
+       
+     
+          
+        
+         
 
 
         </div>
+       
     </div>
+    
 <!-- <div class = "container">
     {% for i in "123"  %} 
     <a class = "storeNames" style=" cursor: pointer;">Store{{i}} |</a>
@@ -82,38 +101,32 @@
     <!-- Include the PayPal JavaScript SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&disable-funding=credit,card"></script>
        <script> 
-                    function changeStore(storeNum) {
+
+
+1
+2
+3
+        window.onload = function() {
+            
+            document.getElementById('goNow').innerHTML = document.getElementById("store-{{listOfStoresUsed.0}}").innerHTML;
+                };
+                    
+            function show(param_div_id) {
+
+                    
+                    document.getElementById('goNow').innerHTML = document.getElementById(param_div_id).innerHTML;
                 
+                }
                        
                        
-                   
-                    
-                             
-                        
-
-
-                        
-                    // will work for 100 stores
-                   
-                for(let i = 1;i<100;i++){
-                    if (storeNum==i)  
-                    try {
-                        //set image tags from cart data here 
-                        document.getElementById("images" + i).src = "{% static 'images/4.png' %}"
-                    }
-                    catch(error){
-
-                    }
-
-                }
-                    
-                }
-                    
-    
         
     
     
     
+    </script>
+    <script>
+
+
     </script>
     <script>
         // Render the PayPal button into #paypal-button-container
@@ -129,7 +142,7 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: '88.44' // put total value here to charge
+                            value: '{{totalPrice}}' // put total value here to charge
                         }
                     }]
                 });
@@ -158,3 +171,4 @@
 </html>
     
 {%endblock%}
+

@@ -90,6 +90,7 @@ class CartItem(models.Model):
     # TODO: VALIDATE QUANTITY BEFORE CREATING CARTITEM AND ON CHANGES OF CARTITEM 
     quantity = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
     account = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=False, on_delete=CASCADE)
+    
 
 # FUNCTIONS
 
