@@ -15,10 +15,10 @@
 		<a class="search-btn" id="searchButton" href="#">
 			<i class="fas fa-search"></i>
 			<!-- <div class="autocom-box" id="autoComplete"> -->
-			<div id="autoComplete" style=
+		</a>
+		<div id="autoComplete" style=
 			"
 			padding-top: 20px;
-			pointer-events: none;
 			max-height: 280px;
 			overflow-y: auto;
 			font-size: small;
@@ -26,10 +26,12 @@
 			color:orange;
 			text-align: center;
 		  	width: 100%;
+			list-style-type: none;
+			z-index: 999;
+			cursor: pointer;
 			">
 			
 			</div>
-		</a>
 	</div>
 </div>
 
@@ -45,7 +47,7 @@
 		<p style="font-size:14px" id="TEST"><p>
 	</div>
 	<div class="container">
-		<h2 style="font-size:24px;">Selection</h2>
+		<h2 id="selectionText" style="font-size:24px;">Selection</h2>
 		<div class = "items-container" id="itemsContainer">
 
 		</div>
@@ -55,7 +57,7 @@
 <!-- need to run this after otherwise page is not loaded yet and cannot search by div -->
 <script src = "{% static 'store/js/store.js' %}"></script>
 <script>
-	createStorePage( "{{ vendorItems_display }}", "{{ vendorItems_all }}", "{{ vendorID }}");
+	createStorePage( "{{ vendorItems_display }}", "{{ vendorID }}");
 
 	window.onload = function() {
 		var vendorID = "{{ vendorID }}";
@@ -68,6 +70,7 @@
 		var vendorPhone = "{{ vendorPhone }}";
 		var vendorDescription = "{{ vendorDescription }}";
 		var itemsListed = "{{ itemsListed }}";
+		var suggestions = getAllItems();
 
 		//set the breadcrumbs
 		document.getElementById("activeStore").innerText = vendorName;
@@ -96,46 +99,57 @@
 			msg.style.alignContent = "center";
 			msg.innerHTML = "Sorry, no products were found from this search!";
 			document.getElementById("itemsContainer").appendChild(msg);
+			document.getElementById("selectionText").innerHTML = "";
 			var sch = document.createElement('div');
 			sch.className = "sticky-search-bar";
 			document.getElementById("itemsContainer").appendChild(sch);
 		}
 		
-		// suggestions
+		// suggestions functionality
 		searchInput.onkeyup = (e)=>{
-    		let userData = e.target.value; //user enetered data
-    		let emptyArray = [];
-    		if(userData){
-				let suggestions = [ "apple", "animal", "anan", "asjdhb", "ajmsds", "banana", ];
-        		emptyArray = suggestions.filter((data)=>{
-            		//filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
-            		return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase()); 
-        		});
-        		emptyArray = emptyArray.map((data)=>{
-            		// passing return data inside li tag
-            		return data = '<li>'+ data +'</li>';
-        		});
-        		searchWrapper.classList.add("active"); //show autocomplete box
-        		showSuggestions(emptyArray);
-        		let allList = autoComplete.querySelectorAll("li");
-        		for (let i = 0; i < allList.length; i++) {
-            		//adding onclick attribute in all li tag
-            		allList[i].setAttribute("onclick", "select(this)");
-        		}
-    		}else{
-        		searchWrapper.classList.remove("active"); //hide autocomplete box
-    		}
+			if (e.keyCode === 13) {
+				searchButton.click();
+			}
+			else{
+				let userData = e.target.value;
+    			let emptyArray = [];
+    			if(userData){
+        			emptyArray = suggestions.filter((data)=>{
+            			//filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+            			return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase()); 
+        			});
+        			emptyArray = emptyArray.map((data)=>{
+            			// passing return data inside li tag
+            			return data = '<li>'+ data +'</li>';
+        			});
+        			searchWrapper.classList.add("active");
+        			showSuggestions(emptyArray);
+        			let allList = autoComplete.querySelectorAll("li");
+        			for (let i = 0; i < allList.length; i++) {
+            			allList[i].setAttribute("onclick", "select(this)");
+        			}
+    			}
+				else{
+        			searchWrapper.classList.remove("active");
+    			}
+			}
+
+    		
 		}
 	};
 
 	function select(element){
     	let selectData = element.textContent;
     	searchInput.value = selectData;
+		console.log("LOGG");
+		searchButton.href = "/storepage/" + "{{ vendorID }}" + "/" + "element.textContent";
     	searchWrapper.classList.remove("active");
+		searchButton.click();
 	}
 
 	function showSuggestions(list){
 		//window.alert(list);
+
     	let listData;
     	if(!list.length){
         	userValue = searchInput.value;
@@ -145,8 +159,19 @@
     	}
     	autoComplete.innerHTML = listData;
 		//window.alert(autoComplete.innerHTML);
-			
+	
 	}
+
+	function getAllItems(){
+		splitItems = "{{ vendorItems_all }}".split("|");
+		suggestions = [];
+    	for(i = 0; i < splitItems.length - 1; i++)
+    	{
+        	suggestions.push(splitItems[i].split("{")[0]);
+		}
+    	return suggestions;
+    
+}
 
 </script>
 

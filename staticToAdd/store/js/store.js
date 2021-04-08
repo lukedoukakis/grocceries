@@ -1,12 +1,9 @@
-
-var suggestions;
-
 //pushes all items to page
 window.onload = function() {
     console.log(7);
   };
 
-function createStorePage(items_display, items_all, storeID)
+function createStorePage(items_display, storeID)
 {
     splitItems = items_display.split("|");
     const itemContainer = document.getElementById('itemsContainer');
@@ -77,17 +74,9 @@ function createStorePage(items_display, items_all, storeID)
             addItem(quantity, storeID, name);
         }
     }
-
-    setSuggestions();
-
 }
 
-
-
-
-
-// set search bar autocomplete suggestions
-function setSuggestions(){
+function setSuggestions(items){
     suggestions = [
         "Channel",
         "CodingLab",
@@ -116,8 +105,10 @@ function setSuggestions(){
         "What does HTML stands for?",
         "What does CSS stands for?",
     ];
+    return suggestions;
     
 }
+
 
 function onChangeQuantityClick(change, quantityItem)
 {

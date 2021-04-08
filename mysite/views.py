@@ -62,6 +62,7 @@ def storePage(request, storeIdentifier, searchTerm):
         'itemsListed': items_display.count(),
         'searchTerm': searchTerm
     }
+    print("items all: " + str(items_all))
 
     return render(request, 'store/storepage.html', context)
 
