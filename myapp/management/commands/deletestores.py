@@ -1,4 +1,4 @@
-from myapp.models import Vendor, Item
+from store.models import Vendor, Item
 from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):

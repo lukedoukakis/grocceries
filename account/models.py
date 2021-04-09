@@ -55,6 +55,7 @@ class AccountManager(BaseUserManager):
         account.set_password(password)
         account.save(using=self._db)
         return account
+    
 
 
 # Create your models here.

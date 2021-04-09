@@ -40,46 +40,41 @@
 <!-- Store Page -->
 <div class="login">
 	<div style="padding-bottom:28px" class="container">
-		<h2 id="NAME"></h2>
-		<p style="font-size:28px;color:black" id="DESCRIPTION"><p>	
-		<p style="font-size:14px" id="ADDRESS"><p>
-		<p style="font-size:14px" id="PHONE"><p>
-		<p style="font-size:14px" id="TEST"><p>
+		<h2 id="NAME">{{vendorName}}</h2>
+		<p style="font-size:28px;color:black" id="DESCRIPTION">{{vendorDescription}}<p>	
+		<p style="font-size:14px" id="ADDRESS">{{vendorAddress}}<p>
+		<p style="font-size:14px" id="PHONE">{{vendorPhone}}<p>
 	</div>
 	<div class="container">
 		<h2 id="selectionText" style="font-size:24px;">Selection</h2>
-		<div class = "items-container" id="itemsContainer">
+		<div class="items-container" id="itemsContainer">
+			{% for item in itemsToDisplay %}
+			<div class='item-display'>
+				<img class="item-image" src="{{item.imgURL}}">
+				<div class="item-text" id="{{item.id}}"> {{ item.name | title }} | ${{item.price}} </div>
+				<div class="item-quantity" id="quantity{{forloop.counter0}}">0</div>
+				<button class="fa fa-plus item-plus" id="item-plus" 
+				onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}')"></button>
+				<button class="fa fa-minus item-minus" id="item-minus" 
+				onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}')"></button>
 
+				<a class="item-addtocart" href="{{item.add_to_cart_url}}" id="item-addtocart{{forloop.counter0}}">Add to Cart</a>
+
+				<script type="text/javascript">document.getElementById("item-addtocart{{forloop.counter0}}").href += "/"+document.getElementById("quantity{{forloop.counter0}}1");</script>
+
+			</div>
+			{%endfor%}
 		</div>
 	</div>
 </div>
 
+
+
 <!-- need to run this after otherwise page is not loaded yet and cannot search by div -->
 <script src = "{% static 'store/js/store.js' %}"></script>
 <script>
-	createStorePage( "{{ vendorItems_display }}", "{{ vendorID }}");
-
 	window.onload = function() {
-		var vendorID = "{{ vendorID }}";
-		var vendorName = "{{ vendorName }}";
-		var vendorItemNames_all = "{{ vendorItems_all }}";
-		var vendorItemNames_display = "{{ vendorItems_display }}";
-		var vendorAddress = "{{ vendorAddress }}";
-		var vendorCategory = "{{ vendorCategory }}";
-		var vendorHours = "{{ vendorHours }}";
-		var vendorPhone = "{{ vendorPhone }}";
-		var vendorDescription = "{{ vendorDescription }}";
-		var itemsListed = "{{ itemsListed }}";
 		var suggestions = getAllItems();
-
-		//set the breadcrumbs
-		document.getElementById("activeStore").innerText = vendorName;
-
-		// vendor info
-		document.getElementById("NAME").innerHTML = vendorName;
-		document.getElementById("DESCRIPTION").innerHTML = vendorDescription;
-		document.getElementById("ADDRESS").innerHTML = vendorAddress;
-		document.getElementById("PHONE").innerHTML = vendorPhone;
 
 		// search button functionality
 		var searchWrapper = document.getElementById("searchWrapper");
@@ -90,10 +85,9 @@
 		searchButton.onclick = function() {
 			var term;
 			term = searchInput.value.trim();
-			if(term == ""){ term = "all"; }
 			searchButton.href = "/storepage/" + "{{ vendorID }}" + "/" + term;
         }
-		if(itemsListed == "0"){
+		if("{{ numOfItemsDisplay }}" == "0"){
 			var msg = document.createElement('h');
 			msg.style.fontSize = "xxx-large";
 			msg.style.alignContent = "center";
@@ -163,12 +157,10 @@
 	}
 
 	function getAllItems(){
-		splitItems = "{{ vendorItems_all }}".split("|");
 		suggestions = [];
-    	for(i = 0; i < splitItems.length - 1; i++)
-    	{
-        	suggestions.push(splitItems[i].split("{")[0]);
-		}
+		{% for suggestion in items %}
+		suggestions.push("{{suggestion.name}}");
+		{% endfor %}
     	return suggestions;
     
 }

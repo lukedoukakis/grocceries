@@ -5,8 +5,6 @@ from .models import *
 # allows models to be viewed and edited from admin page
 
 admin.site.register(Address)
-admin.site.register(Item)
 admin.site.register(Nutrition)
 admin.site.register(Order)
-admin.site.register(Vendor)
 admin.site.register(CartItem)

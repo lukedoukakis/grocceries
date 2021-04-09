@@ -1,4 +1,4 @@
-from myapp.models import Vendor, Item
+from store.models import Vendor, Item
 from mysite.settings import BASE_DIR
 import json
 from os import path

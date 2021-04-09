@@ -110,9 +110,8 @@ function setSuggestions(items){
 }
 
 
-function onChangeQuantityClick(change, quantityItemId)
+function onChangeQuantityClick(change, quantityItem)
 {
-    var quantityItem = document.getElementById(quantityItemId);
     var curQuantity = parseInt(quantityItem.innerText);
     var newQuantity = curQuantity + change >= 0 ? curQuantity + change : curQuantity;
     quantityItem.innerText = newQuantity;

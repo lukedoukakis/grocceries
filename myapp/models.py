@@ -4,8 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from account.models import Account
 from mysite.settings import AUTH_USER_MODEL
-
-import uuid
+from store.models import Vendor, Item
 
 # Create your models here.
 
@@ -25,7 +24,7 @@ import uuid
 # NOTES FOR USING THE TABLES IN A PYTHON SCRIPT OR SHELL
 
 # To add via shell:
-# from myapp.models import Items
+# from store.models import Items
 # Item = Items(params)
 # Item.save()
 
@@ -51,32 +50,6 @@ class Order(models.Model):
     driver = models.CharField(max_length=255)
     account = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=False, on_delete=CASCADE)
 
-
-class Vendor(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(blank=False, max_length=255, default="default")
-    address = models.CharField(max_length=255, default="default")
-    latitude = models.DecimalField(
-        max_digits=30, decimal_places=7, default=0.0)
-    longitude = models.DecimalField(
-        max_digits=30, decimal_places=7, default=0.0)
-    category = models.CharField(max_length=255, default='default')
-    hours = models.CharField(max_length=255, default='default')
-    phone = PhoneNumberField(null=False, blank=False)
-    description = models.TextField(default="default")
-
-class Item(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True, blank=False)
-    name = models.CharField(max_length=255, default="default")
-    quantity = models.IntegerField(default=1)
-    category = models.CharField(max_length=255, default="Food")
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    imgURL = models.CharField(max_length=255, default="https://image.shutterstock.com/image-photo/top-view-three-yellow-bananas-260nw-1875848530.jpg")
-
-    def __str__(self):
-        return self.name
-
 class Nutrition(models.Model):
     item = models.OneToOneField(Item, on_delete=models.CASCADE)
     calories = models.CharField(max_length=255)
@@ -87,7 +60,6 @@ class Nutrition(models.Model):
 
 class CartItem(models.Model):
     item = models.OneToOneField(Item, null=True, blank=False, on_delete=models.CASCADE)
-    # TODO: VALIDATE QUANTITY BEFORE CREATING CARTITEM AND ON CHANGES OF CARTITEM 
     quantity = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
     account = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=False, on_delete=CASCADE)
     

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from register import views as vr
 from . import views
+from store import views as viewstore
 from core import views as views_core
 from storelocator import views as views_storelocator
 
@@ -26,11 +27,11 @@ urlpatterns = [
     re_path(r'^storeLocator/$', views_storelocator.storeLocatorPage, name='storeLocator'),
     re_path(r'^account/$', views.accountInfoPage, name='account'),
     re_path(r'^logout/$', views.logout, name='logout'),
-    re_path(r'^storepage/(?P<storeIdentifier>[\w\-]+)/(?P<searchTerm>[\w\-]+)/$', views.storePage, name='storepage'),
+    re_path(r'^storepage/(?P<storeIdentifier>[\w\-]+)/(?P<searchTerm>[\w\-]+)/$', viewstore.storePage, name='storepage'),
     re_path(r'^itempage/(?P<itemIdentifier>[\w\-]+)/$', views.itemPage, name='itempage'),
     re_path(r'^cardpayment/$', views.paymentPage, name='cardpayment'),
     
-    
+    path('add-to-cart/<itemIdentifier>/<quantity>/', viewstore.add_to_cart, name='add-to-cart'),
     path('admin/', admin.site.urls),
     path("simple_function", views.simple_function),
     path("get_vendors", views_core.get_vendors),

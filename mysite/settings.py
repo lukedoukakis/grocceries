@@ -49,11 +49,13 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     # our local apps
+    
+    'store',
     'myapp',    # app that database models are in must be listed here
     'storelocator',      # map app
     'account',
     'core',
-    'register'
+    'register',
 ]
 
 MIDDLEWARE = [
