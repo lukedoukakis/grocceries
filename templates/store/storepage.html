@@ -11,15 +11,14 @@
 
 <div class="sticky-wrapper" id="searchWrapper">
 	<div class="search-bar">
-		<input class="search-txt" type="text" name="" placeholder="Search for items..." id="searchInput">
+		<input type="text" name="" placeholder="Search for items..." id="searchInput">
 		<a class="search-btn" id="searchButton" href="#">
 			<i class="fas fa-search"></i>
-			<!-- <div class="autocom-box" id="autoComplete"> -->
 		</a>
 		<div id="autoComplete" style=
 			"
 			padding-top: 20px;
-			max-height: 280px;
+			max-height: 480px;
 			overflow-y: auto;
 			font-size: small;
 			background-color: black;
@@ -30,16 +29,15 @@
 			z-index: 999;
 			cursor: pointer;
 			">
-			
-			</div>
+		</div>
 	</div>
 </div>
 
 
 
 <!-- Store Page -->
-<div class="login">
-	<div style="padding-bottom:28px" class="container">
+<div class="login" id="pageContent">
+	<div style="margin-top: 0px; padding-bottom:28px;" class="container">
 		<h2 id="NAME">{{vendorName}}</h2>
 		<p style="font-size:28px;color:black" id="DESCRIPTION">{{vendorDescription}}<p>	
 		<p style="font-size:14px" id="ADDRESS">{{vendorAddress}}<p>
@@ -85,6 +83,7 @@
 		searchButton.onclick = function() {
 			var term;
 			term = searchInput.value.trim();
+			if(term == ""){ term = "all"; }
 			searchButton.href = "/storepage/" + "{{ vendorID }}" + "/" + term;
         }
 		if("{{ numOfItemsDisplay }}" == "0"){
@@ -100,17 +99,20 @@
 		}
 		
 		// suggestions functionality
-		searchInput.onkeyup = (e)=>{
+		searchInput.onkeydown = (e)=>{
 			if (e.keyCode === 13) {
 				searchButton.click();
 			}
+			if (e.keyCode === 8 && (searchInput.value.trim().length <= 1)) {
+				showSuggestions([]);
+			}
 			else{
-				let userData = e.target.value;
+				let userData = searchInput.value;
     			let emptyArray = [];
     			if(userData){
         			emptyArray = suggestions.filter((data)=>{
             			//filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
-            			return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase()); 
+            			return data.toLocaleLowerCase().includes(userData.toLocaleLowerCase()); 
         			});
         			emptyArray = emptyArray.map((data)=>{
             			// passing return data inside li tag
@@ -127,33 +129,33 @@
         			searchWrapper.classList.remove("active");
     			}
 			}
-
-    		
+			var m = (0 - autoComplete.clientHeight).toString() + "px";
+			console.log(m);
+			document.getElementById("pageContent").style.marginTop = m;
+    		console.log(document.getElementById("pageContent").style.marginTop);
+			// document.body.style.marginTop = (window.innerHeight - document.body.clientHeight);
+			
 		}
 	};
 
 	function select(element){
     	let selectData = element.textContent;
     	searchInput.value = selectData;
-		console.log("LOGG");
 		searchButton.href = "/storepage/" + "{{ vendorID }}" + "/" + "element.textContent";
     	searchWrapper.classList.remove("active");
 		searchButton.click();
 	}
 
 	function showSuggestions(list){
-		//window.alert(list);
-
     	let listData;
     	if(!list.length){
         	userValue = searchInput.value;
-        	listData = '<li>'+ userValue +'</li>';
+        	//listData = '<li>'+ userValue +'</li>';
+			listData = "";
     	}else{
         	listData = list.join('');
     	}
     	autoComplete.innerHTML = listData;
-		//window.alert(autoComplete.innerHTML);
-	
 	}
 
 	function getAllItems(){

@@ -27,7 +27,8 @@ urlpatterns = [
     re_path(r'^storeLocator/$', views_storelocator.storeLocatorPage, name='storeLocator'),
     re_path(r'^account/$', views.accountInfoPage, name='account'),
     re_path(r'^logout/$', views.logout, name='logout'),
-    re_path(r'^storepage/(?P<storeIdentifier>[\w\-]+)/(?P<searchTerm>[\w\-]+)/$', viewstore.storePage, name='storepage'),
+    # [a-zA-Z0-9~@#$^*()_+=[\]{}|\\,.?: -]
+    re_path(r'^storepage/(?P<storeIdentifier>[\w\-]+)/(?P<searchTerm>.+)/$', viewstore.storePage, name='storepage'),
     re_path(r'^itempage/(?P<itemIdentifier>[\w\-]+)/$', views.itemPage, name='itempage'),
     re_path(r'^cardpayment/$', views.paymentPage, name='cardpayment'),
     
