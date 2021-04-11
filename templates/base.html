@@ -64,14 +64,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<style>
 		.sticky-wrapper {
-			position: -webkit-sticky;
+			/* position: -webkit-sticky; */
 		 	position: sticky;
-			top: 0;
+			top: -1px;
 		  	padding: 30px;
 		  	margin: 0 auto;
 			background-color: black;
 			z-index: 2;
 		}
+		.is-pinned{
+			background-color: red;
+		}
+
 		.search-bar {
 		  top: 0;
 		  font-size: 20px;

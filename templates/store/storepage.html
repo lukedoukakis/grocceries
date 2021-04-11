@@ -79,7 +79,9 @@
 		var searchInput = document.getElementById("searchInput");
         var searchButton = document.getElementById("searchButton");
         var autoComplete = document.getElementById("autoComplete");
-		var ul = document.getElementById("list");
+		var pageContent = document.getElementById("pageContent");
+
+		searchWrapper.classList.add("active");
 		searchButton.onclick = function() {
 			var term;
 			term = searchInput.value.trim();
@@ -99,12 +101,9 @@
 		}
 		
 		// suggestions functionality
-		searchInput.onkeydown = (e)=>{
+		searchInput.onkeyup = (e)=>{
 			if (e.keyCode === 13) {
 				searchButton.click();
-			}
-			if (e.keyCode === 8 && (searchInput.value.trim().length <= 1)) {
-				showSuggestions([]);
 			}
 			else{
 				let userData = searchInput.value;
@@ -118,7 +117,7 @@
             			// passing return data inside li tag
             			return data = '<li>'+ data +'</li>';
         			});
-        			searchWrapper.classList.add("active");
+        			//searchWrapper.classList.add("active");
         			showSuggestions(emptyArray);
         			let allList = autoComplete.querySelectorAll("li");
         			for (let i = 0; i < allList.length; i++) {
@@ -126,17 +125,25 @@
         			}
     			}
 				else{
-        			searchWrapper.classList.remove("active");
+					showSuggestions([]);
+        			//searchWrapper.classList.remove("active");
     			}
 			}
-			var m = (0 - autoComplete.clientHeight).toString() + "px";
-			console.log(m);
-			document.getElementById("pageContent").style.marginTop = m;
-    		console.log(document.getElementById("pageContent").style.marginTop);
-			// document.body.style.marginTop = (window.innerHeight - document.body.clientHeight);
-			
+
+			var observer = new IntersectionObserver(entries => {
+				console.log(entries[0].intersectionRatio);
+  				if(entries[0].intersectionRatio >= 1) {
+					var m = (0 - autoComplete.clientHeight).toString() + "px";
+					pageContent.style.marginTop = m;
+  				}
+			});
+			observer.observe(searchWrapper);
 		}
 	};
+
+
+	
+
 
 	function select(element){
     	let selectData = element.textContent;
