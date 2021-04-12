@@ -32,7 +32,7 @@ urlpatterns = [
     re_path(r'^itempage/(?P<itemIdentifier>[\w\-]+)/$', views.itemPage, name='itempage'),
     re_path(r'^cardpayment/$', views.paymentPage, name='cardpayment'),
     
-    path('add-to-cart/<itemIdentifier>/<quantity>/', viewstore.add_to_cart, name='add-to-cart'),
+    path('add-to-cart/', viewstore.add_to_cart),
     path('admin/', admin.site.urls),
     path("simple_function", views.simple_function),
     path("get_vendors", views_core.get_vendors),

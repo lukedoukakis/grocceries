@@ -59,9 +59,15 @@ class Nutrition(models.Model):
     protein = models.CharField(max_length=255)
 
 class CartItem(models.Model):
-    item = models.OneToOneField(Item, null=True, blank=False, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, null=True, blank=False, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
     account = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=False, on_delete=CASCADE)
+    
+    class Meta:
+        unique_together = ('account', 'item')
+    
+    def __str__(self):
+        return self.account.username + "|" + self.item.name + "|" + self.item.vendor.name
     
 
 # FUNCTIONS

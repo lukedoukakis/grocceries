@@ -36,8 +36,8 @@ class Item(models.Model):
             'itemIdentifier': self.id
         })
     
-    def get_add_to_cart_url(self):
+    def get_add_to_cart_url(self, quantity):
         return reverse("add-to-cart", kwargs={
             'id': self.id,
-            'quantity': self.quantity
+            'quantity': 1
         })

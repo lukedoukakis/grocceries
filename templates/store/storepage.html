@@ -33,7 +33,28 @@
 	</div>
 </div>
 
+<script>
+	function addtocart(itemid, quantityid){
+		console.log("running");
+		$.ajax({
+			url : "/add-to-cart/", // the endpoint
+			type : "GET", // http method
+			data : { item_id : itemid, 
+					 quantity : document.getElementById("quantity" + quantityid).innerText }, // data sent with the get request
 
+			// handle a successful response
+			success : function(json) {
+				console.log("success"); // another sanity check
+				document.getElementById("quantity" + quantityid).innerText = 0
+			},
+
+			// handle a non-successful response
+			error : function(xhr,errmsg,err) {
+				console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+			}
+		});
+	};
+</script>
 
 <!-- Store Page -->
 <div class="login" id="pageContent">
@@ -55,18 +76,13 @@
 				onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}')"></button>
 				<button class="fa fa-minus item-minus" id="item-minus" 
 				onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}')"></button>
-
-				<a class="item-addtocart" href="{{item.add_to_cart_url}}" id="item-addtocart{{forloop.counter0}}">Add to Cart</a>
-
-				<script type="text/javascript">document.getElementById("item-addtocart{{forloop.counter0}}").href += "/"+document.getElementById("quantity{{forloop.counter0}}1");</script>
+				<button class="item-addtocart" id="item-addtocart{{forloop.counter0}}" onclick="addtocart('{{item.id}}', '{{forloop.counter0}}')">Add to Cart</button>
 
 			</div>
 			{%endfor%}
 		</div>
 	</div>
 </div>
-
-
 
 <!-- need to run this after otherwise page is not loaded yet and cannot search by div -->
 <script src = "{% static 'store/js/store.js' %}"></script>
