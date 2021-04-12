@@ -31,6 +31,7 @@ urlpatterns = [
     re_path(r'^storepage/(?P<storeIdentifier>[\w\-]+)/(?P<searchTerm>.+)/$', viewstore.storePage, name='storepage'),
     re_path(r'^itempage/(?P<itemIdentifier>[\w\-]+)/$', views.itemPage, name='itempage'),
     re_path(r'^cardpayment/$', views.paymentPage, name='cardpayment'),
+    re_path(r'^delivery/$', views.deliveryPage, name='delivery'),
     
     path('add-to-cart/<itemIdentifier>/<quantity>/', viewstore.add_to_cart, name='add-to-cart'),
     path('admin/', admin.site.urls),

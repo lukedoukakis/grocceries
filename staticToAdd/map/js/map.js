@@ -34,12 +34,12 @@ function initMap() {
   });
 
     // Build and add the search bar
-const card = document.createElement('div');
-const titleBar = document.createElement('div');
-const title = document.createElement('div');
-const container = document.createElement('div');
-const input = document.createElement('input');
-const options = {
+  const card = document.createElement('div');
+  const titleBar = document.createElement('div');
+  const title = document.createElement('div');
+  const container = document.createElement('div');
+  const input = document.createElement('input');
+  const options = {
   types: ['address'],
   componentRestrictions: {country: 'us'},
 };
