@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import logout as user_logout
 from store.models import Item
+from store.models import Vendor
 from myapp.models import CartItem
 from core import localdata
 import uuid
@@ -47,6 +48,33 @@ def simple_function(request):
     print("\nthis is a simple function\n")
     return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
 
+def deliveryPage(request):
+
+    location = [33.899132398564674, -117.875232436358]
+    driverLocation = [33.89066309989026, -117.82630507836775]
+    storeLons = []
+    storeLats = []
+    storeNames = ""
+
+    cartItems = CartItem.objects.filter(account=request.user)
+    listOfStoresUsed = []
+    for i in cartItems:
+        listOfStoresUsed.append(i.item.vendor)
+    for store in listOfStoresUsed:
+        storeLons.append(float(store.longitude))
+        storeLats.append(float(store.latitude))
+        storeNames += store.name + ","
+
+    print(storeNames)
+
+    context = {
+        'accountLocation': location,
+        'driverLocation' : driverLocation,
+        'storeLons' : storeLons,
+        'storeLats' : storeLats,
+    }
+
+    return render(request, 'checkout/delivery.html', context)
 
 def paymentPage(request):
     cartItems = CartItem.objects.filter(account=request.user)
