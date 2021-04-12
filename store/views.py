@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render, get_object_or_404
+from django.http import HttpResponse
 from myapp.models import CartItem
 from store.models import Vendor, Item
 from django.contrib.auth.decorators import login_required
 from account.models import Account
 import uuid
+import json
 
 # Create your views here.
 def storePage(request, storeIdentifier, searchTerm):
@@ -26,20 +28,42 @@ def storePage(request, storeIdentifier, searchTerm):
         'items': items,
         'searchTerm': searchTerm
     }
+
+
     return render(request, 'store/storepage.html', context)
     
 @login_required
-def add_to_cart(request, id, quantity):
-    item = get_object_or_404(Item, id=id)
-    cart_item = CartItem.object.create(item=item, account=request.user)
-    cart_item_qs = CartItem.objects.filter(item=item, account=request.user)
-    if cart_item_qs.exists():
-        cart_item_qs[0].quantity += quantity
-        cart_item_qs.save()
+def add_to_cart(request):
+    if request.method == 'GET':
+        itemid = request.GET.get('item_id')
+        quantity = request.GET.get('quantity')
+
+        # sanity check
+
+        item = get_object_or_404(Item, id=itemid)
+        cart_item_qs = CartItem.objects.filter(item=item, account=request.user)
+        print(cart_item_qs.exists())
+        if cart_item_qs.exists():
+            cart_item_qs[0].quantity += int(quantity)
+            cart_item_qs[0].save()
+        else:
+            cart_item = CartItem.objects.create(item=item, account=request.user)
+            cart_item.quantity = int(quantity)
+            cart_item.save()
+            print("added " + str(quantity) + " " + cart_item.item.name + "(s) to the cart")
+        
+        response_data = "successful"
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
     else:
-        cart_item.quantity = quantity
-        cart_item.save()
-    return redirect("storepage", storeIdentifier=item.vendor.id, searchTerm="all")
+        return HttpResponse(
+            json.dumps(),
+            content_type="application/json"
+        )
+    
+    return 1
     
         
     
