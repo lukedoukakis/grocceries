@@ -82,8 +82,9 @@ def paymentPage(request):
     quantity = []
     listOfStoresUsed = []
     names = []
+    form = "form"
     for i in cartItems:
-        listOfStoresUsed.append(i.item.vendor.name)
+        listOfStoresUsed.append(i.item.vendor)
         prices.append(i.item.price)
         quantity.append(i.quantity)
         names.append(i.item.name)
@@ -93,11 +94,14 @@ def paymentPage(request):
         [0 for i in range(len(cartItems))] for j in range(len(listOfStoresUsed))]
     for i in range(len(listOfStoresUsed)):
         for j in range(len(cartItems)):
-            if cartItems[j].item.vendor.name == listOfStoresUsed[i]:
+            if cartItems[j].item.vendor.id == listOfStoresUsed[i].id:
                 itemsOrganizedByStore[i][j] = cartItems[j]
     for i in range(len(itemsOrganizedByStore)):
         itemsOrganizedByStore[i] = list(set(itemsOrganizedByStore[i]))
         itemsOrganizedByStore[i].remove(0)
+
+    for i in range(len(listOfStoresUsed)):
+        listOfStoresUsed[i] = listOfStoresUsed[i].name
     myZip = zip(range(len(listOfStoresUsed)), listOfStoresUsed)
     context = {
         'listOfStoresUsed': listOfStoresUsed,
