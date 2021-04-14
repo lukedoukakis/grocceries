@@ -107,7 +107,9 @@ def paymentPage(request):
         'numberOfItems': range(len(cartItems)),
         'pricesAndNamesQuantity': zip(prices, names, quantity),
         'quantity': quantity,
-        'totalPrice': totalPrice
+        'totalPrice': totalPrice,
+        'form' : form
+
     }
     return render(request, 'payment/cardpayment.html', context)
 
