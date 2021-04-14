@@ -263,8 +263,8 @@ th {
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url("../fonts/glyphicons-halflings-regular.f4769f9bdb74.eot");
+  src: url("../fonts/glyphicons-halflings-regular.f4769f9bdb74.eot?#iefix") format('embedded-opentype'), url("../fonts/glyphicons-halflings-regular.448c34a56d69.woff2") format('woff2'), url("../fonts/glyphicons-halflings-regular.fa2772327f55.woff") format('woff'), url("../fonts/glyphicons-halflings-regular.e18bbf611f2a.ttf") format('truetype'), url("../fonts/glyphicons-halflings-regular.f72146688399.svg#glyphicons_halflingsregular") format('svg');
 }
 .glyphicon {
   position: relative;
@@ -3061,13 +3061,6 @@ fieldset[disabled] a.btn {
   background-color: #fff;
   border-color: #ccc;
 }
-.btn-landing {
-  color: #333;
-  background-color: #fff;
-  border-color: #ccc;
-  border-radius: 0;
-  border: 0 none;
-}
 .btn-default:focus,
 .btn-default.focus {
   color: #333;
@@ -3409,6 +3402,7 @@ fieldset[disabled] .btn-danger.focus {
   font-weight: normal;
   color: #337ab7;
   border-radius: 0;
+  border: 0 none;
 }
 .btn-link,
 .btn-link:active,
@@ -3443,7 +3437,7 @@ fieldset[disabled] .btn-link:focus {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
-  border-radius: 6px;
+  border: 0 none;
 }
 .btn-sm,
 .btn-group-sm > .btn {
