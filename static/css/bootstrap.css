@@ -3061,6 +3061,13 @@ fieldset[disabled] a.btn {
   background-color: #fff;
   border-color: #ccc;
 }
+.btn-landing {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+  border-radius: 0;
+  border: 0 none;
+}
 .btn-default:focus,
 .btn-default.focus {
   color: #333;
