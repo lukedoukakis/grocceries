@@ -25,6 +25,13 @@
 </div>
 
 <div style = "float: right; margin-top: 7em; margin-right: 10em; border-style: solid;" >
+    <form id="MyForm" method="POST" style="display: none;">
+        {% csrf_token %}
+        {{form}}
+         <input type="submit" value="Say hello" ;>
+         
+     </form>
+    
      <br>
     {% for i,j,k  in pricesAndNamesQuantity  %}
       {{j}}: ${{ i|multiply:k }} <br>
@@ -56,9 +63,8 @@
 
             {% endfor %}
             {% endfor %}
+             
             
-            
-           
         
 
        
@@ -152,9 +158,18 @@
             onApprove: function(data, actions) {//if apporved do this
                 return actions.order.capture().then(function(details) {
                     // Show a success message to the buyer
+                    
+                    addressArray = [details.payer.address.address_line_1, details.payer.address.address_line_2 ,
+                    details.payer.address.admin_area_2, details.payer.address.admin_area_1 ,details.payer.address.postal_code]
                    
-                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                    window.location.href ="{% url 'home' %}"
+                    
+                    var shippingAddress = addressArray[0] +addressArray[1] + ", " + addressArray[2] + ", " + addressArray[3]+  " " + addressArray[4]
+                    shippingAddress = shippingAddress.replace("undefined"," ")
+                    
+                    alert(shippingAddress)
+                    document.getElementById("address").value = shippingAddress
+                    document.getElementById("MyForm").submit();
+                    //window.location.href ="{% url 'home' %}"
                 });
             }
 

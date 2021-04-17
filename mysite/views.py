@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth import logout as user_logout
 from store.models import Item
 from store.models import Vendor
-from myapp.models import CartItem
+from myapp.models import CartItem , Address
 from core import localdata
+from .forms import AddressForm
 import uuid
 
 # Create your views here.
@@ -82,7 +83,23 @@ def paymentPage(request):
     quantity = []
     listOfStoresUsed = []
     names = []
-    form = "form"
+    form = AddressForm()
+
+    if request.method == 'POST':
+        
+        form = AddressForm(request.POST)
+
+        if form.is_valid():
+            addressValue = form.cleaned_data['value']
+
+            a = Address(account = request.user , value = addressValue)
+            a.save()
+
+            return render(request, 'test.html') # after payment page go here
+
+        else:
+            form = AddressForm()
+    
     for i in cartItems:
         listOfStoresUsed.append(i.item.vendor)
         prices.append(i.item.price)
@@ -102,6 +119,10 @@ def paymentPage(request):
 
     for i in range(len(listOfStoresUsed)):
         listOfStoresUsed[i] = listOfStoresUsed[i].name
+
+    
+
+    
     myZip = zip(range(len(listOfStoresUsed)), listOfStoresUsed)
     context = {
         'listOfStoresUsed': listOfStoresUsed,
