@@ -124,11 +124,13 @@ def paymentPage(request):
 
     
     myZip = zip(range(len(listOfStoresUsed)), listOfStoresUsed)
+    oZip = zip(range(len(listOfStoresUsed)), listOfStoresUsed)
     context = {
         'listOfStoresUsed': listOfStoresUsed,
         'cartItems': cartItems,
         'itemsOrganizedByStore': itemsOrganizedByStore,
         'r': myZip,
+        'o': oZip,
         'numberOfItems': range(len(cartItems)),
         'pricesAndNamesQuantity': zip(prices, names, quantity),
         'quantity': quantity,

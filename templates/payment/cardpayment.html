@@ -17,9 +17,10 @@
 
 <body  style = "overflow-x: hidden;"> 
     <div  class = "topnav" style="cursor: pointer;">
-    {% for store in listOfStoresUsed  %} 
+        {% for j,l in r %} 
+        
     <!-- This is not an error it says it is but it is not  -->
-    <a onclick="show('store-{{store}}')">{{store}}  </a>
+    <a onclick="show('store-{{l}}{{j}}')">{{l}}</a>
     {% endfor %}
     
 </div>
@@ -54,8 +55,8 @@
         
        
         <!-- we want the first to be visible -->
-        {% for j,l in r %}
-        <div class="col-sm-8" style="display: none; margin-left: 6em;" id = "store-{{l}}">
+        {% for j,l in o%}
+        <div class="col-sm-8" style="display: none; margin-left: 6em;" id = "store-{{l}}{{j}}">
         
             {% for i  in itemsOrganizedByStore|lookup:j  %} 
             
@@ -114,7 +115,7 @@
 3
         window.onload = function() {
             
-            document.getElementById('goNow').innerHTML = document.getElementById("store-{{listOfStoresUsed.0}}").innerHTML;
+            document.getElementById('goNow').innerHTML = document.getElementById("store-{{listOfStoresUsed.0}}0").innerHTML;
                 };
                     
             function show(param_div_id) {
