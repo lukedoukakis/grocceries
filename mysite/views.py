@@ -138,6 +138,6 @@ def paymentPage(request):
         'form' : form
 
     }
-    return render(request, 'payment/cardpayment.html', context)
+    return render(request, 'payment/cardpayment2.html', context)
 
 

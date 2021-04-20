@@ -15,6 +15,12 @@
     <title> PayPal Smart Payment Buttons Integration | Client Demo </title>
 </head>
 
+
+
+
+
+
+
 <body style="overflow-x: hidden;">
     <div class="topnav" style="cursor: pointer;">
         {% for j,l in r %}
@@ -24,24 +30,33 @@
 
     </div>
 
-    <div style="float: right; margin-top: 7em; margin-right: 10em; border-style: solid;">
-        <form id="MyForm" method="POST" style="display: none;">
-            {% csrf_token %}
-            {{form}}
-            <input type="submit" value="Say hello" ;>
-        </form>
 
-        <br>
-        {% for i,j,k in pricesAndNamesQuantity %}
-            {{j}}: ${{ i|multiply:k }}
+    <!-- cart summary widget -->
+    <div class="sticky-wrapper" style="padding: 30px">
+        <div class = "sticky-wrapper" style="background-color: white; float: right; margin-top: 7em; margin-right: 10em; border-style: solid;">
+            <form id="MyForm" method="POST" style="display: none;">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" value="Say hello" ;>
+            </form>
+            
+            <p style="font-size: 24px; text-align: center; color: black">
+                Order Total
+            </p>
+
             <br>
-            <p style="border-bottom:1px solid rgb(0, 0, 0);"> X {{k}}</p>
-        {% endfor %}
-
-        <p style="border-top:1px solid rgb(0, 0, 0);font-size: 25px;">${{totalPrice}}</p>
-        <br>
-        <div id="paypal-button-container" style="width: 10%;"></div>
+            {% for i,j,k in pricesAndNamesQuantity %}
+                {{j}} (Count: {{k}})
+                <br>
+                <p style="border-bottom:1px solid rgb(0, 0, 0);"> ${{ i|multiply:k }}</p>
+            {% endfor %}
+    
+            <p style="border-top:1px solid rgb(0, 0, 0);font-size: 25px;">${{totalPrice}}</p>
+            <br>
+            <div id="paypal-button-container" style="width: 10%;"></div>
+        </div>
     </div>
+    
 
     <div id="goNow" style="margin-top: 3em; margin-bottom: 3em; margin-left: 6em;" class="row">
 
@@ -55,32 +70,24 @@
 
     <!-- we want the first to be visible -->
     {% for j,l in o%}
-    <div class="col-sm-8" style="display: none; margin-left: 6em;" id="store-{{l}}{{j}}">
-
+    <div class="items-container" id="store-{{l}}{{j}}">
         {% for i in itemsOrganizedByStore|lookup:j %}
+        <div class='item-display'>
+            <img class="item-image" src="{{i.item.imgURL}}">
+            <div class="item-text" id="{{i.item.id}}"> {{ i.item.name | title }} </div>
+            <div class="item-quantity" id="quantity{{forloop.counter0}}">{{ i.quantity }}</div>
+            <button class="fa fa-plus item-plus" id="item-plus" 
+            onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}')"></button>
+            <button class="fa fa-minus item-minus" id="item-minus" 
+            onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}')"></button>
+            <button class="item-addtocart" id="item-addtocart{{forloop.counter0}}" onclick="addtocart('{{item.id}}', '{{forloop.counter0}}')">Add to Cart</button>
 
-        <img width="200em" height="200em" src={{i.item.imgURL}}>
-        <p>{{i.item.name}} Q:{{i.quantity}}</p><br>
-
-        {% endfor %}
-        {% endfor %}
-
-
-
-
-
-
-        <!-- box right -->
-
-
-
-
-
-
-
-
-
+        </div>
+        {%endfor%}
     </div>
+    {%endfor%}
+
+    
 
     </div>
 
