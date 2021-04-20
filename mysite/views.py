@@ -115,7 +115,8 @@ def paymentPage(request):
                 itemsOrganizedByStore[i][j] = cartItems[j]
     for i in range(len(itemsOrganizedByStore)):
         itemsOrganizedByStore[i] = list(set(itemsOrganizedByStore[i]))
-        itemsOrganizedByStore[i].remove(0)
+        # print(itemsOrganizedByStore)
+        itemsOrganizedByStore[i].pop(0)
 
     for i in range(len(listOfStoresUsed)):
         listOfStoresUsed[i] = listOfStoresUsed[i].name

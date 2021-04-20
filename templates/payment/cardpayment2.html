@@ -18,78 +18,88 @@
 
 
 
+<div class="sticky-wrapper" style="background-color: rgba(243, 216, 177, 255); border-bottom-style: solid; border-bottom-color: black; border-bottom-width: 1px;">
 
+    <div style="text-align: center; padding: 25px">
+        <h2 style = "font-size: 32px;">My Shopping Cart</h2>
+    </div>
 
-
-<body style="overflow-x: hidden;">
-    <div class="topnav" style="cursor: pointer;">
+    <div class style="cursor: pointer; margin: 0em; text-align: center; width: 70%;">
         {% for j,l in r %}
             <!-- This is not an error it says it is but it is not  -->
-            <a onclick="show('store-{{l}}{{j}}')">{{l}}</a>
+            <div style="float:left">
+                <h1 style = "padding: 10px"><a onclick="show('store-{{l}}{{j}}')" class="btn btn-outline" style="border-radius: 0; border-color: black; border-width: 2px; border-style: solid; color: black; width: 250px; background-color: white; font-weight: 300; text-decoration: none; font-size: 24px;">{{l}}</a></h1>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="sticky-wrapper" style="background-color: rgba(0, 0, 0, 0); margin-top: 50px;">
+    <div class="sticky-wrapper" style="background-color: white; float: right; min-width: 400px; margin-top: 0em; margin-right: 0em; border-style: solid;">
+        <form id="MyForm" method="POST" style="display: none;">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="Say hello" ;>
+        </form>
+
+        <p style="font-size: 24px; text-align: center; color: black">
+            Order Total
+        </p>
+
+        <br>
+        {% for i,j,k in pricesAndNamesQuantity %}
+        {{j}} (Count: {{k}})
+        <br>
+        <p style="border-bottom:1px solid rgb(0, 0, 0);"> ${{ i|multiply:k }}</p>
         {% endfor %}
 
+        <p style="border-top:1px solid rgb(0, 0, 0);font-size: 25px;">${{totalPrice}}</p>
+        <br>
+        <div id="paypal-button-container" style="width: 10%;"></div>
     </div>
+</div>
 
-
-    <!-- cart summary widget -->
-    <div class="sticky-wrapper" style="padding: 30px">
-        <div class = "sticky-wrapper" style="background-color: white; float: right; margin-top: 7em; margin-right: 10em; border-style: solid;">
-            <form id="MyForm" method="POST" style="display: none;">
-                {% csrf_token %}
-                {{form}}
-                <input type="submit" value="Say hello" ;>
-            </form>
-            
-            <p style="font-size: 24px; text-align: center; color: black">
-                Order Total
-            </p>
-
-            <br>
-            {% for i,j,k in pricesAndNamesQuantity %}
-                {{j}} (Count: {{k}})
-                <br>
-                <p style="border-bottom:1px solid rgb(0, 0, 0);"> ${{ i|multiply:k }}</p>
-            {% endfor %}
-    
-            <p style="border-top:1px solid rgb(0, 0, 0);font-size: 25px;">${{totalPrice}}</p>
-            <br>
-            <div id="paypal-button-container" style="width: 10%;"></div>
-        </div>
+<div>
+    <!-- Items display -->
+    <div id="goNow" class="items-container" style ="margin-left: 200px; margin-right: 200px; margin-bottom: 200px;">
     </div>
-    
-
-    <div id="goNow" style="margin-top: 3em; margin-bottom: 3em; margin-left: 6em;" class="row">
-
-
-        <!-- box left -->
-
-    </div>
-
-
 
 
     <!-- we want the first to be visible -->
     {% for j,l in o%}
-    <div class="items-container" id="store-{{l}}{{j}}">
+    <div id="store-{{l}}{{j}}" class="items-container" style="display: none;">
         {% for i in itemsOrganizedByStore|lookup:j %}
         <div class='item-display'>
             <img class="item-image" src="{{i.item.imgURL}}">
             <div class="item-text" id="{{i.item.id}}"> {{ i.item.name | title }} </div>
             <div class="item-quantity" id="quantity{{forloop.counter0}}">{{ i.quantity }}</div>
-            <button class="fa fa-plus item-plus" id="item-plus" 
-            onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}')"></button>
-            <button class="fa fa-minus item-minus" id="item-minus" 
-            onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}')"></button>
-            <button class="item-addtocart" id="item-addtocart{{forloop.counter0}}" onclick="addtocart('{{item.id}}', '{{forloop.counter0}}')">Add to Cart</button>
+            <!-- <button class="fa fa-plus item-plus" id="item-plus"
+                onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}')"></button>
+            <button class="fa fa-minus item-minus" id="item-minus"
+                onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}')"></button>
+            <button class="item-addtocart" id="item-addtocart{{forloop.counter0}}"
+                onclick="addtocart('{{item.id}}', '{{forloop.counter0}}')">Add to Cart</button> -->
 
         </div>
         {%endfor%}
     </div>
     {%endfor%}
 
+
+</div>
+
+
+        
+
     
 
-    </div>
+
+
+
+    
+    
+
+    
 
     <!-- <div class = "container">
     {% for i in "123"  %} 
@@ -127,8 +137,9 @@
 
         function show(param_div_id) {
 
-
+            //document.getElementById('initial').innerHTML = "";
             document.getElementById('goNow').innerHTML = document.getElementById(param_div_id).innerHTML;
+        
 
         }
 

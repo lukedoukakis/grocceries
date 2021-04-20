@@ -2,11 +2,17 @@
   font-size: 2em;
 }
 
-
+.topnav {
+  background-color: rgb(17, 17, 17);
+  overflow: hidden;
+  margin-right: 10em;
+  margin-top: 3em;
+  margin-left: 3em;
+}
 
 .topnav {
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0);
+  overflow: hidden;
+  background-color: white;
   position: -webkit-sticky;
   position: sticky;
 }
@@ -19,11 +25,6 @@
   text-align: center;
   text-decoration: none;
   font-size: 17px;
-}
-
-.topnav h2:hover {
-  background-color: #ddd;
-  color: black;
 }
 
 .topnav a:hover {
