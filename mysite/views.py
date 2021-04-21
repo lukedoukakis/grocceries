@@ -7,6 +7,7 @@ from myapp.models import CartItem , Address
 from core import localdata
 from .forms import AddressForm
 import uuid
+import json
 
 # Create your views here.
 
@@ -78,7 +79,11 @@ def deliveryPage(request):
     return render(request, 'checkout/delivery.html', context)
 
 def paymentPage(request):
+
+    print("RUNNING PAYMENT PAGE")
+
     cartItems = CartItem.objects.filter(account=request.user)
+    ids = []
     prices = []
     quantity = []
     listOfStoresUsed = []
@@ -100,12 +105,14 @@ def paymentPage(request):
         else:
             form = AddressForm()
     
+    totalPrice = 0
     for i in cartItems:
         listOfStoresUsed.append(i.item.vendor)
-        prices.append(i.item.price)
+        ids.append(str(i.item.id))
+        prices.append(float(i.item.price))
         quantity.append(i.quantity)
         names.append(i.item.name)
-    totalPrice = sum(prices)
+        totalPrice += i.item.price * i.quantity
     listOfStoresUsed = list(set(listOfStoresUsed))
     itemsOrganizedByStore = [
         [0 for i in range(len(cartItems))] for j in range(len(listOfStoresUsed))]
@@ -126,6 +133,12 @@ def paymentPage(request):
     
     myZip = zip(range(len(listOfStoresUsed)), listOfStoresUsed)
     oZip = zip(range(len(listOfStoresUsed)), listOfStoresUsed)
+
+    json_ids = json.dumps(ids)
+    json_prices = json.dumps(prices)
+    json_names = json.dumps(names)
+    json_quantity = json.dumps(quantity)
+
     context = {
         'listOfStoresUsed': listOfStoresUsed,
         'cartItems': cartItems,
@@ -133,10 +146,15 @@ def paymentPage(request):
         'r': myZip,
         'o': oZip,
         'numberOfItems': range(len(cartItems)),
+        'ids' : json_ids,
+        'prices': json_prices,
+        'names' : json_names,
+        'quantities' : json_quantity,
         'pricesAndNamesQuantity': zip(prices, names, quantity),
         'quantity': quantity,
         'totalPrice': totalPrice,
-        'form' : form
+        'form' : form,
+        'testy': "lolol"
 
     }
     return render(request, 'payment/cardpayment2.html', context)

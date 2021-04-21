@@ -34,9 +34,14 @@ def storePage(request, storeIdentifier, searchTerm):
     
 @login_required
 def add_to_cart(request):
+
     if request.method == 'GET':
         itemid = request.GET.get('item_id')
         quantity = request.GET.get('quantity')
+
+        print("EDITING CART. QUANTITY:")
+        print(int(quantity))
+        print(request.user.username)
 
         # sanity check
 
@@ -44,15 +49,24 @@ def add_to_cart(request):
         cart_item_qs = CartItem.objects.filter(item=item, account=request.user)
         print(cart_item_qs.exists())
         if cart_item_qs.exists():
-            cart_item_qs[0].quantity += int(quantity)
-            cart_item_qs[0].save()
-        else:
-            cart_item = CartItem.objects.create(item=item, account=request.user)
-            cart_item.quantity = int(quantity)
+            cart_item = cart_item_qs[0]
+            print(cart_item.quantity)
+            qty = cart_item.quantity
+            qty += int(quantity)
+            cart_item.quantity = qty
+            print(cart_item.quantity)
             cart_item.save()
-            print("added " + str(quantity) + " " + cart_item.item.name + "(s) to the cart")
+            print("added " + str(quantity) + " " + cart_item_qs[0].item.name + "(s) to the cart")
+        else:
+            if quantity > 0:
+                cart_item = CartItem.objects.create(item=item, account=request.user)
+                cart_item.quantity = int(quantity)
+                cart_item.save()
+                print("added " + str(quantity) + " " + cart_item.item.name + "(s) to the cart")
         
         response_data = "successful"
+
+
         return HttpResponse(
             json.dumps(response_data),
             content_type="application/json"

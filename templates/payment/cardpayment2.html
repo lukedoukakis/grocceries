@@ -15,14 +15,16 @@
     <title> PayPal Smart Payment Buttons Integration | Client Demo </title>
 </head>
 
+ <!-- Hidden div for storing summary info -->
+<div id="hidden" style="display: none"></div>
 
+<!-- Heading -->
+<div style="background-color: rgba(243, 216, 177, 255); text-align: center; padding-top: 35px;">
+    <h2 style = "font-size: 36px;">My Shopping Cart</h2>
+</div>
 
-
+<!-- Store Listing -->
 <div class="sticky-wrapper" style="background-color: rgba(243, 216, 177, 255); border-bottom-style: solid; border-bottom-color: black; border-bottom-width: 1px;">
-
-    <div style="text-align: center; padding: 25px">
-        <h2 style = "font-size: 32px;">My Shopping Cart</h2>
-    </div>
 
     <div class style="cursor: pointer; margin: 0em; text-align: center; width: 70%;">
         {% for j,l in r %}
@@ -34,27 +36,25 @@
     </div>
 </div>
 
-<div class="sticky-wrapper" style="background-color: rgba(0, 0, 0, 0); margin-top: 50px;">
-    <div class="sticky-wrapper" style="background-color: white; float: right; min-width: 400px; margin-top: 0em; margin-right: 0em; border-style: solid;">
+<!-- Cart summary -->
+<div class="sticky-wrapper" style="background-color: rgba(0, 0, 0, 0); width: 20%; float: right; margin-top: 50px; margin-right: 0px;">
+    <div class="sticky-wrapper" style="background-color: white; float: right; min-width: 300px; margin: 0px; border-style: solid;">
         <form id="MyForm" method="POST" style="display: none;">
             {% csrf_token %}
             {{form}}
             <input type="submit" value="Say hello" ;>
         </form>
-
-        <p style="font-size: 24px; text-align: center; color: black">
-            Order Total
-        </p>
-
-        <br>
-        {% for i,j,k in pricesAndNamesQuantity %}
-        {{j}} (Count: {{k}})
-        <br>
-        <p style="border-bottom:1px solid rgb(0, 0, 0);"> ${{ i|multiply:k }}</p>
-        {% endfor %}
-
-        <p style="border-top:1px solid rgb(0, 0, 0);font-size: 25px;">${{totalPrice}}</p>
-        <br>
+        <div>
+            <p style="font-size: 24px; text-align: center; color: black">
+                Order Total
+            </p>
+            <br>
+            <div id="summaryContent">
+                <!-- content is loaded from js -->
+            </div>
+            <br>
+        </div>
+        
         <div id="paypal-button-container" style="width: 10%;"></div>
     </div>
 </div>
@@ -69,17 +69,15 @@
     {% for j,l in o%}
     <div id="store-{{l}}{{j}}" class="items-container" style="display: none;">
         {% for i in itemsOrganizedByStore|lookup:j %}
-        <div class='item-display'>
+        <div class='item-display' style="border-style: solid; border-width: 1px;">
             <img class="item-image" src="{{i.item.imgURL}}">
             <div class="item-text" id="{{i.item.id}}"> {{ i.item.name | title }} </div>
             <div class="item-quantity" id="quantity{{forloop.counter0}}">{{ i.quantity }}</div>
-            <!-- <button class="fa fa-plus item-plus" id="item-plus"
-                onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}')"></button>
+            <button class="fa fa-plus item-plus" id="item-plus"
+                onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>
             <button class="fa fa-minus item-minus" id="item-minus"
-                onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}')"></button>
-            <button class="item-addtocart" id="item-addtocart{{forloop.counter0}}"
-                onclick="addtocart('{{item.id}}', '{{forloop.counter0}}')">Add to Cart</button> -->
-
+                onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>
+                
         </div>
         {%endfor%}
     </div>
@@ -89,70 +87,148 @@
 </div>
 
 
-        
-
-    
-
-
-
-
-    
-    
-
-    
-
-    <!-- <div class = "container">
-    {% for i in "123"  %} 
-    <a class = "storeNames" style=" cursor: pointer;">Store{{i}} |</a>
-        {% endfor %}
-    <table class="table" style="width: 70%;">
-        <tbody>
-             #reference number of objects here to make list of items  -->
-    <!-- {% for i in "123"  %} 
-            <tr>
-                <th scope="col"><img src="{% static 'images/1.png'%}"> <br><p>Tata Chips Q:1</p></th><br>
-                
-            </tr>
-            {% endfor %}
-          
-        </tbody>
-        
-      </table>
-       -->
-
-    <!-- Set up a container element for the button -->
-
     <!-- Include the PayPal JavaScript SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&disable-funding=credit,card"></script>
+
     <script>
-
-
         1
         2
         3
+
         window.onload = function () {
 
-            document.getElementById('goNow').innerHTML = document.getElementById("store-{{listOfStoresUsed.0}}0").innerHTML;
-        };
+            // initialize values for summary
+            var ids = '{{ids|safe}}'.split(", ");
+            var prices = '{{prices|safe}}'.split(", ");
+            var names = '{{names|safe}}'.split(", ");
+            var quantities = '{{quantities|safe}}'.split(", ");
+            var hidden = document.getElementById("hidden");
+            var p;
+            for(i = 0; i < names.length; i++){
+                p = document.createElement("p");
+                p.id = ids[i].replace('[', '').replace(']', '').replace(/"/g,'');
+                p.style.display = "none";
+                p.innerHTML = quantities[i].replace('[', '').replace(']', '');
+                hidden.appendChild(p);
+            }
+            var tpElem = document.createElement("p");
+            tpElem.id = "total_price";
+            p.style.display = "none";
+            var totalPrice = '{{totalPrice}}';
+            tpElem.innerHTML = totalPrice;
+            hidden.appendChild(tpElem);
+            refreshSummary("null", 0);
 
+
+            document.getElementById('goNow').innerHTML = document.getElementById("store-{{listOfStoresUsed.0}}0").innerHTML;
+        
+        };
         function show(param_div_id) {
 
-            //document.getElementById('initial').innerHTML = "";
+            //console.log("param_div_id: " + param_div_id);
+            var div = document.getElementById(param_div_id);
+            //console.log(div.children.length);
+            for(i = 0; i < div.children.length; i++){
+                var txt = div.children[i].children[1];
+                //console.log("txt: " + txt.innerHTML);
+                var qty = div.children[i].children[2];
+                //console.log("qty: " + qty.innerHTML);
+                qty.innerHTML = document.getElementById(txt.id).innerHTML;
+            }
+
             document.getElementById('goNow').innerHTML = document.getElementById(param_div_id).innerHTML;
-        
 
         }
 
+        function onChangeQuantityClick(change, quantityItemId, itemid, itemname)
+        {
+            var quantityItem = document.getElementById(quantityItemId);
+            var curQuantity = parseInt(quantityItem.innerText);
+            var newQuantity = curQuantity + change >= 0 ? curQuantity + change : curQuantity;
+            quantityItem.innerText = newQuantity;
 
+            if(curQuantity != newQuantity){
+                modifyCart(itemid, change);
+                refreshSummary(itemid, change);
+            }
 
+        }
 
+        // refreshes order summary widget with adjusted cart contents
+        function refreshSummary(itemid, qty_change){
+
+            var sc = document.getElementById("summaryContent");
+            sc.innerHTML = "";
+
+            var ids = '{{ids|safe}}'.split(", ");
+            var prices = '{{prices|safe}}'.split(", ");
+            var names = '{{names|safe}}'.split(", ");
+            var quantities = '{{quantities|safe}}'.split(", ");
+
+            var priceChange = 0;
+
+            //console.log("ITEMID: " + itemid);
+            for(i=0; i < ids.length; i++){
+
+                var id = ids[i].replace('[', '').replace(']', '').replace(/"/g,'');
+                var price = prices[i].replace('[', '').replace(']', '')
+                var name = names[i].replace('[', '').replace(']', '').replace(/"/g,'');
+                var quantity = parseInt(document.getElementById(id).innerHTML);
+                //console.log("_____" + id);
+                if(id == itemid){
+                    //console.log("id match");
+                    quantity += qty_change;
+                    document.getElementById(id).innerHTML = quantity.toString();
+                    priceChange = parseFloat(price) * qty_change;
+                    //console.log(priceChange);
+                }
+                
+                // fill summary with updated content
+                if(quantity > 0){
+                    var n = document.createElement("p");
+                    n.innerHTML = name + " (Count: " + quantity + ")";
+                    n.style.fontSize = "14px";
+                    var p = document.createElement("p");
+                    p.innerHTML = "$" + (Math.round(price * quantity * 100) / 100);
+                    p.style.fontSize = "12px";
+                    p.style.borderBottom = "1px solid black";
+                    sc.appendChild(n);
+                    sc.appendChild(p);
+                }
+            
+            }
+
+            var tpElem = document.getElementById("total_price")
+            //console.log("total_price: " + tpElem.innerHTML);
+            var total = parseFloat(tpElem.innerHTML) + priceChange;
+            tpElem.innerHTML = total.toString();
+            var tp = document.createElement("p");
+            tp.innerHTML = "Total: $" + (Math.round(total * 100) / 100);
+            tp.style.fontSize = "25px";
+            tp.style.borderTop = "1px solid black";
+
+            sc.appendChild(tp);
+        }
+
+        // sends an ajax request that modifies the content of the user's cart in the database
+        function modifyCart(itemid, qty){
+
+		    $.ajax(
+                {
+			    url : "/add-to-cart/",
+			    type : "GET",
+			    data : { 
+                    item_id : itemid, quantity : qty, cart : "true"
+                },
+	    	});
+
+	    };
 
 
     </script>
-    <script>
 
 
-    </script>
+
     <script>
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
@@ -163,11 +239,29 @@
 
             },
             // Set up the transaction
-            createOrder: function (data, actions) {
+            createOrder: function (data, actions) 
+            {
+
+                var ids = '{{ids|safe}}'.split(", ");
+                var prices = '{{prices|safe}}'.split(", ");
+                var names = '{{names|safe}}'.split(", ");
+
+                var total = 0;
+                for(i=0; i < ids.length; i++){
+                    var id = ids[i].replace('[', '').replace(']', '').replace(/"/g,'');
+                    var price = prices[i].replace('[', '').replace(']', '')
+                    var name = names[i].replace('[', '').replace(']', '').replace(/"/g,'');
+                    var quantity = parseFloat(document.getElementById(id).innerHTML);
+                    total += quantity * parseFloat(price);
+                }
+                total = (Math.round(total * 100) / 100);
+                console.log("Total charged: " + total);
+
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: '{{totalPrice}}' // put total value here to charge
+                            //value: '{{totalPrice}}' // put total value here to charge
+                            value: total
                         }
                     }]
                 });
