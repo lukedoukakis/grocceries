@@ -100,7 +100,8 @@ def paymentPage(request):
             a = Address(account = request.user , value = addressValue)
             a.save()
 
-            return render(request, 'test.html') # after payment page go here
+            return deliveryPage(request)
+             # after payment page go here
 
         else:
             form = AddressForm()
