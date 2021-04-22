@@ -51,6 +51,7 @@ function initMap() {
     //calculate distances here
     calculateAndDisplayRoute(directionsService, directionsDisplay, driverPos, userPos, waypoints);
     
+
 }
 
 
@@ -75,6 +76,10 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, 
         {
             totalTimeInSeconds += directionsDisplay.getDirections().routes[directionsDisplay.getRouteIndex()].legs[i].duration.value;
         }
+
+        startTime = new Date().getTime()/1000;
+        totalDeliveryTime = totalTimeInSeconds;
+
         var hours = Math.floor(totalTimeInSeconds/3600);
         totalTimeInSeconds -= hours * 3600;
         var minutes = Math.floor(totalTimeInSeconds/60);
@@ -88,4 +93,51 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, 
         window.alert('Directions request failed due to ' + status);
       }
     });
+  }
+
+  var totalDeliveryTime = 0;
+  var orderCompleted = false;
+  //runs every 5 seconds and checks order completion
+  var intervalId = window.setInterval(function(){
+    if(!orderCompleted)
+    {
+      updateStatus();
+    }
+  }, 2000);
+
+  var startTime = 0;
+  function updateStatus()
+  {
+    //do an update if delivery time is set
+    if(totalDeliveryTime != 0)
+    {
+      var timeDifference = new Date().getTime()/1000 - startTime;
+      var percent = timeDifference/totalDeliveryTime;
+      var statusPiece = document.getElementById("status");
+
+      //switch on time completed for changing status
+      switch(true)
+      {
+        case percent >= .1 && percent <= .4:
+          statusPiece.innerHTML = "Status: Order processed. Driver on way to store";
+          break;
+
+        case percent >= .4 && percent <= .6:
+          statusPiece.innerHTML = "Status: Order Finished being put together";
+          break;
+
+        case percent >= .6 && percent <= .9:
+          statusPiece.innerHTML = "Status: Driver has picked the order up";
+          break;
+
+        case percent >= .9 && percent <= 1:
+          statusPiece.innerHTML = "Status: Driver is almost to your house";
+          break;
+
+        case percent >= 1: //finished
+          statusPiece.innerHTML = "Status: Order Delivered";
+          orderCompleted = true;
+          break;
+      }
+    }
   }
