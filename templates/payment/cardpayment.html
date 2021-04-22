@@ -15,83 +15,83 @@
     <title> PayPal Smart Payment Buttons Integration | Client Demo </title>
 </head>
 
-<body  style = "overflow-x: hidden;"> 
-    <div  class = "topnav" style="cursor: pointer;">
-        {% for j,l in r %} 
-        
-    <!-- This is not an error it says it is but it is not  -->
-    <a onclick="show('store-{{l}}{{j}}')">{{l}}</a>
-    {% endfor %}
-    
-</div>
+<body style="overflow-x: hidden;">
+    <div class="topnav" style="cursor: pointer;">
+        {% for j,l in r %}
+            <!-- This is not an error it says it is but it is not  -->
+            <a onclick="show('store-{{l}}{{j}}')">{{l}}</a>
+        {% endfor %}
 
-<div style = "float: right; margin-top: 7em; margin-right: 10em; border-style: solid;" >
-    <form id="MyForm" method="POST" style="display: none;">
-        {% csrf_token %}
-        {{form}}
-         <input type="submit" value="Say hello" ;>
-         
-     </form>
-    
-     <br>
-    {% for i,j,k  in pricesAndNamesQuantity  %}
-      {{j}}: ${{ i|multiply:k }} <br>
-      <p style="border-bottom:1px solid rgb(0, 0, 0);">  X {{k}}</p>
-    {% endfor %}
+    </div>
 
-    <p style = "border-top:1px solid rgb(0, 0, 0);font-size: 25px;">${{totalPrice}}</p>
-    <br>
-    <div id="paypal-button-container" style="width: 10%;"></div>
-</div>
+    <div style="float: right; margin-top: 7em; margin-right: 10em; border-style: solid;">
+        <form id="MyForm" method="POST" style="display: none;">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="Say hello" ;>
+        </form>
 
-    <div id = "goNow" style="margin-top: 3em; margin-bottom: 3em; margin-left: 6em;" class="row">
-        
-        
+        <br>
+        {% for i,j,k in pricesAndNamesQuantity %}
+            {{j}}: ${{ i|multiply:k }}
+            <br>
+            <p style="border-bottom:1px solid rgb(0, 0, 0);"> X {{k}}</p>
+        {% endfor %}
+
+        <p style="border-top:1px solid rgb(0, 0, 0);font-size: 25px;">${{totalPrice}}</p>
+        <br>
+        <div id="paypal-button-container" style="width: 10%;"></div>
+    </div>
+
+    <div id="goNow" style="margin-top: 3em; margin-bottom: 3em; margin-left: 6em;" class="row">
+
+
         <!-- box left -->
-        
+
     </div>
-        
-    
-        
-       
-        <!-- we want the first to be visible -->
-        {% for j,l in o%}
-        <div class="col-sm-8" style="display: none; margin-left: 6em;" id = "store-{{l}}{{j}}">
-        
-            {% for i  in itemsOrganizedByStore|lookup:j  %} 
-            
-            <img  width="200em" height="200em" src={{i.item.imgURL}}> <p>{{i.item.name}} Q:{{i.quantity}}</p><br>
 
-            {% endfor %}
-            {% endfor %}
-             
-            
-        
 
-       
-      
+
+
+    <!-- we want the first to be visible -->
+    {% for j,l in o%}
+    <div class="col-sm-8" style="display: none; margin-left: 6em;" id="store-{{l}}{{j}}">
+
+        {% for i in itemsOrganizedByStore|lookup:j %}
+
+        <img width="200em" height="200em" src={{i.item.imgURL}}>
+        <p>{{i.item.name}} Q:{{i.quantity}}</p><br>
+
+        {% endfor %}
+        {% endfor %}
+
+
+
+
+
+
         <!-- box right -->
-        
-          
-       
-     
-          
-        
-         
 
 
-        </div>
-       
+
+
+
+
+
+
+
     </div>
-    
-<!-- <div class = "container">
+
+    </div>
+
+    <!-- <div class = "container">
     {% for i in "123"  %} 
     <a class = "storeNames" style=" cursor: pointer;">Store{{i}} |</a>
         {% endfor %}
     <table class="table" style="width: 70%;">
         <tbody>
              #reference number of objects here to make list of items  -->
-            <!-- {% for i in "123"  %} 
+    <!-- {% for i in "123"  %} 
             <tr>
                 <th scope="col"><img src="{% static 'images/1.png'%}"> <br><p>Tata Chips Q:1</p></th><br>
                 
@@ -101,35 +101,35 @@
         </tbody>
         
       </table>
-       --> 
+       -->
 
     <!-- Set up a container element for the button -->
-   
+
     <!-- Include the PayPal JavaScript SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&disable-funding=credit,card"></script>
-       <script> 
+    <script>
 
 
-1
-2
-3
-        window.onload = function() {
-            
+        1
+        2
+        3
+        window.onload = function () {
+
             document.getElementById('goNow').innerHTML = document.getElementById("store-{{listOfStoresUsed.0}}0").innerHTML;
-                };
-                    
-            function show(param_div_id) {
+        };
 
-                    
-                    document.getElementById('goNow').innerHTML = document.getElementById(param_div_id).innerHTML;
-                
-                }
-                       
-                       
-        
-    
-    
-    
+        function show(param_div_id) {
+
+
+            document.getElementById('goNow').innerHTML = document.getElementById(param_div_id).innerHTML;
+
+        }
+
+
+
+
+
+
     </script>
     <script>
 
@@ -138,14 +138,14 @@
     <script>
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
-            style:{
+            style: {
                 color: 'gold',
                 shape: 'pill',
-                
+
 
             },
             // Set up the transaction
-            createOrder: function(data, actions) {
+            createOrder: function (data, actions) {
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
@@ -156,20 +156,20 @@
             },
 
             // Finalize the transaction
-            onApprove: function(data, actions) {//if apporved do this
-                return actions.order.capture().then(function(details) {
+            onApprove: function (data, actions) {//if apporved do this
+                return actions.order.capture().then(function (details) {
                     // Show a success message to the buyer
-                    
-                    addressArray = [details.purchase_units[0].shipping.address.address_line_1, details.purchase_units[0].shipping.address.address_line_2 ,
-                    details.purchase_units[0].shipping.address.admin_area_2, details.purchase_units[0].shipping.address.admin_area_1 ,details.purchase_units[0].shipping.address.postal_code]
-                   
-                   
-                    
-                    
-                    var shippingAddress = addressArray[0] +addressArray[1] + ", " + addressArray[2] + ", " + addressArray[3]+  " " + addressArray[4]
-                    shippingAddress = shippingAddress.replace("undefined"," ")
-                    
-                    
+
+                    addressArray = [details.purchase_units[0].shipping.address.address_line_1, details.purchase_units[0].shipping.address.address_line_2,
+                    details.purchase_units[0].shipping.address.admin_area_2, details.purchase_units[0].shipping.address.admin_area_1, details.purchase_units[0].shipping.address.postal_code]
+
+
+
+
+                    var shippingAddress = addressArray[0] + addressArray[1] + ", " + addressArray[2] + ", " + addressArray[3] + " " + addressArray[4]
+                    shippingAddress = shippingAddress.replace("undefined", " ")
+
+
                     document.getElementById("address").value = shippingAddress
                     document.getElementById("MyForm").submit();
                     //window.location.href ="{% url 'home' %}"
@@ -180,12 +180,13 @@
         }).render('#paypal-button-container');
     </script>
 
-      </div>
+    </div>
 
-    
-</div>
+
+    </div>
 
 </body>
+
 </html>
     
 {%endblock%}

@@ -113,7 +113,7 @@ a.orange{
 
 .item-display
 {
-  flex: 0 0 12em;
+  flex: 0em;
   height: 16em;
   background-color: #cabdb221;
   border-radius: 0%;
