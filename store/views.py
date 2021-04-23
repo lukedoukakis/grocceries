@@ -60,7 +60,7 @@ def add_to_cart(request):
             cart_item.save()
             print("added " + str(quantity) + " " + cart_item_qs[0].item.name + "(s) to the cart")
         else:
-            if quantity > 0:
+            if int(quantity) > 0:
                 cart_item = CartItem.objects.create(item=item, account=request.user)
                 cart_item.quantity = int(quantity)
                 cart_item.save()
