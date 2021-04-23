@@ -7,6 +7,13 @@ a.orange{
   text-align: center;
 }
 
+.shoppingcart
+{
+   position:absolute;
+   top:3%;
+   right:2%;
+}
+
 .title-container
 {
     display: flex;

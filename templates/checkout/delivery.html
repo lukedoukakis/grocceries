@@ -4,6 +4,12 @@
 {%load tags%}
 {%block content%}
 
+<!-- redirects to login if no one is logged in -->
+{% if request.user.is_authenticated %}
+{% else %}
+    <meta http-equiv="refresh" content="0; URL={% url 'login' %}" />
+{% endif %}
+
 <style>
     #map {
       height: 100%;
