@@ -53,6 +53,8 @@ def add_to_cart(request):
             print(cart_item.quantity)
             qty = cart_item.quantity
             qty += int(quantity)
+            if qty < 0:
+                qty = 0
             cart_item.quantity = qty
             print(cart_item.quantity)
             cart_item.save()
