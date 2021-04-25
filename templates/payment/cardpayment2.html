@@ -155,7 +155,6 @@
 
             if(curQuantity != newQuantity){
                 modifyCart(itemid, change);
-                refreshSummary(itemid, change);
             }
 
         }
@@ -219,7 +218,21 @@
         // sends an ajax request that modifies the content of the user's cart in the database
         function modifyCart(itemid, qty){
 
-		    $.ajax(
+            var loading = document.getElementById("loading");
+            loading.style.display = "block";
+
+            run_ajax();
+
+            $.when(run_ajax()).done(function(a1){
+                console.log("\"when\" executing")
+                loading.style.display = "none";
+                refreshSummary(itemid, qty);
+                // this code executed run_ajax() finishes
+                // a1: list of length 3 containing the response text,
+            });
+
+            function run_ajax(){
+                return $.ajax(
                 {
 			    url : "/add-to-cart/",
 			    type : "GET",
@@ -227,8 +240,11 @@
                     item_id : itemid, quantity : qty, cart : "true"
                 },
 	    	});
+            }
 
-	    };
+	
+	    }
+
 
 
     </script>
@@ -304,6 +320,10 @@
     </div>
 
 </body>
+
+<div id="loading" style="display: none;">
+    <img id="loading-image" src="{% static 'images/loadingCircle.gif' %}" alt="Loading..." style = "max-width: 200px; max-height: 200px;" />
+</div>
 
 </html>
     

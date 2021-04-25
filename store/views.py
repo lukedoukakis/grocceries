@@ -39,9 +39,9 @@ def add_to_cart(request):
         itemid = request.GET.get('item_id')
         quantity = request.GET.get('quantity')
 
-        print("EDITING CART. QUANTITY:")
-        print(int(quantity))
-        print(request.user.username)
+        # print("EDITING CART. QUANTITY:")
+        # print(int(quantity))
+        # print(request.user.username)
 
         # sanity check
 
@@ -53,12 +53,14 @@ def add_to_cart(request):
             print(cart_item.quantity)
             qty = cart_item.quantity
             qty += int(quantity)
+            if qty < 0:
+                qty = 0
             cart_item.quantity = qty
             print(cart_item.quantity)
             cart_item.save()
             print("added " + str(quantity) + " " + cart_item_qs[0].item.name + "(s) to the cart")
         else:
-            if quantity > 0:
+            if int(quantity) > 0:
                 cart_item = CartItem.objects.create(item=item, account=request.user)
                 cart_item.quantity = int(quantity)
                 cart_item.save()

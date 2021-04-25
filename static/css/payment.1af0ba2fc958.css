@@ -56,11 +56,9 @@
 }
 
 #loading-image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20%;
-  width: 50%;
+  position: absolute;
+  top: 100px;
+  left: 240px;
   z-index: 100;
 }
 
