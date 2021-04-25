@@ -103,6 +103,10 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, 
     {
       updateStatus();
     }
+    else
+    {
+      //delete items in cart here
+    }
   }, 2000);
 
   var startTime = 0;
