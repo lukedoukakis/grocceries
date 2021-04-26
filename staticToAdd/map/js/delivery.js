@@ -26,6 +26,7 @@ function initMap() {
     const driver = new google.maps.Marker({
         position: driverPos,
         map,
+        label: "Driver",
         icon: userImage,
     });
 
@@ -39,7 +40,7 @@ function initMap() {
         storePos = new google.maps.LatLng(storeLat, storeLon);
         const store = new google.maps.Marker({
             position: storePos,
-            label: "Store " + (i + 1),
+            //this adds a label with the store name//label: "Store " + (i + 1),
             map,
         });
         waypoints.push({
@@ -78,7 +79,9 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, 
         }
 
         startTime = new Date().getTime()/1000;
-        totalDeliveryTime = totalTimeInSeconds;
+
+        //setting a default time to increase speed
+        totalDeliveryTime = 100;
 
         var hours = Math.floor(totalTimeInSeconds/3600);
         totalTimeInSeconds -= hours * 3600;

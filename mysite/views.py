@@ -4,6 +4,7 @@ from django.contrib.auth import logout as user_logout
 from store.models import Item
 from store.models import Vendor
 from myapp.models import CartItem , Address
+from account.models import Account
 from core import localdata
 from .forms import AddressForm
 import uuid
@@ -16,7 +17,6 @@ def homepage(request):
 
 def accountInfoPage(request):
     return render(request, 'profile/accountinfo.html')
-
 
 def loginRedirect(request):
     # store the logged in account to localdata
@@ -66,8 +66,6 @@ def deliveryPage(request):
         storeLons.append(float(store.longitude))
         storeLats.append(float(store.latitude))
         storeNames += store.name + ","
-
-    print(storeNames)
 
     context = {
         'accountLocation': location,
