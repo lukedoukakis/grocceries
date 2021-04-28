@@ -9,7 +9,7 @@ a.orange{
 
 .shoppingcart
 {
-   position:absolute;
+   position:fixed;
    top:3%;
    right:2%;
 }

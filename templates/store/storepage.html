@@ -5,7 +5,7 @@
 {% load admin_urls %}
 {% load crispy_forms_tags %}
 
-{% block current_page %}XXXXXXXXX{%endblock%}
+{% block current_page %}{{vendorName}}{%endblock%}
 
 {%block content%}
 
@@ -94,9 +94,30 @@
 <script src = "{% static 'store/js/store.js' %}"></script>
 <script>
 	window.onload = function() {
-		var suggestions = getAllItems();
+
+
+		// breadcrumbs
+		var ol = document.getElementById("navigationList");
+		var li = document.createElement("li");
+		var a = document.createElement("a");
+		var sp = document.createElement("span");
+		sp.className = "active";
+		sp.setAttribute("aria-hidden", "true");
+		sp.innerHTML = "Store Locator";
+		a.appendChild(sp);
+		a.href = "{% url 'storeLocator' %}";
+		li.appendChild(a);
+		ol.appendChild(li);
+		var active = document.getElementById("activeStore");
+		ol.removeChild(active);
+		ol.appendChild(active);
+
+
 
 		// search button functionality
+
+		var suggestions = getAllItems();
+
 		var searchWrapper = document.getElementById("searchWrapper");
 		var searchInput = document.getElementById("searchInput");
         var searchButton = document.getElementById("searchButton");

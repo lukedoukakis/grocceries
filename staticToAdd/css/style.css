@@ -90,7 +90,7 @@ input[type="submit"],#PPMiniCart .minicart-submit,.w3ls_vegetables ul li a,input
 	-ms-transition: .5s ease-in;
 }
 .agileits_header {
-    background: #333333;
+    background: #ebebeb;
     padding: 12px 0;
 }
 .w3l_offers {
@@ -776,7 +776,7 @@ i.gray-star {
 /*-- footer --*/
 .footer {
     padding: 5em 0 2em;
-    background: #2b2a2a;
+    background: #000000;
 }
 .w3_footer_grid h3 {
     color: #ffffff;
@@ -905,7 +905,7 @@ a.w3_agile_vimeo:hover{
 }
 .breadcrumbs {
     padding: 1.5em 0;
-    background: #f5f5f5;
+    background: #333333;
 }
 .breadcrumb {
     margin-bottom: 0 !important;
@@ -2529,6 +2529,7 @@ h3.w3_agile_header, h2.w3_agile_header {
 }
 .agileits_header {
     padding: 12px 0 8px;
+    padding-bottom: 0px;
     
 }
 .w3ls_logo_products_left h1 a {

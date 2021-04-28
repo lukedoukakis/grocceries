@@ -437,7 +437,7 @@ ul.multi-column-dropdown h6 {
     padding: .5em 2.5em .5em 1em;
     border: 1px solid #fe9126;
     margin: .35em 0 0;
-    background: url(../images/cart.png) no-repeat 116px 9px;
+    background: url("../images/cart.b446dd06773b.png") no-repeat 116px 9px;
 }
 #PPMiniCart form {
     width: 590px !important;
@@ -609,7 +609,7 @@ i.gray-star {
 	height: 32px;
 	border: none;
 	text-indent: 100%;
-	background: url(../images/arrow.png) no-repeat 0px 0px;
+	background: url("../images/arrow.dcd6a102f58b.png") no-repeat 0px 0px;
 }
 #toTopHover {
 	width: 32px;
@@ -1049,7 +1049,7 @@ a.w3_agile_vimeo:hover{
 }
 .checkbox input + i:after {
     content: '';
-    background: url("../images/check.png") no-repeat 1px 2px;
+    background: url("../images/check.4f8f4206fae3.png") no-repeat 1px 2px;
     top: 0px;
     left: 2px;
     width: 16px;
@@ -1119,7 +1119,7 @@ td.invert-image a img {
 	position:relative;
 }
 .close1,.close2,.close3 {
-    background: url('../images/close_1.png') no-repeat 0px 0px;
+    background: url("../images/close_1.7338425e9bcb.png") no-repeat 0px 0px;
     cursor: pointer;
     width: 28px;
     height: 28px;
@@ -1314,7 +1314,7 @@ ul.faq {
 
 .starRating:not(old) > label {
     float: right;
-    background: url(../images/star.png);
+    background: url("../images/star.292e0998e764.png");
     background-size: contain;
     margin-right: 2px;
 }
@@ -1324,7 +1324,7 @@ ul.faq {
   display         : block;
   width           : 16px;
   height          : 16px;
-  background      : url(../images/star1.png);
+  background      : url("../images/star1.a16c651d0c03.png");
   background-size : contain;
   opacity         : 0;
   transition      : opacity 0.2s linear;
@@ -1701,14 +1701,14 @@ h3.w3_agile_header:after,h2.w3_agile_header:after{
     text-decoration: none;
     height: 30px;
     width: 25px;
-    background: url("../images/icon1.png")no-repeat center center;
+    background: url("../images/icon1.f8e5391f7e78.png")no-repeat center center;
 }
 .callbacks_nav:active {
   opacity: 1.0;
 }
 .callbacks_nav.next {
     right: 7%;
-    background: url("../images/icon2.png")no-repeat center center;
+    background: url("../images/icon2.59900b03a1ab.png")no-repeat center center;
 }
 #slider3-pager a ,#slider4-pager a {
   display: inline-block;
@@ -1816,7 +1816,7 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
 /*--//slider end here--*/
 /*-- about-slid --*/
 .about-slid{
-	background: url(../images/22.jpg)no-repeat 0px center fixed;
+	background: url("../images/22.06c92981ee6f.jpg")no-repeat 0px center fixed;
 	background-size: cover;
 	text-align: center;
 	padding: 6em 0;
