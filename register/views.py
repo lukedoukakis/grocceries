@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import AccountCreationForm
 from account.models import Account
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 from django.db import IntegrityError
 from django.contrib.auth import authenticate , login
 from django.core.exceptions import ValidationError

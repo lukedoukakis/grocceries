@@ -20,6 +20,9 @@ class AccountManager(BaseUserManager):
         if not password:
             raise ValueError('Accounts must have a password')
 
+        if phone == '':
+            phone = None
+
         account = self.model(
             username=username,
             password=password,
@@ -82,7 +85,7 @@ class Account(AbstractBaseUser):
 
     last_login          = models.DateTimeField(_('last login'), auto_now=True)
     date_joined         = models.DateTimeField(_('date joined'), default=timezone.now)
-    phone               = PhoneNumberField(null=True, blank=True, unique=True)
+    phone               = PhoneNumberField(null=True, blank=True, unique=False)
     is_driver           = models.BooleanField(default=False)
 
 
