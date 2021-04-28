@@ -223,17 +223,17 @@
             var loading = document.getElementById("loading");
             loading.style.display = "block";
 
-            run_ajax();
+            //run_ajax();
 
             $.when(run_ajax()).done(function(a1){
-                console.log("\"when\" executing")
+                //console.log("\"when\" executing")
                 loading.style.display = "none";
                 refreshSummary(itemid, qty);
-                // this code executed run_ajax() finishes
                 // a1: list of length 3 containing the response text,
             });
 
             function run_ajax(){
+                //console.log("RUNNING AJAX");
                 return $.ajax(
                 {
 			    url : "/add-to-cart/",
