@@ -75,16 +75,17 @@
     {% for j,l in o%}
     <div id="store-{{l}}{{j}}" class="items-container" style="display: none;">
         {% for i in itemsOrganizedByStore|lookup:j %}
-        <div class='item-display' style="border-style: solid; border-width: 1px;">
-            <img class="item-image" src="{{i.item.imgURL}}">
-            <div class="item-text" id="{{i.item.id}}"> {{ i.item.name | title }} </div>
-            <div class="item-quantity" id="quantity{{forloop.counter0}}">{{ i.quantity }}</div>
-            <button class="fa fa-plus item-plus" id="item-plus"
-                onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>
-            <button class="fa fa-minus item-minus" id="item-minus"
-                onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>
-                
-        </div>
+            {% if i.quantity > 0 %}
+                <div class='item-display' style="border-style: solid; border-width: 1px;">
+                    <img class="item-image" src="{{i.item.imgURL}}">
+                    <div class="item-text" id="{{i.item.id}}"> {{ i.item.name | title }} </div>
+                    <div class="item-quantity" id="quantity{{forloop.counter0}}">{{ i.quantity }}</div>
+                    <button class="fa fa-plus item-plus" id="item-plus"
+                        onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>
+                    <button class="fa fa-minus item-minus" id="item-minus"
+                        onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>   
+                </div>
+            {% endif %}
         {%endfor%}
     </div>
     {%endfor%}
