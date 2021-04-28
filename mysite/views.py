@@ -7,6 +7,7 @@ from myapp.models import CartItem, Address
 from account.models import Account
 from core import localdata
 from .forms import AddressForm
+from geopy.geocoders import Nominatim
 import uuid
 import json
 
@@ -61,10 +62,15 @@ def simple_function(request):
     return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
 
 
-def deliveryPage(request):
+def deliveryPage(request,a):
     if not request.user.is_authenticated:
         return homepage(request)
-    location = [33.899132398564674, -117.875232436358]
+    
+    geolocator = Nominatim(user_agent="Grocceries")
+    address = a.split(",")
+    location = geolocator.geocode(str(address[0]))
+    print(location.address)
+    location = [location.latitude,location.longitude]
     driverLocation = [33.89066309989026, -117.82630507836775]
     storeLons = []
     storeLats = []
@@ -112,7 +118,7 @@ def paymentPage(request):
             a = Address(account=request.user, value=addressValue)
             a.save()
 
-            return deliveryPage(request)
+            return deliveryPage(request, addressValue)
             # after payment page go here
 
         else:
