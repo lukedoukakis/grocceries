@@ -32,7 +32,7 @@
 			text-align: center;
 		  	width: 100%;
 			list-style-type: none;
-			z-index: 999;
+			z-index: 998;
 			cursor: pointer;
 			">
 		</div>
@@ -98,18 +98,18 @@
 
 		// breadcrumbs
 		var ol = document.getElementById("navigationList");
+		var active = document.getElementById("activeStore");
+		ol.removeChild(active);
 		var li = document.createElement("li");
 		var a = document.createElement("a");
 		var sp = document.createElement("span");
 		sp.className = "active";
-		sp.setAttribute("aria-hidden", "true");
 		sp.innerHTML = "Store Locator";
 		a.appendChild(sp);
 		a.href = "{% url 'storeLocator' %}";
 		li.appendChild(a);
+		li.style.marginRight = "-10px";
 		ol.appendChild(li);
-		var active = document.getElementById("activeStore");
-		ol.removeChild(active);
 		ol.appendChild(active);
 
 

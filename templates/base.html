@@ -227,13 +227,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<a href="{% url 'home' %}" style="color: rgb(255, 123, 0); font-weight: 100; font-size: 48px; padding-bottom: 50px; text-align: center; margin-top: 30px; text-decoration: none;">grocceries</a>
 		</div>
 	</div>
-	<div>
-		<a href="{% url 'cardpayment' %}" class="shoppingcart"><i class="fas fa-shopping-cart fa-3x"></i></a>
+	<div style="z-index: 999;">
+		<a style="z-index: 999;" href="{% url 'cardpayment' %}" class="shoppingcart"><i class="fas fa-shopping-cart fa-3x"></i></a>
 	</div>
 
 <!-- //header -->
 <!-- Navigation -->
-	<div class="breadcrumbs" style="margin-top: -60px; background-color: #ebebeb;">
+	<div class="breadcrumbs" style="margin-top: -60px; background-color: #ebebeb; border-bottom-width: 1px; border-bottom-style: solid;">
 		<div class="container" style="width: 100%; text-align: center;">
 			<ol id="navigationList" class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s" style="background-color: #ebebeb;">
 				<li> <a href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a> </li>
