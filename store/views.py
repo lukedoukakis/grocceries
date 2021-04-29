@@ -43,10 +43,6 @@ def add_to_cart(request):
         itemid = request.GET.get('item_id')
         quantity = request.GET.get('quantity')
 
-        # print("EDITING CART. QUANTITY:")
-        # print(int(quantity))
-        # print(request.user.username)
-
         # sanity check
 
         item = get_object_or_404(Item, id=itemid)
