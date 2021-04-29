@@ -24,24 +24,7 @@
 				<form id="form" method="POST" >
 					{% csrf_token %}
 					{% crispy registration_form %}
-					{% comment %} <script src="{% static 'js/intlTelInput.js' %}"></script>
-					<script>
-					var input = document.querySelector("#id_phone");
-					var iti = window.intlTelInput(input, {
-						preferredCountries: ["us", "uk", "ca"],
-						utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/utils.js"
-						// any initialisation options go here
-					});
-					</script> {% endcomment %}
 				</form>
-				{% comment %} <script>
-					$("#form").submit( function(){
-						var elements = document.querySelectorAll("input[name=phone]");
-						elements.value = iti.getNumber();
-						{{ registration_form}}
-						return true;
-					});
-				</script> {% endcomment %}
 			</div>
 			<div class="register-home">
 				<p><a href="{% url 'home' %}">Back to Login</a></span></a></p>
