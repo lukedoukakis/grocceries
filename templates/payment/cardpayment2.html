@@ -42,57 +42,61 @@
     {% endfor %}
 </div>
 
-
-
-<div style = "width: 50%; float: left;">
-    <!-- Items display -->
-    <div id="goNow" style="flex-wrap: wrap; justify-content: center; display: flex; flex-direction: row; margin-top: 10%;">
-    </div>
-
-    <!-- we want the first to be visible -->
-    {% for j,l in o%}
-    <div id="store-{{l}}{{j}}" style="display: none;">
-        {% for i in itemsOrganizedByStore|lookup:j %}
-            {% if i.quantity > 0 %}
-                <div class='item-display' style="border-style: solid; border-width: 1px; margin: 10px;">
-                    <img class="item-image" src="{{i.item.imgURL}}">
-                    <div class="item-text" id="{{i.item.id}}"> {{ i.item.name | title }} </div>
-                    <div class="item-quantity" id="quantity{{forloop.counter0}}">{{ i.quantity }}</div>
-                    <button class="fa fa-plus item-plus" id="item-plus"
-                        onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>
-                    <button class="fa fa-minus item-minus" id="item-minus"
-                        onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>   
-                </div>
-            {% endif %}
-        {%endfor%}
-    </div>
-    {%endfor%}
-
-
-</div>
-
-<!-- Cart summary -->
-<div style="background-color: rgba(0, 140, 255, 0); border-style: none; border-width: 1px; margin-left: 50%;">
-    <div style="background-color: white; border-style: none; margin: 10%;">
-        <form id="MyForm" method="POST" style="display: none;">
-            {% csrf_token %}
-            {{form}}
-            <input type="submit" value="Say hello" ;>
-        </form>
-        <div>
-            <p style="font-size: 42px; text-align: center; color: black">
-                Order Total
-            </p>
-            <br>
-            <div id="summaryContent">
-                <!-- content is loaded from js -->
-            </div>
-            <br>
+<div style="flex-wrap:nowrap; display: flex; flex-direction: row;">
+    <div id="leftSide" style="max-height: 100px; width: 50%; position: relative; overflow-y: scroll;">
+        <!-- Items display -->
+        <div id="goNow" style="flex-wrap: wrap; justify-content: center; display: flex; flex-direction: row; margin-top: 10%;">
         </div>
-        
-        <div id="paypal-button-container" style="width: 10%;"></div>
+    
+        <!-- we want the first to be visible -->
+        {% for j,l in o%}
+        <div id="store-{{l}}{{j}}" style="display: none;">
+            {% for i in itemsOrganizedByStore|lookup:j %}
+                {% if i.quantity > 0 %}
+                    <div class='item-display' style="border-style: solid; border-width: 1px; margin: 10px;">
+                        <img class="item-image" src="{{i.item.imgURL}}">
+                        <div class="item-text" id="{{i.item.id}}"> {{ i.item.name | title }} </div>
+                        <div class="item-quantity" id="quantity{{forloop.counter0}}">{{ i.quantity }}</div>
+                        <button class="fa fa-plus item-plus" id="item-plus"
+                            onclick="onChangeQuantityClick(1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>
+                        <button class="fa fa-minus item-minus" id="item-minus"
+                            onclick="onChangeQuantityClick(-1, 'quantity{{forloop.counter0}}', '{{i.item.id}}', '{{i.item.name}}')"></button>   
+                    </div>
+                {% endif %}
+            {%endfor%}
+        </div>
+        {%endfor%}
+    
+    
+    </div>
+    
+    <!-- Cart summary -->
+    <div id="rightSide" style="width: 50%; position: relative;">
+        <div style="background-color: white; border-style: none; margin: 10%;">
+            <form id="MyForm" method="POST" style="display: none;">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" value="Say hello" ;>
+            </form>
+            <div>
+                <p style="font-size: 42px; text-align: center; color: black">
+                    Order Total
+                </p>
+                <br>
+                <div id="summaryContent">
+                    <!-- content is loaded from js -->
+                </div>
+                <br>
+            </div>
+            
+            <div id="paypal-button-container" style="width: 10%;"></div>
+        </div>
     </div>
 </div>
+
+
+
+
 
 
     <!-- Include the PayPal JavaScript SDK -->
@@ -126,7 +130,6 @@
             tpElem.innerHTML = totalPrice;
             hidden.appendChild(tpElem);
             refreshSummary("null", 0);
-
 
             document.getElementById('goNow').innerHTML = document.getElementById("store-{{listOfStoresUsed.0}}0").innerHTML;
         
@@ -212,8 +215,13 @@
             tp.innerHTML = "Total: $" + (Math.round(total * 100) / 100);
             tp.style.fontSize = "25px";
             tp.style.borderTop = "1px solid black";
-
             sc.appendChild(tp);
+
+            var h = document.getElementById("rightSide").clientHeight;
+            console.log(h);
+            document.getElementById("leftSide").style.maxHeight = h.toString() + "px";
+            console.log(document.getElementById("leftSide").style.maxHeight);
+
         }
 
         // sends an ajax request that modifies the content of the user's cart in the database
