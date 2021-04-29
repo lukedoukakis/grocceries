@@ -15,9 +15,9 @@
     <meta http-equiv="refresh" content="0; URL={% url 'login' %}" />
 {% endif %}
 
-<div class="sticky-wrapper" id="searchWrapper">
+<div class="sticky-wrapper" style="background-color: orange;" id="searchWrapper">
 	<div class="search-bar">
-		<input type="text" name="" placeholder="Search for items..." id="searchInput">
+		<input type="text" name="" placeholder="Search for items" id="searchInput">
 		<a class="search-btn" id="searchButton" href="#">
 			<i class="fas fa-search"></i>
 		</a>
@@ -27,8 +27,8 @@
 			max-height: 480px;
 			overflow-y: auto;
 			font-size: small;
-			background-color: black;
-			color:orange;
+			background-color: orange;
+			color:black;
 			text-align: center;
 		  	width: 100%;
 			list-style-type: none;
@@ -41,24 +41,31 @@
 
 <script>
 	function addtocart(itemid, quantityid){
-		console.log("running");
-		$.ajax({
-			url : "/add-to-cart/", // the endpoint
-			type : "GET", // http method
-			data : { item_id : itemid, 
+
+		$.when(run_ajax()).done(function(a1){
+            // a1: list of length 3 containing the response text,
+         });
+
+		function run_ajax(){
+			$.ajax({
+				url : "/add-to-cart/", // the endpoint
+				type : "GET", // http method
+				data : { item_id : itemid, 
 					 quantity : document.getElementById("quantity" + quantityid).innerText }, // data sent with the get request
 
-			// handle a successful response
-			success : function(json) {
-				console.log("success"); // another sanity check
-				document.getElementById("quantity" + quantityid).innerText = 0
-			},
+				// handle a successful response
+				success : function(json) {
+					console.log("success"); // another sanity check
+					document.getElementById("quantity" + quantityid).innerText = 0
+				},
 
-			// handle a non-successful response
-			error : function(xhr,errmsg,err) {
-				console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-			}
-		});
+				// handle a non-successful response
+				error : function(xhr,errmsg,err) {
+					console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+				}
+			});
+		}
+
 	};
 </script>
 
@@ -71,10 +78,10 @@
 		<p style="font-size:14px" id="PHONE">{{vendorPhone}}<p>
 	</div>
 	<div class="container">
-		<h2 id="selectionText" style="font-size:24px;">Selection</h2>
-		<div class="items-container" id="itemsContainer">
+		<h2 id="selectionText" style="font-size:24px; margin-top: 2%">Selection</h2>
+		<div class="items-container" id="itemsContainer" style="margin-top: 2%;">
 			{% for item in itemsToDisplay %}
-			<div class='item-display'>
+			<div class='item-display' style="margin: 10px;">
 				<img class="item-image" src="{{item.imgURL}}">
 				<div class="item-text" id="{{item.id}}"> {{ item.name | title }} | ${{item.price}} </div>
 				<div class="item-quantity" id="quantity{{forloop.counter0}}">0</div>
@@ -218,6 +225,7 @@
 }
 
 </script>
+
 
 
 

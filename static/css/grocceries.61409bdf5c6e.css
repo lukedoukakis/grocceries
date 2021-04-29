@@ -138,7 +138,10 @@ a.orange{
 
 .items-container
 {
-  flex-wrap: wrap; justify-content: center; display: flex; flex-direction: row;
+  flex-wrap: wrap;
+  display: inline-flex;
+  gap: 12px;
+
 }
 
 /* custom buttons */

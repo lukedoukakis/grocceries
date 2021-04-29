@@ -10,7 +10,7 @@
 {% block content %}
 <!-- header -->
 <!-- login -->
-	<div class="login" style="margin: auto; width: 100%; text-align: center; margin-top: -250px;">
+	<div class="login" style="margin: auto; width: 100%; text-align: center; margin-top: -15%;">
 		<video autoplay muted loop>
 			<source src="{% static 'videos/veggies0.mp4' %}" type="video/mp4">
 		</video>
@@ -25,11 +25,11 @@
 			<div class="container" style="position: relative; margin: auto; width: 100%; text-align: center; padding-top: 50px; z-index: 0;">
 				{% if user.is_authenticated %}
 					<h1 style="color: white; text-decoration: none; font-weight: 300; font-size: 42px; padding-bottom: 40px;">Welcome, {{user.first_name}}.</h1>
-					<h1 style = "padding: 10px"><a href="{% url 'storeLocator' %}" class="btn btn-outline" style="border-radius: 0; color: white; width: 250px; background-color: rgb(255, 123, 0); font-weight: 300; text-decoration: none; font-size: 32px;">Start shopping</a></h1>
-                	<h1 style = "padding: 10px"><a href="{% url 'logout' %}" class="btn btn-outline" style="border-radius: 0; color: white; width: 250px; background-color: rgb(255, 123, 0); font-weight: 300; text-decoration: none; font-size: 32px;">Log out</a></h1>
+					<h1 style = "padding: 10px"><a href="{% url 'storeLocator' %}" class="btn btn-outline" style="border-radius: 0; color: white; width: 250px; background-color: rgb(255, 123, 0); font-weight: 300; text-decoration: none; font-size: 32px;" onmouseover="this.style.backgroundColor='rgb(252, 185, 28)';" onmouseout="this.style.backgroundColor='rgb(255, 123, 0)';">Start shopping</a></h1>
+                	<h1 style = "padding: 10px"><a href="{% url 'logout' %}" class="btn btn-outline" style="border-radius: 0; color: white; width: 250px; background-color: rgb(255, 123, 0); font-weight: 300; text-decoration: none; font-size: 32px;" onmouseover="this.style.backgroundColor='rgb(252, 185, 28)';" onmouseout="this.style.backgroundColor='rgb(255, 123, 0)';">Log out</a></h1>
 				{% else %}
-                	<h1 style = "padding: 10px"><a href="{% url 'login' %}" class="btn btn-outline" style="border-radius: 0; color: white; width: 200px; background-color: rgb(255, 123, 0); font-weight: 300; text-decoration: none; font-size: 32px;">Log in</a></h1>
-                	<h1 style = "padding: 10px"><a href="{% url 'register' %}" class="btn btn-outline" style="border-radius: 0; color: white; width: 200px; background-color: rgb(255, 123, 0); font-weight: 300; text-decoration: none; font-size: 32px;">Register</a></h1>
+                	<h1 style = "padding: 10px"><a href="{% url 'login' %}" class="btn btn-outline" style="border-radius: 0; color: white; width: 200px; background-color: rgb(255, 123, 0); font-weight: 300; text-decoration: none; font-size: 32px;" onmouseover="this.style.backgroundColor='rgb(252, 185, 28)';" onmouseout="this.style.backgroundColor='rgb(255, 123, 0)';">Log in</a></h1>
+                	<h1 style = "padding: 10px"><a href="{% url 'register' %}" class="btn btn-outline" style="border-radius: 0; color: white; width: 200px; background-color: rgb(255, 123, 0); font-weight: 300; text-decoration: none; font-size: 32px;" onmouseover="this.style.backgroundColor='rgb(252, 185, 28)';" onmouseout="this.style.backgroundColor='rgb(255, 123, 0)';">Register</a></h1>
 				{% endif %}
 			</div>
 			<!-- <h4>For New People</h4>
