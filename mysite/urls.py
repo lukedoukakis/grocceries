@@ -34,6 +34,8 @@ urlpatterns = [
     re_path(r'^delivery/$', views.deliveryPage, name='delivery'),
     
     path('add-to-cart/', viewstore.add_to_cart),
+    path('clear-cart/', views.clearcart),
+    path('move-cart-item/', views.move_cart_items_to_order),
     path('admin/', admin.site.urls),
     path("simple_function", views.simple_function),
     path("get_vendors", views_core.get_vendors),

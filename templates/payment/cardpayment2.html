@@ -253,6 +253,36 @@
 
 	
 	    }
+        function clearcart(){
+
+            $.when(run_ajax()).done(function(a1){
+                // a1: list of length 3 containing the response text,
+            });
+
+            function run_ajax(){
+                $.ajax({
+                    url : "/clear-cart/", // the endpoint
+                    type : "GET", // http method
+                    data : {}, // data sent with the get request
+
+                    // handle a successful response
+                    success : function(json) {
+                        
+                        console.log("success"); // another sanity check
+                    },
+
+                    // handle a non-successful response
+                    error : function(xhr,errmsg,err) {
+                        console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                    }
+                });
+                    var element = document.getElementById("summaryContent");
+                    element.parentNode.removeChild(element);
+                    element = document.getElementById("leftSide");
+                    element.parentNode.removeChild(element);
+                }
+        };
+
 
 
 
@@ -313,7 +343,7 @@
                     shippingAddress = shippingAddress.replace("undefined", " ")
 
 
-                    document.getElementById("address").value = shippingAddress
+                    document.getElementById("address").value = shippingAddress;
                     document.getElementById("MyForm").submit();
                     //window.location.href ="{% url 'home' %}"
                 });
@@ -322,6 +352,8 @@
 
         }).render('#paypal-button-container');
     </script>
+
+    <button onclick="clearcart()">clear cart</button>
 
     </div>
 

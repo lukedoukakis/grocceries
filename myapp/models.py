@@ -6,6 +6,8 @@ from account.models import Account
 from mysite.settings import AUTH_USER_MODEL
 from store.models import Vendor, Item
 
+import uuid
+
 # Create your models here.
 
 
@@ -47,8 +49,37 @@ class Address(models.Model):
         return self.value
 
 class Order(models.Model):
-    driver = models.CharField(max_length=255)
+    # Status Choices
+    PENDING = 0
+    DONE = 1
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (DONE, 'Done'),
+    )
+
+    # Fields
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
+    total = models.DecimalField(max_digits=6, decimal_places=2)
+    status = models.SmallIntegerField(default=0, choices=STATUS_CHOICES)
+    address = models.CharField(max_length=255,blank=False)
     account = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=False, on_delete=CASCADE)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
+    
+    # method overload
+    def __str__(self):
+        return self.account.username +  "| Order ID: " + str(self.id)
+
+class OrderItem(models.Model):
+    item = models.ForeignKey(Item, null=True, on_delete=CASCADE)
+    quantity = models.IntegerField()
+    order = models.ForeignKey(Order, null=True, blank=False, on_delete=CASCADE)
+    
+    def copy_cart_item(cartitem):
+        item = Item.objects.get(id=cartitem.item.id)
+        quantity = cartitem.quantity
+
+    def __str__(self):
+        return self.item.name + "|" + self.item.vendor.name
 
 class Nutrition(models.Model):
     item = models.OneToOneField(Item, on_delete=models.CASCADE)

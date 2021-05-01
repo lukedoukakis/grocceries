@@ -56,7 +56,6 @@
 				// handle a successful response
 				success : function(json) {
 					console.log("success"); // another sanity check
-					document.getElementById("quantity" + quantityid).innerText = 0
 				},
 
 				// handle a non-successful response
@@ -64,6 +63,8 @@
 					console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
 				}
 			});
+			
+			document.getElementById("quantity" + quantityid).innerText = 0
 		}
 
 	};

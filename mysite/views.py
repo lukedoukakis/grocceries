@@ -3,11 +3,12 @@ from django.http import HttpResponse
 from django.contrib.auth import logout as user_logout
 from store.models import Item
 from store.models import Vendor
-from myapp.models import CartItem, Address
+from myapp.models import CartItem, Address, Order, OrderItem
 from account.models import Account
 from core import localdata
 from .forms import AddressForm
 from geopy.geocoders import Nominatim
+from django.contrib.auth.decorators import login_required
 import uuid
 import json
 
@@ -61,6 +62,42 @@ def simple_function(request):
     print("\nthis is a simple function\n")
     return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
 
+# @login_required
+# def create_order(request):
+#     if request.method == 'POST':
+
+
+@login_required
+def clearcart(request):
+    if request.method == 'GET':
+        cartitems = CartItem.objects.filter(account=request.user)
+
+        for i in range(len(cartitems)):
+            cartitems[i].delete()
+        return HttpResponse(
+            json.dumps('successfully cleared items'),
+            content_type="application/json"
+        )
+
+    return HttpResponse(
+            json.dumps(),
+            content_type="application/json"
+        )
+
+@login_required
+def move_cart_items_to_order(request, order):
+    if request.method == 'GET':
+        cartitems = CartItem.objects.filter(account=request.user)
+        for cartitem in cartitems:
+            order_item = OrderItem.objects.create(order=order)
+            order_item.copy_cart_item(cartitems[i])
+            order_item.save()
+        clearcart(request)
+        return HttpResponse(
+            json.dumps('successfully moved items'),
+            content_type="application/json"
+        )
+
 
 def deliveryPage(request,a):
     if not request.user.is_authenticated:
@@ -76,9 +113,13 @@ def deliveryPage(request,a):
     storeLats = []
     storeNames = ""
 
-    cartItems = CartItem.objects.filter(account=request.user)
+    order = Order.objects.create(account=request.user)
+    move_cart_items_to_order(request, order)
+    orderitems = OrderItem.objects.filter(order=order)
+    order.save()
+
     listOfStoresUsed = []
-    for i in cartItems:
+    for i in orderitems:
         listOfStoresUsed.append(i.item.vendor)
     for store in listOfStoresUsed:
         storeLons.append(float(store.longitude))
@@ -174,3 +215,4 @@ def paymentPage(request):
 
     }
     return render(request, 'payment/cardpayment2.html', context)
+
