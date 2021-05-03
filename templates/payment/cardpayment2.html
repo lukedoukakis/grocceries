@@ -33,24 +33,32 @@
 <!-- Store Listing -->
 <div class="sticky-wrapper" style="background-color: orange; text-align: center;">
     {% for j,l in r %}
-        <!-- This is not an error it says it is but it is not  -->
-        <div style="display:inline-flex; flex-wrap: wrap;">
-            <h1 style="padding: 10px">
-                <a onclick="show('store-{{l}}{{j}}')" class="btn btn-outline" style="border-radius: 0; border-color: black; border-width: 2px; border-style: solid; color: black; width: 250px; background-color: white; font-weight: 300; text-decoration: none; font-size: 24px;" onmouseover="this.style.backgroundColor='rgb(181, 220, 255)';" onmouseout="this.style.backgroundColor='white';">{{l}}</a>
-            </h1>
-        </div>
+        <!-- {{itemsOrganizedByStore|lookup:j}} -->
+        {% if itemsOrganizedByStore|lookup:j|length > 0 %}
+            <div style="display:inline-flex; flex-wrap: wrap;">
+                <h1 style="padding: 10px">
+                    <a onclick="show('store-{{l}}{{j}}')" class="btn btn-outline" style="border-radius: 0; border-color: black; border-width: 2px; border-style: solid; color: black; width: 250px; background-color: white; font-weight: 300; text-decoration: none; font-size: 24px;" onmouseover="this.style.backgroundColor='rgb(181, 220, 255)';" onmouseout="this.style.backgroundColor='white';">{{l}}</a>
+                </h1>
+            </div>
+        {% endif %}
     {% endfor %}
 </div>
 
 <div style="flex-wrap:nowrap; display: flex; flex-direction: row;">
     <div id="leftSide" style="max-height: 100px; width: 50%; position: relative; overflow-y: scroll;">
+        
         <!-- Items display -->
         <div id="goNow" style="flex-wrap: wrap; justify-content: center; display: flex; flex-direction: row; margin-top: 10%;">
         </div>
     
         <!-- we want the first to be visible -->
         {% for j,l in o%}
-        <div id="store-{{l}}{{j}}" style="display: none;">
+            <div id="store-{{l}}{{j}}" style="display: none;">
+                <div style="width: 100%; margin-bottom: 10px;">
+                    <p style="font-size: 42px; text-align: center; color: black">
+                        {{l}}
+                    </p>
+                </div>
             {% for i in itemsOrganizedByStore|lookup:j %}
                 {% if i.quantity > 0 %}
                     <div class='item-display' style="border-style: solid; border-width: 1px; margin: 10px;">
@@ -78,7 +86,7 @@
                 {{form}}
                 <input type="submit" value="Say hello" ;>
             </form>
-            <div>
+            <div style="margin-bottom: 10px;">
                 <p style="font-size: 42px; text-align: center; color: black">
                     Order Total
                 </p>
@@ -108,7 +116,7 @@
         3
 
         window.onload = function () {
-
+            
             // initialize values for summary
             var ids = '{{ids|safe}}'.split(", ");
             var prices = '{{prices|safe}}'.split(", ");
@@ -133,13 +141,14 @@
 
             document.getElementById('goNow').innerHTML = document.getElementById("store-{{listOfStoresUsed.0}}0").innerHTML;
         
+            
         };
         function show(param_div_id) {
 
             //console.log("param_div_id: " + param_div_id);
             var div = document.getElementById(param_div_id);
             //console.log(div.children.length);
-            for(i = 0; i < div.children.length; i++){
+            for(i = 2; i < div.children.length; i++){
                 var txt = div.children[i].children[1];
                 //console.log("txt: " + txt.innerHTML);
                 var qty = div.children[i].children[2];
@@ -218,9 +227,7 @@
             sc.appendChild(tp);
 
             var h = document.getElementById("rightSide").clientHeight;
-            console.log(h);
             document.getElementById("leftSide").style.maxHeight = h.toString() + "px";
-            console.log(document.getElementById("leftSide").style.maxHeight);
 
         }
 

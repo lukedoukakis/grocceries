@@ -53,13 +53,14 @@ def add_to_cart(request):
             print(cart_item.quantity)
             qty = cart_item.quantity
             qty += int(quantity)
-            if qty < 0:
-                qty = 0
-            cart_item.quantity = qty
-            print(cart_item.quantity)
-            cart_item.save()
-            print("added " + str(quantity) + " " +
-                  cart_item_qs[0].item.name + "(s) to the cart")
+            if qty <= 0:
+                print("removing " + cart_item_qs[0].item.name + " from the cart")
+                cart_item.delete()
+            else:
+                cart_item.quantity = qty
+                print(cart_item.quantity)
+                cart_item.save()
+                print("added " + str(quantity) + " " + cart_item_qs[0].item.name + "(s) to the cart")
         else:
             if int(quantity) > 0:
                 cart_item = CartItem.objects.create(
