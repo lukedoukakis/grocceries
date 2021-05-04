@@ -1,12 +1,8 @@
-
-
 {%extends "../base.html"%}
 {% load static %}
 {% load admin_urls %}
 {% load crispy_forms_tags %}
-
 {% block current_page %}{{vendorName}}{%endblock%}
-
 {%block content%}
 
 <!-- redirects to login if no one is logged in -->
@@ -14,6 +10,18 @@
 {% else %}
     <meta http-equiv="refresh" content="0; URL={% url 'login' %}" />
 {% endif %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<link href="{% static 'css/payment.css' %}" rel="stylesheet" type="text/css" media="all" />
+
+<head>
+    <!-- Add meta tags for mobile and IE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
 
 <div class="sticky-wrapper" style="background-color: orange;" id="searchWrapper">
 	<div class="search-bar">
@@ -42,9 +50,10 @@
 <script>
 	function addtocart(itemid, quantityid){
 
-		$.when(run_ajax()).done(function(a1){
-            // a1: list of length 3 containing the response text,
-         });
+		var loading = document.getElementById("loading");
+        loading.style.display = "block";
+		
+		run_ajax();
 
 		function run_ajax(){
 			$.ajax({
@@ -56,7 +65,8 @@
 				// handle a successful response
 				success : function(json) {
 					console.log("success"); // another sanity check
-					document.getElementById("quantity" + quantityid).innerText = 0
+					document.getElementById("quantity" + quantityid).innerText = 0;
+					loading.style.display = "none";
 				},
 
 				// handle a non-successful response
@@ -227,7 +237,13 @@
 </script>
 
 
+</body>
 
+<div id="loading" style="display: none;">
+    <img id="loading-image" src="{% static 'images/loadingCircle.gif' %}" alt="Loading..." style = "max-width: 100px; max-height: 100px;" />
+</div>
+
+</html>
 
 <!-- //Store Page -->
 {%endblock%}
