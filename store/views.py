@@ -53,6 +53,7 @@ def add_to_cart(request):
             print(cart_item.quantity)
             qty = cart_item.quantity
             qty += int(quantity)
+            print("new quantity: " + str(qty))
             if qty <= 0:
                 print("removing " + cart_item_qs[0].item.name + " from the cart")
                 cart_item.delete()

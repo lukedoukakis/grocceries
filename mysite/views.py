@@ -142,7 +142,7 @@ def paymentPage(request):
     for i in range(len(itemsOrganizedByStore)):
         itemsOrganizedByStore[i] = list(set(itemsOrganizedByStore[i]))
         # print(itemsOrganizedByStore)
-        itemsOrganizedByStore[i].pop(0)
+        # itemsOrganizedByStore[i].pop(0)
 
     for i in range(len(listOfStoresUsed)):
         listOfStoresUsed[i] = listOfStoresUsed[i].name
